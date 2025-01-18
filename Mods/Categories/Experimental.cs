@@ -27,8 +27,8 @@ namespace MenkerMenu.Mods.Categories
         {
             GunTemplate.StartBothGuns(() =>
             {
-                string id = GetPlayerFromVRRig(LockedPlayer).UserId;
-                NotificationLib.SendNotification("<color=grey>[</color><color=green>SUCCESS</color><color=grey>]</color> " + id);
+                string id = LockedPlayer.Creator.UserId;
+                GUIUtility.systemCopyBuffer = id;
             }, true);
         }
     }
