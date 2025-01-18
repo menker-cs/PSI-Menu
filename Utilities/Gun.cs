@@ -73,12 +73,11 @@ namespace MenkerMenu.Utilities
                 yield return null;
             }
         }
-
+        public static RaycastHit raycastHit;
         public static void StartVrGun(Action action, bool LockOn)
         {
             if (ControllerInputPoller.instance.rightGrab)
             {
-                RaycastHit raycastHit;
                 Physics.Raycast(GorillaTagger.Instance.rightHandTransform.position, -GorillaTagger.Instance.rightHandTransform.up, out raycastHit, float.MaxValue);
                 if (spherepointer == null)
                 {

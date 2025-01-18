@@ -14,6 +14,11 @@ namespace MenkerMenu.Utilities.Rigshit
         {
             return GorillaGameManager.instance.FindPlayerVRRig(p);
         }
+        public static NetworkView GetNetworkViewFromVRRig(VRRig p)
+        {
+            return (NetworkView)Traverse.Create(p).Field("netView").GetValue();
+        }
+
         public static Player GetPlayerFromVRRig(VRRig p)
         {
             return GetPhotonViewFromVRRig(p).Owner;

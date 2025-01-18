@@ -10,6 +10,7 @@ using static MenkerMenu.Mods.Categories.Safety;
 using static MenkerMenu.Mods.Categories.Advantage;
 using static MenkerMenu.Mods.Categories.Experimental;
 using static MenkerMenu.Mods.Categories.Fun;
+using static MenkerMenu.Mods.Categories.Guardian;
 using static MenkerMenu.Mods.Categories.Visuals;
 using static MenkerMenu.Mods.Categories.World;
 using static MenkerMenu.Menu.ButtonHandler;
@@ -43,6 +44,7 @@ namespace MenkerMenu.Mods
         World,
         Creds,
         Safety,
+        Guardian,
         Unlisted,
     }
     public class ModButtons
@@ -58,6 +60,7 @@ namespace MenkerMenu.Mods
             new Button("Visual", Category.Home, false, false, ()=>ChangePage(Category.Visuals)),
             new Button("World", Category.Home, false, false, ()=>ChangePage(Category.World)),
             new Button("Fun", Category.Home, false, false, ()=>ChangePage(Category.Fun)),
+            new Button("Guardian Mods", Category.Home, false, false, ()=>ChangePage(Category.Guardian)),
             new Button("Experimental", Category.Home, false, false, ()=>ChangePage(Category.Experimental)),
             new Button("Creds", Category.Home, false, false, ()=>ChangePage(Category.Creds)),
             #endregion
@@ -74,7 +77,7 @@ namespace MenkerMenu.Mods
 
             #endregion
 
-           #region Room
+            #region Room
             new Button("Quit Game", Category.Room, true, false, ()=>QuitGTAG()),
             new Button("Join Random", Category.Room, false, false, ()=>JoinRandomPublic()),
             new Button("Disconnect", Category.Room, false, false, ()=>Disconnect()),
@@ -174,12 +177,19 @@ namespace MenkerMenu.Mods
             new Button("Copy ID Gun", Category.Experimental, true, false, ()=> CopyIDGun()),
             #endregion
 
+            #region Guardian
+            new Button("Always Guardian", Category.Guardian, true, false, ()=> AlwaysGuardian()),
+            new Button("Void All [RT, RM]", Category.Guardian, true, false, ()=> VoidAll()),
+            new Button("Void Gun", Category.Guardian, true, false, ()=> VoidGun()),
+            #endregion
+
             #region Credits
             new Button("Menu Credits:", Category.Creds, false, false, ()=>Placeholder()),
             new Button("Menker", Category.Creds, false, false, ()=>Placeholder()),
             new Button("NxO", Category.Creds, false, false, ()=>Placeholder()),
             new Button("diddy master", Category.Creds, false, false, ()=>Placeholder()),
             new Button("Cha554", Category.Creds, false, false, ()=>Placeholder()),
+            new Button("Nova", Category.Creds, false, false, ()=>Placeholder()),
             new Button("Join The Discord!", Category.Creds, false, false, ()=>Discord()),
             #endregion
         };
