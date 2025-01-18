@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\PsiMenu.csproj": {}
+    "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\PsiMenu.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\PsiMenu.csproj": {
+    "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\PsiMenu.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\PsiMenu.csproj",
+        "projectUniqueName": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\PsiMenu.csproj",
         "projectName": "PsiMenu",
-        "projectPath": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\PsiMenu.csproj",
-        "packagesPath": "C:\\Users\\Tommy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\obj\\",
+        "projectPath": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\PsiMenu.csproj",
+        "packagesPath": "C:\\Users\\emmit\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Tommy\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\emmit\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -64,7 +60,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }
