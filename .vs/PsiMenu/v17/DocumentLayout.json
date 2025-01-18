@@ -1,69 +1,69 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\",
+  "WorkspaceRootPath": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\tommy\\downloads\\psimenu\\nxo template v2.0\\menu\\gui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\emmit\\onedrive\\documents\\github\\psi-menu\\menu\\gui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|solutionrelative:menu\\gui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\tommy\\downloads\\psimenu\\nxo template v2.0\\menu\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\emmit\\onedrive\\documents\\github\\psi-menu\\menu\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|solutionrelative:menu\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\tommy\\downloads\\psimenu\\nxo template v2.0\\mods\\modbuttons.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\emmit\\onedrive\\documents\\github\\psi-menu\\mods\\modbuttons.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|solutionrelative:mods\\modbuttons.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\tommy\\downloads\\psimenu\\nxo template v2.0\\mods\\categories\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\emmit\\onedrive\\documents\\github\\psi-menu\\mods\\categories\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|solutionrelative:mods\\categories\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\tommy\\downloads\\psimenu\\nxo template v2.0\\menu\\buttonhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\emmit\\onedrive\\documents\\github\\psi-menu\\menu\\buttonhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|solutionrelative:menu\\buttonhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\tommy\\downloads\\psimenu\\nxo template v2.0\\utilities\\colorlib.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\emmit\\onedrive\\documents\\github\\psi-menu\\utilities\\colorlib.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|solutionrelative:utilities\\colorlib.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\tommy\\downloads\\psimenu\\nxo template v2.0\\mods\\categories\\settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\emmit\\onedrive\\documents\\github\\psi-menu\\mods\\categories\\settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|solutionrelative:mods\\categories\\settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\tommy\\downloads\\psimenu\\nxo template v2.0\\mods\\categories\\visuals.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\emmit\\onedrive\\documents\\github\\psi-menu\\mods\\categories\\visuals.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|solutionrelative:mods\\categories\\visuals.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\tommy\\downloads\\psimenu\\nxo template v2.0\\utilities\\variables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\emmit\\onedrive\\documents\\github\\psi-menu\\utilities\\variables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|solutionrelative:utilities\\variables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\tommy\\downloads\\psimenu\\nxo template v2.0\\mods\\categories\\movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\emmit\\onedrive\\documents\\github\\psi-menu\\mods\\categories\\movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|solutionrelative:mods\\categories\\movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\tommy\\downloads\\psimenu\\nxo template v2.0\\mods\\categories\\fun.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\emmit\\onedrive\\documents\\github\\psi-menu\\mods\\categories\\fun.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|solutionrelative:mods\\categories\\fun.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\tommy\\downloads\\psimenu\\nxo template v2.0\\mods\\categories\\safety.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\emmit\\onedrive\\documents\\github\\psi-menu\\mods\\categories\\safety.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|solutionrelative:mods\\categories\\safety.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\tommy\\downloads\\psimenu\\nxo template v2.0\\mods\\categories\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\emmit\\onedrive\\documents\\github\\psi-menu\\mods\\categories\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|solutionrelative:mods\\categories\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\tommy\\downloads\\psimenu\\nxo template v2.0\\mods\\categories\\advantages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\emmit\\onedrive\\documents\\github\\psi-menu\\mods\\categories\\advantages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|solutionrelative:mods\\categories\\advantages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\tommy\\downloads\\psimenu\\nxo template v2.0\\mods\\categories\\experimental.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\emmit\\onedrive\\documents\\github\\psi-menu\\mods\\categories\\experimental.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|solutionrelative:mods\\categories\\experimental.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\tommy\\downloads\\psimenu\\nxo template v2.0\\mods\\categories\\world.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\emmit\\onedrive\\documents\\github\\psi-menu\\mods\\categories\\world.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|solutionrelative:mods\\categories\\world.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -74,15 +74,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "ModButtons.cs",
-              "DocumentMoniker": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\ModButtons.cs",
+              "DocumentMoniker": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\ModButtons.cs",
               "RelativeDocumentMoniker": "Mods\\ModButtons.cs",
-              "ToolTip": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\ModButtons.cs",
+              "ToolTip": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\ModButtons.cs",
               "RelativeToolTip": "Mods\\ModButtons.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAFwAAABaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -90,18 +90,14 @@
               "IsPinned": true
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "GUI.cs",
-              "DocumentMoniker": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Menu\\GUI.cs",
+              "DocumentMoniker": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Menu\\GUI.cs",
               "RelativeDocumentMoniker": "Menu\\GUI.cs",
-              "ToolTip": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Menu\\GUI.cs",
+              "ToolTip": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Menu\\GUI.cs",
               "RelativeToolTip": "Menu\\GUI.cs",
-              "ViewState": "AgIAABYBAAAAAAAAAAAswAMBAAAVAAAAAAAAAA==",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-18T07:27:41.008Z",
               "EditorCaption": ""
@@ -110,9 +106,9 @@
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "ButtonHandler.cs",
-              "DocumentMoniker": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Menu\\ButtonHandler.cs",
+              "DocumentMoniker": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Menu\\ButtonHandler.cs",
               "RelativeDocumentMoniker": "Menu\\ButtonHandler.cs",
-              "ToolTip": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Menu\\ButtonHandler.cs",
+              "ToolTip": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Menu\\ButtonHandler.cs",
               "RelativeToolTip": "Menu\\ButtonHandler.cs",
               "ViewState": "AgIAABQAAAAAAAAAAAAQwBAAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -122,9 +118,9 @@
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "ColorLib.cs",
-              "DocumentMoniker": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Utilities\\ColorLib.cs",
+              "DocumentMoniker": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Utilities\\ColorLib.cs",
               "RelativeDocumentMoniker": "Utilities\\ColorLib.cs",
-              "ToolTip": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Utilities\\ColorLib.cs",
+              "ToolTip": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Utilities\\ColorLib.cs",
               "RelativeToolTip": "Utilities\\ColorLib.cs",
               "ViewState": "AgIAAH8AAAAAAAAAAAD4v40AAABRAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -134,9 +130,9 @@
               "$type": "Document",
               "DocumentIndex": 13,
               "Title": "Advantages.cs",
-              "DocumentMoniker": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\Categories\\Advantages.cs",
+              "DocumentMoniker": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\Advantages.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\Advantages.cs",
-              "ToolTip": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\Categories\\Advantages.cs",
+              "ToolTip": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\Advantages.cs",
               "RelativeToolTip": "Mods\\Categories\\Advantages.cs",
               "ViewState": "AgIAAEgAAAAAAAAAAAAIwFcAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -146,9 +142,9 @@
               "$type": "Document",
               "DocumentIndex": 14,
               "Title": "Experimental.cs",
-              "DocumentMoniker": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\Categories\\Experimental.cs",
+              "DocumentMoniker": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\Experimental.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\Experimental.cs",
-              "ToolTip": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\Categories\\Experimental.cs",
+              "ToolTip": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\Experimental.cs",
               "RelativeToolTip": "Mods\\Categories\\Experimental.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -158,9 +154,9 @@
               "$type": "Document",
               "DocumentIndex": 10,
               "Title": "Fun.cs",
-              "DocumentMoniker": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\Categories\\Fun.cs",
+              "DocumentMoniker": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\Fun.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\Fun.cs",
-              "ToolTip": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\Categories\\Fun.cs",
+              "ToolTip": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\Fun.cs",
               "RelativeToolTip": "Mods\\Categories\\Fun.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAIBJwB8AAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -170,9 +166,9 @@
               "$type": "Document",
               "DocumentIndex": 15,
               "Title": "World.cs",
-              "DocumentMoniker": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\Categories\\World.cs",
+              "DocumentMoniker": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\World.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\World.cs",
-              "ToolTip": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\Categories\\World.cs",
+              "ToolTip": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\World.cs",
               "RelativeToolTip": "Mods\\Categories\\World.cs",
               "ViewState": "AgIAADgAAAAAAAAAAAAAwFoAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -182,9 +178,9 @@
               "$type": "Document",
               "DocumentIndex": 7,
               "Title": "Visuals.cs",
-              "DocumentMoniker": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\Categories\\Visuals.cs",
+              "DocumentMoniker": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\Visuals.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\Visuals.cs",
-              "ToolTip": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\Categories\\Visuals.cs",
+              "ToolTip": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\Visuals.cs",
               "RelativeToolTip": "Mods\\Categories\\Visuals.cs",
               "ViewState": "AgIAADQAAAAAAAAAAAAgwPEBAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -194,9 +190,9 @@
               "$type": "Document",
               "DocumentIndex": 11,
               "Title": "Safety.cs",
-              "DocumentMoniker": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\Categories\\Safety.cs",
+              "DocumentMoniker": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\Safety.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\Safety.cs",
-              "ToolTip": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\Categories\\Safety.cs",
+              "ToolTip": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\Safety.cs",
               "RelativeToolTip": "Mods\\Categories\\Safety.cs",
               "ViewState": "AgIAABsAAAAAAAAAAEBTwDYAAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -206,9 +202,9 @@
               "$type": "Document",
               "DocumentIndex": 9,
               "Title": "Movement.cs",
-              "DocumentMoniker": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\Categories\\Movement.cs",
+              "DocumentMoniker": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\Movement.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\Movement.cs",
-              "ToolTip": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\Categories\\Movement.cs",
+              "ToolTip": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\Movement.cs",
               "RelativeToolTip": "Mods\\Categories\\Movement.cs",
               "ViewState": "AgIAAO4AAAAAAAAAAAAQwMMAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -218,9 +214,9 @@
               "$type": "Document",
               "DocumentIndex": 6,
               "Title": "Settings.cs",
-              "DocumentMoniker": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\Categories\\Settings.cs",
+              "DocumentMoniker": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\Settings.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\Settings.cs",
-              "ToolTip": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\Categories\\Settings.cs",
+              "ToolTip": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\Settings.cs",
               "RelativeToolTip": "Mods\\Categories\\Settings.cs",
               "ViewState": "AgIAAHMAAAAAAAAAAAAQwIUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -230,9 +226,9 @@
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "Room.cs",
-              "DocumentMoniker": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\Categories\\Room.cs",
+              "DocumentMoniker": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\Room.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\Room.cs",
-              "ToolTip": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\Categories\\Room.cs",
+              "ToolTip": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\Room.cs",
               "RelativeToolTip": "Mods\\Categories\\Room.cs",
               "ViewState": "AgIAAHEAAAAAAAAAAAAAAGsAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -242,9 +238,9 @@
               "$type": "Document",
               "DocumentIndex": 8,
               "Title": "Variables.cs",
-              "DocumentMoniker": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Utilities\\Variables.cs",
+              "DocumentMoniker": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Utilities\\Variables.cs",
               "RelativeDocumentMoniker": "Utilities\\Variables.cs",
-              "ToolTip": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Utilities\\Variables.cs",
+              "ToolTip": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Utilities\\Variables.cs",
               "RelativeToolTip": "Utilities\\Variables.cs",
               "ViewState": "AgIAAIcAAAAAAAAAAAAswJgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -254,9 +250,9 @@
               "$type": "Document",
               "DocumentIndex": 12,
               "Title": "Player.cs",
-              "DocumentMoniker": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\Categories\\Player.cs",
+              "DocumentMoniker": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\Player.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\Player.cs",
-              "ToolTip": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Mods\\Categories\\Player.cs",
+              "ToolTip": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\Player.cs",
               "RelativeToolTip": "Mods\\Categories\\Player.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -266,9 +262,9 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Main.cs",
-              "DocumentMoniker": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Menu\\Main.cs",
+              "DocumentMoniker": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Menu\\Main.cs",
               "RelativeDocumentMoniker": "Menu\\Main.cs",
-              "ToolTip": "C:\\Users\\Tommy\\Downloads\\PsiMenu\\NXO Template V2.0\\Menu\\Main.cs",
+              "ToolTip": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Menu\\Main.cs",
               "RelativeToolTip": "Menu\\Main.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAGUBAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
