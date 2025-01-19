@@ -9,7 +9,7 @@ using static MenkerMenu.Menu.ButtonHandler;
 using static MenkerMenu.Mods.ModButtons;
 using static MenkerMenu.Utilities.GunTemplate;
 using static MenkerMenu.Mods.Categories.Settings;
-using static MenkerMenu.Utilities.Rigshit.RigShit;
+using static MenkerMenu.Utilities.Rig.RigManager;
 using UnityEngine;
 using BepInEx;
 using MenkerMenu.Utilities;
@@ -17,7 +17,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SocialPlatforms;
 using Photon.Pun;
 using System.Threading.Tasks;
-using MenkerMenu.Utilities.Rigshit;
+using MenkerMenu.Utilities.Rig;
 
 namespace MenkerMenu.Mods.Categories
 {

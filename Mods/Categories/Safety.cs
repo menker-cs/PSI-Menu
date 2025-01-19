@@ -19,7 +19,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Fusion;
 using BepInEx;
-using MenkerMenu.Utilities.Rigshit;
+using MenkerMenu.Utilities.Rig;
 using Photon.Realtime;
 using GorillaLocomotion;
 

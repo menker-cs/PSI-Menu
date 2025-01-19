@@ -129,8 +129,6 @@ namespace MenkerMenu.Mods
             new Button("Very Long Arms", Category.Player, true, false, ()=>VeryLongArms(), ()=>FixArms()),
             new Button("Upsidedown Head", Category.Player, true, false, ()=>UpsidedownHead(), ()=>FixHead()),
             new Button("Backwards Head", Category.Player, true, false, ()=>BackwardsHead(), ()=>FixHead()),
-            new Button("Head Spin 1", Category.Player, true, false, ()=>HeadSpin(), ()=>FixHead()),
-            new Button("Head Spin 2", Category.Player, true, false, ()=>HeadSpiny(), ()=>FixHead()),
             new Button("Hand Orbs", Category.Player, true, false, ()=>HandOrbs1()),
             new Button("Invis Monke", Category.Player, true, false, ()=>InvisibleMonke()),
             new Button("Ghost Monke", Category.Player, true, false, ()=>GhostMonke()),
@@ -179,8 +177,11 @@ namespace MenkerMenu.Mods
 
             #region Guardian
             new Button("Always Guardian", Category.Guardian, true, false, ()=> AlwaysGuardian()),
-            new Button("Void All [RT, RM]", Category.Guardian, true, false, ()=> VoidAll()),
-            new Button("Void Gun", Category.Guardian, true, false, ()=> VoidGun()),
+            new Button("Void All [T]", Category.Guardian, true, false, ()=> VoidAll()),
+            new Button("Void Gun [NW]", Category.Guardian, true, false, ()=> VoidGun()),
+            new Button("Void Gun [NW]", Category.Guardian, true, false, ()=> VoidGun1()),
+            new Button("Grab All", Category.Guardian, true, false, ()=> GrabAll()),
+            new Button("Drop All", Category.Guardian, true, false, ()=> Drop()),
             #endregion
 
             #region Credits

@@ -21,7 +21,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using HarmonyLib;
 using BepInEx;
-using MenkerMenu.Utilities.Rigshit;
+using MenkerMenu.Utilities.Rig;
 
 namespace MenkerMenu.Mods.Categories
 {
