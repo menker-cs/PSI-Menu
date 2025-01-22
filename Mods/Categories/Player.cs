@@ -84,6 +84,16 @@ namespace MenkerMenu.Mods.Categories
             GorillaTagger.Instance.offlineVRRig.leftHand.rigTarget.eulerAngles = new Vector3((float)UnityEngine.Random.Range(0, 360), (float)UnityEngine.Random.Range(0, 180), (float)UnityEngine.Random.Range(0, 180));
             GorillaTagger.Instance.offlineVRRig.rightHand.rigTarget.eulerAngles = new Vector3((float)UnityEngine.Random.Range(0, 360), (float)UnityEngine.Random.Range(0, 180), (float)UnityEngine.Random.Range(0, 180));
         }
+        public static void HeadSpin()
+        {
+            VRMap head = RigManager.GetOwnVRRig().head;
+            head.trackingRotationOffset.x += 15f;
+        }
+        public static void HeadSpiny()
+        {
+            VRMap head = RigManager.GetOwnVRRig().head;
+            head.trackingRotationOffset.y += 15f;
+        }
         public static void RigGun1()
         {
             GunTemplate.StartBothGuns(() =>

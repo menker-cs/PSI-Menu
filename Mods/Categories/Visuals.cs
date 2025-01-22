@@ -864,6 +864,32 @@ namespace MenkerMenu.Mods.Categories
                 }
             }
         }
+        public static void RGBSky()
+        {
+            GradientColorKey[] array = new GradientColorKey[7];
+            array[0].color = UnityEngine.Color.red;
+            array[0].time = 0f;
+            array[1].color = UnityEngine.Color.yellow;
+            array[1].time = 0.2f;
+            array[2].color = UnityEngine.Color.green;
+            array[2].time = 0.3f;
+            array[3].color = UnityEngine.Color.cyan;
+            array[3].time = 0.5f;
+            array[4].color = UnityEngine.Color.blue;
+            array[4].time = 0.6f;
+            array[5].color = UnityEngine.Color.magenta;
+            array[5].time = 0.8f;
+            array[6].color = UnityEngine.Color.red;
+            array[6].time = 1f;
+            Gradient gradient = new Gradient();
+            gradient.colorKeys = array;
+            float num = Mathf.PingPong(Time.time / 2f, 1f);
+            UnityEngine.Color color = gradient.Evaluate(num);
+
+            Renderer Sky = GameObject.Find("Environment Objects/LocalObjects_Prefab/Standard Sky").GetComponent<Renderer>();
+            Sky.material.shader = Shader.Find("GorillaTag/UberShader");
+            Sky.material.color = color;
+        }
 
         public static float l;
         public static bool fps;

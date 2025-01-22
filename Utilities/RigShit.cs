@@ -123,5 +123,9 @@ namespace MenkerMenu.Utilities.Rig
             }
             return found;
         }
+        public static VRRig GetOwnVRRig()
+        {
+            return GorillaTagger.Instance.offlineVRRig;
+        }
     }
 }

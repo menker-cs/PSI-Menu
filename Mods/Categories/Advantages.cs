@@ -52,25 +52,18 @@ namespace MenkerMenu.Mods.Categories
         }
         public static void TagAll()
         {
-            if (IAmInfected)
+            if (IAmInfected && ControllerInputPoller.instance.rightControllerIndexFloat > 0.2f)
             {
-                if (ControllerInputPoller.instance.rightControllerIndexFloat > 0.2f | UnityInput.Current.GetKey(KeyCode.T))
+                foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
                 {
-                    foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+                    if (!RigIsInfected(vrrig))
                     {
-                        if (!RigIsInfected(vrrig))
-                        {
-                            GorillaTagger.Instance.offlineVRRig.enabled = false;
-                            GorillaTagger.Instance.offlineVRRig.transform.position = vrrig.transform.position - new Vector3(0f, 5f, 0f);
-                            GorillaTagger.Instance.leftHandTransform.position = vrrig.transform.position;
-                            GorillaTagger.Instance.offlineVRRig.enabled = true;
-                            break;
-                        }
+                        GorillaTagger.Instance.offlineVRRig.enabled = false;
+                        GorillaTagger.Instance.offlineVRRig.transform.position = vrrig.transform.position - new Vector3(0f, 5f, 0f);
+                        GorillaTagger.Instance.leftHandTransform.position = vrrig.transform.position;
+                        GorillaTagger.Instance.offlineVRRig.enabled = true;
+                        break;
                     }
-                }
-                else
-                {
-                    GorillaTagger.Instance.offlineVRRig.enabled = true;
                 }
             }
             else
@@ -80,24 +73,17 @@ namespace MenkerMenu.Mods.Categories
         }
         public static void TagSelf()
         {
-            if (!IAmInfected)
+            if (!IAmInfected && ControllerInputPoller.instance.rightControllerIndexFloat > 0.2f)
             {
-                if (ControllerInputPoller.instance.rightControllerIndexFloat > 0.2f | UnityInput.Current.GetKey(KeyCode.T))
+                foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
                 {
-                    foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+                    if (RigIsInfected(vrrig))
                     {
-                        if (RigIsInfected(vrrig))
-                        {
-                            GorillaTagger.Instance.offlineVRRig.enabled = false;
-                            GorillaTagger.Instance.offlineVRRig.transform.position = vrrig.rightHandTransform.position;
-                            GorillaTagger.Instance.myVRRig.transform.position = vrrig.rightHandTransform.position;
-                            break;
-                        }
+                        GorillaTagger.Instance.offlineVRRig.enabled = false;
+                        GorillaTagger.Instance.offlineVRRig.transform.position = vrrig.rightHandTransform.position;
+                        GorillaTagger.Instance.myVRRig.transform.position = vrrig.rightHandTransform.position;
+                        break;
                     }
-                }
-                else
-                {
-                    GorillaTagger.Instance.offlineVRRig.enabled = true;
                 }
             }
             else
@@ -114,6 +100,22 @@ namespace MenkerMenu.Mods.Categories
             }, true);
             {
                 GorillaTagger.Instance.leftHandTransform = GorillaTagger.Instance.leftHandTransform;
+            }
+        }
+        public static void TagAura()
+        {
+            if (IAmInfected && ControllerInputPoller.instance.rightGrab)
+            {
+                foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+                {
+                    if (RigIsInfected(vrrig))
+                    {
+                        if(Vector3.Distance(GorillaTagger.Instance.offlineVRRig.transform.position, vrrig.transform.position) < 5)
+                        {
+                            GorillaTagger.Instance.leftHandTransform.position = vrrig.transform.position;
+                        }
+                    }
+                }
             }
         }
     }

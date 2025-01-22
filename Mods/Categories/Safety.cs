@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.IO;
 using static MenkerMenu.Utilities.NotificationLib;
 using static MenkerMenu.Utilities.Variables;
+using static MenkerMenu.Utilities.ColorLib;
 using static MenkerMenu.Mods.Categories.Room;
 using MenkerMenu.Utilities;
 using System.Diagnostics;
@@ -29,12 +30,10 @@ namespace MenkerMenu.Mods.Categories
     {
         public static void AntiReport()
         {
-            // Credits To Cha554 For The Original Version
             if (PhotonNetwork.InRoom)
             {
                 foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
                 {
-
                     if (vrrig != GorillaTagger.Instance.offlineVRRig)
                     {
                         Vector3 rHand = vrrig.rightHandTransform.position;
@@ -58,10 +57,24 @@ namespace MenkerMenu.Mods.Categories
                                     Disconnect();
                                 }
                             }
+                            
                         }
                     }
                 }
             }
+        }
+        public static void VisualizeAntiReport(Vector3 position, float range)
+        {
+            GameObject report = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            UnityEngine.Object.Destroy(report, Time.deltaTime);
+            UnityEngine.Object.Destroy(report.GetComponent<Collider>());
+            UnityEngine.Object.Destroy(report.GetComponent<Rigidbody>());
+            report.transform.position = position;
+            report.transform.localScale = new Vector3(range, range, range);
+            Color clr = RoyalBlue;
+            clr.a = 0.25f;
+            report.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
+            report.GetComponent<Renderer>().material.color = clr;
         }
 
         private static float antireportSens = 0.4f;
