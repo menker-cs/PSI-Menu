@@ -21,7 +21,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using HarmonyLib;
 using BepInEx;
-using MenkerMenu.Utilities.Rigshit;
+using MenkerMenu.Utilities;
 
 namespace MenkerMenu.Mods.Categories
 {
@@ -154,12 +154,12 @@ namespace MenkerMenu.Mods.Categories
         }
         public static void HeadSpin()
         {
-            VRMap head = RigShit.GetOwnVRRig().head;
+            VRMap head = RigManager.GetOwnVRRig().head;
             head.trackingRotationOffset.x += 15f;
         }
         public static void HeadSpiny()
         {
-            VRMap head = RigShit.GetOwnVRRig().head;
+            VRMap head = RigManager.GetOwnVRRig().head;
             head.trackingRotationOffset.y += 15f;
         }
         public static void AnnoyPlayerGun()
@@ -221,7 +221,7 @@ namespace MenkerMenu.Mods.Categories
         }
 
 
-        public static VRRig Close = RigShit.GetClosestVRRig();
+        public static VRRig Close = RigManager.GetClosestVRRig();
 
         public static Vector3 Random(float dis)
         {

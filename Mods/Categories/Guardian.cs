@@ -1,6 +1,4 @@
-﻿using g3;
-using MenkerMenu.Utilities;
-using MenkerMenu.Utilities.Rigshit;
+﻿using MenkerMenu.Utilities;
 using Photon.Pun;
 using System;
 using System.Collections.Generic;
@@ -25,7 +23,7 @@ namespace MenkerMenu.Mods.Categories
                     {
                         foreach (VRRig l in GorillaParent.instance.vrrigs)
                         {
-                            RigShit.GetNetworkViewFromVRRig(l).SendRPC("GrabbedByPlayer", RpcTarget.Others, new object[] { true, false, false });
+                            RigManager.GetNetworkViewFromVRRig(l).SendRPC("GrabbedByPlayer", RpcTarget.Others, new object[] { true, false, false });
                             GorillaTagger.Instance.offlineVRRig.enabled = false;
                             GorillaTagger.Instance.offlineVRRig.transform.position = new Vector3(-55.12f, 150.94f, 6.51f);
                         }
@@ -55,13 +53,13 @@ namespace MenkerMenu.Mods.Categories
                                 GorillaGuardianManager guardianmanager = GameObject.Find("GT Systems/GameModeSystem/Gorilla Guardian Manager").GetComponent<GorillaGuardianManager>();
                                 if (guardianmanager.IsPlayerGuardian(NetworkSystem.Instance.LocalPlayer))
                                 {
-                                        RigShit.GetNetworkViewFromVRRig(rig).SendRPC("GrabbedByPlayer", RigShit.GetPlayerFromVRRig(rig), new object[] { true, false, false });
+                                    RigManager.GetNetworkViewFromVRRig(rig).SendRPC("GrabbedByPlayer", RigManager.GetPlayerFromVRRig(rig), new object[] { true, false, false });
                                         GorillaTagger.Instance.offlineVRRig.enabled = false;
                                         GorillaTagger.Instance.offlineVRRig.transform.position = new Vector3(-55.12f, 150.94f, 6.51f);
                                         if (GorillaTagger.Instance.offlineVRRig.transform.position == new Vector3(-55.12f, 150.94f, 6.51f) && rig.transform.position == GorillaTagger.Instance.offlineVRRig.rightHandTransform.position || rig.transform.position == GorillaTagger.Instance.offlineVRRig.leftHandTransform.position)
                                         {
 
-                                            RigShit.GetNetworkViewFromVRRig(rig).SendRPC("DroppedByPlayer", RigShit.GetPlayerFromVRRig(rig), new object[] { true, false, false });
+                                        RigManager.GetNetworkViewFromVRRig(rig).SendRPC("DroppedByPlayer", RigManager.GetPlayerFromVRRig(rig), new object[] { true, false, false });
                                             GorillaTagger.Instance.offlineVRRig.enabled = true;
                                         }
                                 }
@@ -79,14 +77,14 @@ namespace MenkerMenu.Mods.Categories
                     }
                     else
                     {
-                        RigShit.GetNetworkViewFromVRRig(GunTemplate.LockedPlayer).SendRPC("DroppedByPlayer", RigShit.GetPlayerFromVRRig(GunTemplate.LockedPlayer), new object[] { true, false, false });
+                        RigManager.GetNetworkViewFromVRRig(GunTemplate.LockedPlayer).SendRPC("DroppedByPlayer", RigManager.GetPlayerFromVRRig(GunTemplate.LockedPlayer), new object[] { true, false, false });
                         GorillaTagger.Instance.offlineVRRig.enabled = true;
                     }
                 }, true);
             }
             else
             {
-                RigShit.GetNetworkViewFromVRRig(GunTemplate.LockedPlayer).SendRPC("DroppedByPlayer", RigShit.GetPlayerFromVRRig(GunTemplate.LockedPlayer), new object[] { true, false, false });
+                RigManager.GetNetworkViewFromVRRig(GunTemplate.LockedPlayer).SendRPC("DroppedByPlayer", RigManager.GetPlayerFromVRRig(GunTemplate.LockedPlayer), new object[] { true, false, false });
                 GorillaTagger.Instance.offlineVRRig.enabled = true;
             }
         }
@@ -138,6 +136,46 @@ namespace MenkerMenu.Mods.Categories
                     else
                     {
                         GorillaTagger.Instance.offlineVRRig.enabled = true;
+                    }
+                }
+            }
+        }
+        public static void GrabAll()
+        {
+            if (ControllerInputPoller.instance.rightControllerIndexFloat > 0.1f || Mouse.current.rightButton.isPressed)
+            {
+                if (Time.time > bounce)
+                {
+                    bounce2 += Time.deltaTime;
+                    bounce = Time.time + 0.1f;
+                    GorillaGuardianManager guardianmanager = GameObject.Find("GT Systems/GameModeSystem/Gorilla Guardian Manager").GetComponent<GorillaGuardianManager>();
+                    if (guardianmanager.IsPlayerGuardian(NetworkSystem.Instance.LocalPlayer))
+                    {
+                        foreach (VRRig l in GorillaParent.instance.vrrigs)
+                        {
+                            RigManager.GetNetworkViewFromVRRig(l).SendRPC("GrabbedByPlayer", RpcTarget.Others, new object[] { true, false, false });
+                        }
+                    }
+                }
+            }
+            else
+            {
+                GorillaTagger.Instance.offlineVRRig.enabled = true;
+                Drop();
+            }
+        }
+        public static void Drop()
+        {
+            if (Time.time > bounce)
+            {
+                bounce2 += Time.deltaTime;
+                bounce = Time.time + 0.1f;
+                GorillaGuardianManager guardianmanager = GameObject.Find("GT Systems/GameModeSystem/Gorilla Guardian Manager").GetComponent<GorillaGuardianManager>();
+                if (guardianmanager.IsPlayerGuardian(NetworkSystem.Instance.LocalPlayer))
+                {
+                    foreach (VRRig l in GorillaParent.instance.vrrigs)
+                    {
+                        RigManager.GetNetworkViewFromVRRig(l).SendRPC("DroppedByPlayer", RpcTarget.Others, new object[] { true, false, false });
                     }
                 }
             }

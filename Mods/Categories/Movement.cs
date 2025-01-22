@@ -5,7 +5,7 @@ using static MenkerMenu.Utilities.GunTemplate;
 using static MenkerMenu.Menu.Main;
 using static MenkerMenu.Utilities.Variables;
 using static MenkerMenu.Utilities.ColorLib;
-using static MenkerMenu.Utilities.Rigshit.RigShit;
+using static MenkerMenu.Utilities.RigManager;
 using static MenkerMenu.Menu.ButtonHandler;
 using static MenkerMenu.Mods.ModButtons;
 using static MenkerMenu.Mods.Categories.Settings;
@@ -15,7 +15,7 @@ using System.Reflection;
 using BepInEx;
 using Photon.Voice;
 using MenkerMenu.Utilities;
-using MenkerMenu.Utilities.Rigshit;
+using MenkerMenu.Utilities;
 
 namespace MenkerMenu.Mods.Categories
 {
@@ -254,7 +254,7 @@ namespace MenkerMenu.Mods.Categories
           }
          public static void TPToRandom()
          {
-             GorillaLocomotion.Player.Instance.transform.position = RigShit.GetRandomVRRig(false).transform.position;
+             GorillaLocomotion.Player.Instance.transform.position = RigManager.GetRandomVRRig(false).transform.position;
              GorillaLocomotion.Player.Instance.GetComponent<Rigidbody>().velocity = Vector3.zero;
          }
          

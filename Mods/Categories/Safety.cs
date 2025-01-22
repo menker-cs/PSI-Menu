@@ -18,8 +18,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Fusion;
+using static MenkerMenu.Utilities.ColorLib;
 using BepInEx;
-using MenkerMenu.Utilities.Rigshit;
+using MenkerMenu.Utilities;
 using Photon.Realtime;
 using GorillaLocomotion;
 
@@ -62,6 +63,20 @@ namespace MenkerMenu.Mods.Categories
                     }
                 }
             }
+
+        }
+        public static void VisualizeAntiReport(Vector3 position, float range)
+        {
+            GameObject report = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            UnityEngine.Object.Destroy(report, Time.deltaTime);
+            UnityEngine.Object.Destroy(report.GetComponent<Collider>());
+            UnityEngine.Object.Destroy(report.GetComponent<Rigidbody>());
+            report.transform.position = position;
+            report.transform.localScale = new Vector3(range, range, range);
+            Color clr = RoyalBlue;
+            clr.a = 0.25f;
+            report.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
+            report.GetComponent<Renderer>().material.color = clr;
         }
 
         private static float antireportSens = 0.4f;

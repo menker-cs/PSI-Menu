@@ -9,7 +9,7 @@ using MenkerMenu.Utilities.Patches;
 using UnityEngine.XR;
 using UnityEngine.Animations.Rigging;
 using System.Reflection;
-using MenkerMenu.Utilities.Rigshit;
+using MenkerMenu.Utilities;
 using static MenkerMenu.Utilities.HandOrbs;
 using static MenkerMenu.Utilities.GunTemplate;
 using Oculus.Interaction.Input;

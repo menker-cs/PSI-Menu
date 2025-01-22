@@ -1,43 +1,20 @@
 ﻿using Photon.Pun;
+using BepInEx;
+using HarmonyLib;
 using UnityEngine;
 using Photon.Realtime;
-using HarmonyLib;
 
-namespace MenkerMenu.Utilities.Rigshit
+namespace MenkerMenu.Utilities
 {
-    /*
-       Creds to Malachi for this rig shit
-    */
-    internal class RigShit : MonoBehaviour
+    public class RigManager : BaseUnityPlugin
     {
-        public static VRRig GetVRRigFromPlayer(Player p)
+        public static VRRig GetVRRigFromPlayer(NetPlayer p)
         {
             return GorillaGameManager.instance.FindPlayerVRRig(p);
         }
-        public static NetworkView GetNetworkViewFromVRRig(VRRig p)
+        public static Player NetPlayerToPlayer(NetPlayer p)
         {
-            return (NetworkView)Traverse.Create(p).Field("netView").GetValue();
-        }
-
-        public static Player GetPlayerFromVRRig(VRRig p)
-        {
-            return GetPhotonViewFromVRRig(p).Owner;
-        }
-        public static PhotonView GetPhotonViewFromVRRig(VRRig p)
-        {
-            return (PhotonView)Traverse.Create(p).Field("photonView").GetValue();
-        }
-        public static Photon.Realtime.Player GetRandomPlayer(bool includeSelf)
-        {
-            if (includeSelf)
-            {
-                return PhotonNetwork.PlayerList[UnityEngine.Random.Range(0, PhotonNetwork.PlayerList.Length - 1)];
-            }
-            else
-            {
-                return PhotonNetwork.PlayerListOthers[UnityEngine.Random.Range(0, PhotonNetwork.PlayerListOthers.Length - 1)];
-            }
-
+            return p.GetPlayerRef();
         }
         public static VRRig GetRandomVRRig(bool includeSelf)
         {
@@ -59,6 +36,51 @@ namespace MenkerMenu.Utilities.Rigshit
             }
         }
 
+        public static NetworkView GetNetworkViewFromVRRig(VRRig p)
+        {
+            return (NetworkView)Traverse.Create(p).Field("netView").GetValue();
+        }
+        public static PhotonView GetPhotonViewFromVRRig(VRRig p)
+        {
+            NetworkView view = Traverse.Create(p).Field("netView").GetValue() as NetworkView;
+            return RigManager.NetView2PhotonView(view);
+        }
+        public static PhotonView NetView2PhotonView(NetworkView view)
+        {
+            bool flag = view == null;
+            PhotonView result;
+            if (flag)
+            {
+                Debug.Log("null netview passed to converter");
+                result = null;
+            }
+            else
+            {
+                result = view.GetView;
+            }
+            return result;
+
+        }
+        public static VRRig GetOwnVRRig()
+        {
+            return GorillaTagger.Instance.offlineVRRig;
+        }
+        public static NetPlayer GetNetPlayerFromVRRig(VRRig p)
+        {
+            return RigManager.ToNetPlayer(RigManager.GetPhotonViewFromVRRig(p).Owner);
+        }
+        public static NetPlayer ToNetPlayer(Player player)
+        {
+            foreach (NetPlayer netPlayer in NetworkSystem.Instance.AllNetPlayers)
+            {
+                bool flag = netPlayer.GetPlayerRef() == player;
+                if (flag)
+                {
+                    return netPlayer;
+                }
+            }
+            return null;
+        }
         public static VRRig GetClosestVRRig()
         {
             float num = float.MaxValue;
@@ -73,10 +95,26 @@ namespace MenkerMenu.Utilities.Rigshit
             }
             return outRig;
         }
-        public static VRRig GetOwnVRRig()
+
+
+
+        public static Photon.Realtime.Player GetRandomPlayer(bool includeSelf)
         {
-            return GorillaTagger.Instance.offlineVRRig;
+            if (includeSelf)
+            {
+                return PhotonNetwork.PlayerList[UnityEngine.Random.Range(0, PhotonNetwork.PlayerList.Length - 1)];
+            }
+            else
+            {
+                return PhotonNetwork.PlayerListOthers[UnityEngine.Random.Range(0, PhotonNetwork.PlayerListOthers.Length - 1)];
+            }
         }
+
+        public static Photon.Realtime.Player GetPlayerFromVRRig(VRRig p)
+        {
+            return GetPhotonViewFromVRRig(p).Owner;
+        }
+
         public static Photon.Realtime.Player GetPlayerFromID(string id)
         {
             Photon.Realtime.Player found = null;

@@ -51,7 +51,7 @@ namespace MenkerMenu.Mods
     {
         public static Button[] buttons =
         {
-            #region Starting Page
+#region Starting Page
             new Button("Settings", Category.Home, false, false, ()=>ChangePage(Category.Settings)),
             new Button("Room", Category.Home, false, false, ()=>ChangePage(Category.Room)),
             new Button("Safety", Category.Home, false, false, ()=>ChangePage(Category.Safety)),
@@ -129,11 +129,11 @@ namespace MenkerMenu.Mods
             new Button("Very Long Arms", Category.Player, true, false, ()=>VeryLongArms(), ()=>FixArms()),
             new Button("Upsidedown Head", Category.Player, true, false, ()=>UpsidedownHead(), ()=>FixHead()),
             new Button("Backwards Head", Category.Player, true, false, ()=>BackwardsHead(), ()=>FixHead()),
-            new Button("Head Spin 1", Category.Player, true, false, ()=>HeadSpin(), ()=>FixHead()),
-            new Button("Head Spin 2", Category.Player, true, false, ()=>HeadSpiny(), ()=>FixHead()),
             new Button("Hand Orbs", Category.Player, true, false, ()=>HandOrbs1()),
             new Button("Invis Monke", Category.Player, true, false, ()=>InvisibleMonke()),
             new Button("Ghost Monke", Category.Player, true, false, ()=>GhostMonke()),
+            new Button("Head Spin 1", Category.Player, true, false, ()=>HeadSpin(), ()=>FixHead()),
+            new Button("Head Spin 2", Category.Player, true, false, ()=>HeadSpiny(), ()=>FixHead()),
             new Button("Freeze Rig", Category.Player, true, false, ()=>FreezeRig()),
             new Button("Fake Lag", Category.Player, true, false, ()=>FakeLag()),
             new Button("Grab Rig", Category.Player, true, false, ()=>GrabRig()),
@@ -179,15 +179,21 @@ namespace MenkerMenu.Mods
 
             #region Guardian
             new Button("Always Guardian", Category.Guardian, true, false, ()=> AlwaysGuardian()),
-            new Button("Void All [RT, RM]", Category.Guardian, true, false, ()=> VoidAll()),
-            new Button("Void Gun", Category.Guardian, true, false, ()=> VoidGun()),
+            new Button("Void All [T]", Category.Guardian, true, false, ()=> VoidAll()),
+            new Button("Void Gun [NW]", Category.Guardian, true, false, ()=> VoidGun()),
+            new Button("Grab All", Category.Guardian, true, false, ()=> GrabAll()),
+            new Button("Drop All", Category.Guardian, true, false, ()=> Drop()),
+            //new Button("Grab All", Category.Guardian, true, false, ()=> GrabAll()),
+            //new Button("Drop All [B]", Category.Guardian, false, false, ()=> Drop()),
             #endregion
 
             #region Credits
             new Button("Menu Credits:", Category.Creds, false, false, ()=>Placeholder()),
             new Button("Menker", Category.Creds, false, false, ()=>Placeholder()),
+            new Button("Nova", Category.Creds, false, false, ()=>Placeholder()),
             new Button("NxO", Category.Creds, false, false, ()=>Placeholder()),
             new Button("diddy master", Category.Creds, false, false, ()=>Placeholder()),
+            new Button("Diddy Master", Category.Creds, false, false, ()=>Placeholder()),
             new Button("Cha554", Category.Creds, false, false, ()=>Placeholder()),
             new Button("Nova", Category.Creds, false, false, ()=>Placeholder()),
             new Button("Join The Discord!", Category.Creds, false, false, ()=>Discord()),
