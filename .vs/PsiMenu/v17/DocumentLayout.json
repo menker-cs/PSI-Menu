@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\emmit\\onedrive\\documents\\github\\psi-menu\\mods\\categories\\advantages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|solutionrelative:mods\\categories\\advantages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\emmit\\onedrive\\documents\\github\\psi-menu\\menu\\gui2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|solutionrelative:menu\\gui2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\emmit\\onedrive\\documents\\github\\psi-menu\\mods\\categories\\advantages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|solutionrelative:mods\\categories\\advantages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{59B1E6F6-F8DC-406F-B513-333A792CCBCC}|PsiMenu.csproj|c:\\users\\emmit\\onedrive\\documents\\github\\psi-menu\\mods\\modbuttons.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -86,7 +86,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
@@ -139,15 +139,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "GUI2.cs",
               "DocumentMoniker": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Menu\\GUI2.cs",
               "RelativeDocumentMoniker": "Menu\\GUI2.cs",
               "ToolTip": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Menu\\GUI2.cs",
               "RelativeToolTip": "Menu\\GUI2.cs",
-              "ViewState": "AQIAAFIAAAAAAAAAAAAgwFsAAAAAAAAA",
+              "ViewState": "AQIAACgAAAAAAAAAAAAgwFsAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T09:16:38.899Z"
+              "WhenOpened": "2025-01-18T09:16:38.899Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -163,7 +164,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Advantages.cs",
               "DocumentMoniker": "C:\\Users\\emmit\\OneDrive\\Documents\\GitHub\\PSI-Menu\\Mods\\Categories\\Advantages.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\Advantages.cs",
