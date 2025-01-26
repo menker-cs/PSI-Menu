@@ -1,4 +1,4 @@
-﻿/*
+﻿
 using BepInEx;
 using GorillaNetworking;
 using Photon.Pun;
@@ -198,4 +198,3 @@ namespace StupidTemplate.Menu
         }
     }
 }
-*/

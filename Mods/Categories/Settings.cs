@@ -16,6 +16,7 @@ using static MenkerMenu.Mods.Categories.Move;
 using static MenkerMenu.Utilities.Patches.OtherPatches;
 using static MenkerMenu.Utilities.GunTemplate;
 using System.Linq;
+using Oculus.Platform;
 
 namespace MenkerMenu.Mods.Categories
 {
@@ -126,9 +127,20 @@ namespace MenkerMenu.Mods.Categories
                 NotificationLib.SendNotification("<color=white>[</color><color=blue>ESP Color:</color><color=white>] Menu Color</color>");
             }
         }
+        public static void VisReport(bool Enabled)
+        {
+            if (Enabled)
+            {
+                VisReportBool = true;
+            }
+            else
+            {
+                VisReportBool = false;
+            }
+        }
         public static void Discord()
         {
-            Application.OpenURL("https://discord.gg/WFJ9nJQxnr");
+            UnityEngine.Application.OpenURL("https://discord.gg/WFJ9nJQxnr");
         }
 
         public static int espColor = 1;
@@ -139,5 +151,7 @@ namespace MenkerMenu.Mods.Categories
 
         public static int flyspeedchanger;
         public static float flyspeedchangerspeed = 15;
+
+        public static bool VisReportBool = false;
     }
 }

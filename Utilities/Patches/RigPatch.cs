@@ -11,4 +11,13 @@ namespace MenkerMenu.Utilities.Patches
             return !(__instance == taggerInstance.offlineVRRig);
         }
     }
+
+    [HarmonyPatch(typeof(VRRigJobManager), "DeregisterVRRig")]
+    public static class RigPatch2
+    {
+        public static bool Prefix(VRRigJobManager __instance, VRRig rig)
+        {
+            return !rig.isOfflineVRRig;
+        }
+    }
 }

@@ -116,5 +116,21 @@ namespace MenkerMenu.Mods.Categories
                 GorillaTagger.Instance.leftHandTransform = GorillaTagger.Instance.leftHandTransform;
             }
         }
+        public static void TagAura()
+        {
+            if (IAmInfected && ControllerInputPoller.instance.rightGrab | UnityInput.Current.GetKey(KeyCode.G))
+            {
+                foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+                {
+                    if (!RigIsInfected(vrrig))
+                    {
+                        if (Vector3.Distance(taggerInstance.offlineVRRig.transform.position, vrrig.transform.position) < 5)
+                        {
+                            GorillaTagger.Instance.rightHandTransform.position = vrrig.transform.position;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
