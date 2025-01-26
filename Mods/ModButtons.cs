@@ -194,7 +194,6 @@ namespace MenkerMenu.Mods
             new Button("Lag Gun", Category.OP, true, false, ()=> LagGun()),
             new Button("Crash All [SLOW]", Category.OP, true, false, ()=> InstaCrashAll()),
             new Button("Crash Gun [SLOW]", Category.OP, true, false, ()=> InstantsCrashGun()),
-            new Button("Instant Crash All [BUGGY]", Category.OP, true, false, ()=> CrashAll()),
             #endregion 
 
             #region Credits

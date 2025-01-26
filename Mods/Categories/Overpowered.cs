@@ -56,15 +56,14 @@ namespace MenkerMenu.Mods.Categories
         {
             GunTemplate.StartBothGuns(() =>
             {
-                VRRig rig = GunTemplate.raycastHit.collider.GetComponentInParent<VRRig>();
-                if (rig && rig != GorillaTagger.Instance.offlineVRRig)
+                if (LockedPlayer && LockedPlayer != GorillaTagger.Instance.offlineVRRig)
                 {
                     if (Time.time > lagtimer)
                     {
                         lagtimer = Time.time + 0.1f;
                         PhotonView nigger = GameObject.Find("Environment Objects/LocalObjects_Prefab/City_WorkingPrefab/Arcade_prefab/MainRoom/VRArea/ModIOArcadeTeleporter/NetObject_VRTeleporter").GetComponent<Photon.Pun.PhotonView>();
                         for (int i = 0; i < 250; i++)
-                            nigger.RPC("ActivateTeleportVFX", NetPlayerToPlayer(GetPlayerFromVRRig(rig)), new object[] { (short)UnityEngine.Random.Range(0, 7) });
+                            nigger.RPC("ActivateTeleportVFX", NetPlayerToPlayer(GetPlayerFromVRRig(LockedPlayer)), new object[] { (short)UnityEngine.Random.Range(0, 7) });
                     }
                 }
             }, true);
@@ -74,37 +73,12 @@ namespace MenkerMenu.Mods.Categories
         {
             GunTemplate.StartBothGuns(() =>
             {
-                VRRig rig = GunTemplate.raycastHit.collider.GetComponentInParent<VRRig>();
-                if (rig && rig != GorillaTagger.Instance.offlineVRRig)
+                if (LockedPlayer && LockedPlayer != GorillaTagger.Instance.offlineVRRig)
                 {
                     for (int i = 0; i < 1000000; i++)
-                        BuilderTableNetworking.instance.PlayerEnterBuilderRPC(rig.OwningNetPlayer.GetPlayerRef(), default(PhotonMessageInfo));
+                        BuilderTableNetworking.instance.PlayerEnterBuilderRPC(LockedPlayer.OwningNetPlayer.GetPlayerRef(), default(PhotonMessageInfo));
                 }
             }, true);
-        }
-        public static void CrashAll()
-        {
-            for (int i = 0; i < 100; i++)
-                BuilderTableNetworking.instance.PlayerEnterBuilder();
-        }
-
-        public static void NoRpcniggers()
-        {
-            GorillaNot.instance.rpcCallLimit = int.MaxValue;
-            GorillaNot.instance.rpcErrorMax = int.MaxValue;
-            PhotonNetwork.RemoveRPCs(PhotonNetwork.LocalPlayer);
-            PhotonNetwork.LocalCleanPhotonView(GorillaTagger.Instance.myVRRig.GetComponent<PhotonView>());
-            PhotonNetwork.RemoveBufferedRPCs(GorillaTagger.Instance.myVRRig.ViewID, null, null);
-        }
-        public static void FlushRPCS()
-        {
-            PhotonNetwork.RemoveRPCs(PhotonNetwork.LocalPlayer);
-            if (GorillaTagger.Instance.myVRRig != null)
-            {
-                PhotonNetwork.RemoveRPCs(PhotonNetwork.LocalPlayer);
-                PhotonNetwork.RemoveBufferedRPCs(GorillaTagger.Instance.myVRRig.ViewID, null, null);
-            }
-            GorillaNot.instance.rpcCallLimit = int.MaxValue;
         }
     }
 }
