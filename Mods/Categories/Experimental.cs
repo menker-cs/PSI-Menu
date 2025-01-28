@@ -22,13 +22,6 @@ namespace MenkerMenu.Mods.Categories
 {
     public class Experimental
     {
-        public static void CopyIDGun()
-        {
-            GunTemplate.StartBothGuns(() =>
-            {
-                string id = LockedPlayer.Creator.UserId;
-                GUIUtility.systemCopyBuffer = id;
-            }, true);
-        }
+
     }
 }

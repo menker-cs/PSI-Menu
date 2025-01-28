@@ -127,9 +127,9 @@ namespace MenkerMenu.Mods.Categories
                 NotificationLib.SendNotification("<color=white>[</color><color=blue>ESP Color:</color><color=white>] Menu Color</color>");
             }
         }
-        public static void VisReport(bool Enabled)
+        public static void VisReport(bool enabled)
         {
-            if (Enabled)
+            if (enabled = true)
             {
                 VisReportBool = true;
             }

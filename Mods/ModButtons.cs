@@ -62,8 +62,8 @@ namespace MenkerMenu.Mods
             new Button("Visual", Category.Home, false, false, ()=>ChangePage(Category.Visuals)),
             new Button("World", Category.Home, false, false, ()=>ChangePage(Category.World)),
             new Button("Fun", Category.Home, false, false, ()=>ChangePage(Category.Fun)),
-            new Button("Guardian Mods", Category.Home, false, false, ()=>ChangePage(Category.OP)),
             new Button("Guardian Mods", Category.Home, false, false, ()=>ChangePage(Category.Guardian)),
+            new Button("OP Mods", Category.Home, false, false, ()=>ChangePage(Category.OP)),
             new Button("Experimental", Category.Home, false, false, ()=>ChangePage(Category.Experimental)),
             new Button("Creds", Category.Home, false, false, ()=>ChangePage(Category.Creds)),
             #endregion
@@ -92,19 +92,20 @@ namespace MenkerMenu.Mods
             new Button("Join Code Menker", Category.Room, false, false, ()=>JoinRoom("MENKER")),
             new Button("Join Code PBBV", Category.Room, false, false, ()=>JoinRoom("PBBV")),
             new Button("Join Code Daisy09", Category.Room, false, false, ()=>JoinRoom("DAISY09")),
-            new Button("Set Mode Hunt", Category.Room, false, false, ()=>SetMode("Hunt")),
-            new Button("Set Mode Paintbrawl", Category.Room, false, false, ()=>SetMode("Paintbrawl")),
-            new Button("Set Mode Ghost", Category.Room, false, false, ()=>SetMode("Ghost")),
-            new Button("Set Mode Ambush", Category.Room, false, false, ()=>SetMode("Ambush")),
-            new Button("Set Mode ERROR", Category.Room, false, false, ()=>SetMode("ERROR")),
+            new Button("Set Mode Hunt [CS]", Category.Room, false, false, ()=>SetMode("Hunt")),
+            new Button("Set Mode Paintbrawl [CS]", Category.Room, false, false, ()=>SetMode("Paintbrawl")),
+            new Button("Set Mode Ghost [CS]", Category.Room, false, false, ()=>SetMode("Ghost")),
+            new Button("Set Mode Ambush [CS]", Category.Room, false, false, ()=>SetMode("Ambush")),
+            new Button("Set Mode ERROR [CS]", Category.Room, false, false, ()=>SetMode("ERROR")),
             new Button("Mute Everyone", Category.Room, false, false, ()=>MuteAll()),
             new Button("Report Everyone", Category.Room, false, false, ()=>ReportAll()),
             new Button("Copy Self ID", Category.Fun, false, false, ()=> CopySelfID()),
+            new Button("Copy ID Gun", Category.Experimental, true, false, ()=> CopyIDGun()),
             #endregion
 
             #region Safety
             new Button("AntiReport [USE]", Category.Safety, true, true, ()=>AntiReport()),
-            new Button("Anti RPC [USE]", Category.Safety, true, false, ()=>RPC()),
+            new Button("Flush RPCs", Category.Safety, true, false, ()=>RPCFlush()),
             #endregion
 
             #region Movement
@@ -115,6 +116,8 @@ namespace MenkerMenu.Mods
             new Button("NoClip [T]", Category.Move, true, false, ()=>Noclip()),
             new Button("Speed Boost", Category.Move, true, false, ()=>Speedboost()),
             new Button("Fly [P]", Category.Move, true, false, ()=>Fly()),
+            new Button("Fly [P]", Category.Move, true, false, ()=>NoclipFly()),
+            new Button("Trigger Fly [T]", Category.Move, true, false, ()=>TriggerFly()),
             new Button("Car Monkey [T]", Category.Move, true, false, ()=>carmonkey()),
             new Button("WASD [PC]", Category.Move, true, false, ()=>WASDFly()),
             new Button("Up & Down [T]", Category.Move, true, false, ()=>UpAndDown()),
@@ -143,7 +146,6 @@ namespace MenkerMenu.Mods
             new Button("Rig Gun", Category.Player, true, false, ()=>RigGun1()),
             new Button("Spaz Rig", Category.Player, true, false, ()=>Spaz()),
             new Button("Annoy Player Gun", Category.Player, true, false, ()=>AnnoyPlayerGun()),
-
             new Button("Flick Tag Gun", Category.Player, true, false, ()=>FlickTagGun()),
             new Button("Tag Aura", Category.Player, true, false, ()=>TagAura()),
             new Button("Tag Gun", Category.Player, true, false, ()=>TagGun()),
@@ -178,30 +180,27 @@ namespace MenkerMenu.Mods
             new Button("Bug Gun", Category.Fun, true, false, ()=> BugGun()),
             new Button("Grab Bat", Category.Fun, true, false, ()=> GrabBat()),
             new Button("Bat Gun", Category.Fun, true, false, ()=> BatGun()),
-            new Button("Copy ID Gun", Category.Experimental, true, false, ()=> CopyIDGun()),
             #endregion
 
             #region Guardian
-            new Button("Always Guardian [BUGGY]", Category.Guardian, true, false, ()=> AlwaysGuardian()),
+            new Button("Always Guradian", Category.Guardian, true, false, ()=> AlwaysGuardian()),
             new Button("Void All [T]", Category.Guardian, true, false, ()=> VoidAll()),
-            new Button("Void Gun [NW]", Category.Guardian, true, false, ()=> VoidGun()),
             new Button("Grab All", Category.Guardian, true, false, ()=> GrabAll()),
-            new Button("Drop All [BUGGY]", Category.Guardian, false, false, ()=> Drop()),
             #endregion
 
             #region OP
-            new Button("Lag All", Category.OP, true, false, ()=> LagAll()),
-            new Button("Lag Gun", Category.OP, true, false, ()=> LagGun()),
-            new Button("Crash All [SLOW]", Category.OP, true, false, ()=> InstaCrashAll()),
-            new Button("Crash Gun [SLOW]", Category.OP, true, false, ()=> InstantsCrashGun()),
+            new Button("Nothing Here", Category.OP, false, false, ()=>Placeholder()),
+            new Button("Come Back Later", Category.OP, false, false, ()=>Placeholder()),
+            //new Button("Lag All", Category.OP, true, false, ()=> LagAll()),
+            //new Button("Lag Gun", Category.OP, true, false, ()=> LagGun()),
+            //new Button("Crash All", Category.OP, true, false, ()=> CrashAll()),
             #endregion 
 
             #region Credits
             new Button("Menu Credits:", Category.Creds, false, false, ()=>Placeholder()),
             new Button("Menker", Category.Creds, false, false, ()=>Placeholder()),
             new Button("Nova", Category.Creds, false, false, ()=>Placeholder()),
-            new Button("NxO", Category.Creds, false, false, ()=>Placeholder()),
-            new Button("diddy master", Category.Creds, false, false, ()=>Placeholder()),
+            new Button("NxO Template", Category.Creds, false, false, ()=>Placeholder()),
             new Button("Diddy Master", Category.Creds, false, false, ()=>Placeholder()),
             new Button("Cha554", Category.Creds, false, false, ()=>Placeholder()),
             new Button("Nova", Category.Creds, false, false, ()=>Placeholder()),

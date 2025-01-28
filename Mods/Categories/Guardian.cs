@@ -1,4 +1,5 @@
 ﻿using MenkerMenu.Utilities;
+using static MenkerMenu.Mods.Categories.Safety;
 using Photon.Pun;
 using System;
 using System.Collections.Generic;
@@ -36,83 +37,24 @@ namespace MenkerMenu.Mods.Categories
             }
         }
         public static bool isLocked = false;
-        public static void VoidGun()
-        {
-            if (ControllerInputPoller.instance.rightGrab || Mouse.current.rightButton.isPressed)
-            {
-                GunTemplate.StartBothGuns(delegate
-                {
-                    if (isLocked && GunTemplate.LockedPlayer != null)
-                    {
-                        foreach (VRRig rig in GorillaParent.instance.vrrigs)
-                        {
-                            if (Time.time > bounce)
-                            {
-                                bounce2 += Time.deltaTime;
-                                bounce = Time.time + 0.1f;
-                                GorillaGuardianManager guardianmanager = GameObject.Find("GT Systems/GameModeSystem/Gorilla Guardian Manager").GetComponent<GorillaGuardianManager>();
-                                if (guardianmanager.IsPlayerGuardian(NetworkSystem.Instance.LocalPlayer))
-                                {
-                                    RigManager.GetNetworkViewFromVRRig(rig).SendRPC("GrabbedByPlayer", RigManager.GetPlayerFromVRRig(rig), new object[] { true, false, false });
-                                        GorillaTagger.Instance.offlineVRRig.enabled = false;
-                                        GorillaTagger.Instance.offlineVRRig.transform.position = new Vector3(-55.12f, 150.94f, 6.51f);
-                                        if (GorillaTagger.Instance.offlineVRRig.transform.position == new Vector3(-55.12f, 150.94f, 6.51f) && rig.transform.position == GorillaTagger.Instance.offlineVRRig.rightHandTransform.position || rig.transform.position == GorillaTagger.Instance.offlineVRRig.leftHandTransform.position)
-                                        {
 
-                                        RigManager.GetNetworkViewFromVRRig(rig).SendRPC("DroppedByPlayer", RigManager.GetPlayerFromVRRig(rig), new object[] { true, false, false });
-                                            GorillaTagger.Instance.offlineVRRig.enabled = true;
-                                        }
-                                }
-                            }
-                        }
-                    }
-                    if (ControllerInputPoller.instance.rightControllerIndexFloat > 0.5f || Mouse.current.leftButton.isPressed)
-                    {
-                        VRRig telling = GunTemplate.raycastHit.collider.GetComponentInParent<VRRig>();
-                        if (telling && telling != GorillaTagger.Instance.offlineVRRig)
-                        {
-                            isLocked = true;
-                            GunTemplate.LockedPlayer = telling;
-                        }
-                    }
-                    else
-                    {
-                        RigManager.GetNetworkViewFromVRRig(GunTemplate.LockedPlayer).SendRPC("DroppedByPlayer", RigManager.GetPlayerFromVRRig(GunTemplate.LockedPlayer), new object[] { true, false, false });
-                        GorillaTagger.Instance.offlineVRRig.enabled = true;
-                    }
-                }, true);
-            }
-            else
-            {
-                RigManager.GetNetworkViewFromVRRig(GunTemplate.LockedPlayer).SendRPC("DroppedByPlayer", RigManager.GetPlayerFromVRRig(GunTemplate.LockedPlayer), new object[] { true, false, false });
-                GorillaTagger.Instance.offlineVRRig.enabled = true;
-            }
-        }
         public static float bounce = 0f;
         public static float bounce2 = 5f;
         public static TappableGuardianIdol[] GetGuradianRocks()
         {
-            if (Time.time > Tineer)
+            if (Time.time > time)
             {
-                atg = null;
-                Tineer = Time.time + 5f;
+                g = null;
+                time = Time.time + 5f;
             }
-            if (atg == null)
+            if (g == null)
             {
-                atg = UnityEngine.Object.FindObjectsOfType<TappableGuardianIdol>();
+                g = UnityEngine.Object.FindObjectsOfType<TappableGuardianIdol>();
             }
-            return atg;
+            return g;
         }
-        private static float Tineer = -1f;
-        public static TappableGuardianIdol[] atg = null;
-        public static void RPCFlush()
-        {
-            PhotonNetwork.RemoveRPCs(PhotonNetwork.LocalPlayer);
-            GorillaNot.instance.rpcCallLimit = int.MaxValue;
-            PhotonNetwork.RemoveBufferedRPCs(GorillaTagger.Instance.myVRRig.ViewID, null, null);
-            PhotonNetwork.OpCleanActorRpcBuffer(PhotonNetwork.LocalPlayer.ActorNumber);
-            PhotonNetwork.OpCleanRpcBuffer(GorillaTagger.Instance.myVRRig.GetView);
-        }
+        private static float time = -1f;
+        public static TappableGuardianIdol[] g = null;
         public static void AlwaysGuardian()
         {
             {
@@ -155,27 +97,6 @@ namespace MenkerMenu.Mods.Categories
                         {
                             RigManager.GetNetworkViewFromVRRig(l).SendRPC("GrabbedByPlayer", RpcTarget.Others, new object[] { true, false, false });
                         }
-                    }
-                }
-            }
-            else
-            {
-                GorillaTagger.Instance.offlineVRRig.enabled = true;
-                Drop();
-            }
-        }
-        public static void Drop()
-        {
-            if (Time.time > bounce)
-            {
-                bounce2 += Time.deltaTime;
-                bounce = Time.time + 0.1f;
-                GorillaGuardianManager guardianmanager = GameObject.Find("GT Systems/GameModeSystem/Gorilla Guardian Manager").GetComponent<GorillaGuardianManager>();
-                if (guardianmanager.IsPlayerGuardian(NetworkSystem.Instance.LocalPlayer))
-                {
-                    foreach (VRRig l in GorillaParent.instance.vrrigs)
-                    {
-                        RigManager.GetNetworkViewFromVRRig(l).SendRPC("DroppedByPlayer", RpcTarget.Others, new object[] { true, false, false });
                     }
                 }
             }
