@@ -127,16 +127,10 @@ namespace MenkerMenu.Mods.Categories
                 NotificationLib.SendNotification("<color=white>[</color><color=blue>ESP Color:</color><color=white>] Menu Color</color>");
             }
         }
-        public static void VisReport(bool enabled)
+        public static void VisReport()
         {
-            if (enabled = true)
-            {
-                VisReportBool = true;
-            }
-            else
-            {
-                VisReportBool = false;
-            }
+            e = !e;
+            VisReportBool = e;
         }
         public static void Discord()
         {
@@ -153,5 +147,6 @@ namespace MenkerMenu.Mods.Categories
         public static float flyspeedchangerspeed = 15;
 
         public static bool VisReportBool = false;
+        public static bool e = false;
     }
 }

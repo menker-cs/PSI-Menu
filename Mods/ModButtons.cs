@@ -154,14 +154,14 @@ namespace MenkerMenu.Mods
             #endregion
 
             #region Visuals
-            new Button("ESP", Category.Visuals, true, false, ()=>ESP(), ()=>DisableESP()),
+            new Button("Chams", Category.Visuals, true, false, ()=>ESP(), ()=>DisableESP()),
             new Button("Tracers", Category.Visuals, true, false, ()=>Tracers()),
             new Button("2D Box ESP", Category.Visuals, true, false, ()=>BoxESP(false)),
             new Button("3D Box ESP", Category.Visuals, true, false, ()=>BoxESP(true)),
             new Button("Sphere ESP", Category.Visuals, true, false, ()=>BallESP()),
             new Button("CSGO ESP", Category.Visuals, true, false, ()=>CSGO(), ()=>DisableCSGO()),
             new Button("Ball Halo Orbit", Category.Visuals, true, false, ()=>BallHaloOrbit()),
-            new Button("Visualize Anti Report", Category.Visuals, true, false, ()=>VisReport(true), ()=>VisReport(false)),
+            new Button("Visualize Anti Report", Category.Visuals, false, false, ()=>VisReport()),
             new Button("FPS Boost", Category.Visuals, true, false, ()=>FPSboost(), ()=> fixFPS()),
             #endregion
 
