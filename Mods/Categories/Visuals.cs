@@ -85,6 +85,7 @@ namespace MenkerMenu.Mods.Categories
                         component.loop = true;
                         component.useWorldSpace = true;
                         component.forceRenderingOff = false;
+                        color.a = 0.1f;
                         component.startColor = color;
                         component.endColor = color;
                         Vector3 position = vrrig.transform.position;
@@ -110,6 +111,7 @@ namespace MenkerMenu.Mods.Categories
                         color = UnityEngine.Color.green;
                     var gameobject = new GameObject("Line");
                     LineRenderer lineRenderer = gameobject.AddComponent<LineRenderer>();
+                    color.a = 0.1f;
                     lineRenderer.startColor = color;
                     lineRenderer.endColor = color;
                     lineRenderer.startWidth = 0.01f;
@@ -146,8 +148,10 @@ namespace MenkerMenu.Mods.Categories
                         component.loop = true;
                         component.useWorldSpace = true;
                         component.forceRenderingOff = false;
-                        component.startColor = vrrig.playerColor;
-                        component.endColor = vrrig.playerColor;
+                        UnityEngine.Color color = vrrig.playerColor;
+                        color.a = 0.1f;
+                        component.startColor = color;
+                        component.endColor = color;
                         Vector3 position = vrrig.transform.position;
                         Vector3 vector = Vector3.Cross((GorillaTagger.Instance.headCollider.transform.position - position).normalized, Vector3.up).normalized * 0.43f;
                         Vector3 vector2 = Vector3.up * 0.5f;
@@ -167,8 +171,10 @@ namespace MenkerMenu.Mods.Categories
 
                     var gameobject = new GameObject("Line");
                     LineRenderer lineRenderer = gameobject.AddComponent<LineRenderer>();
-                    lineRenderer.startColor = Player.playerColor;
-                    lineRenderer.endColor = Player.playerColor;
+                    UnityEngine.Color color = vrrig.playerColor;
+                    color.a = 0.1f;
+                    lineRenderer.startColor = color;
+                    lineRenderer.endColor = color;
                     lineRenderer.startWidth = 0.01f;
                     lineRenderer.endWidth = 0.01f;
                     lineRenderer.positionCount = 2;
@@ -223,6 +229,7 @@ namespace MenkerMenu.Mods.Categories
                         component.loop = true;
                         component.useWorldSpace = true;
                         component.forceRenderingOff = false;
+                        color.a = 0.1f;                        
                         component.startColor = color;
                         component.endColor = color;
                         Vector3 position = vrrig.transform.position;
@@ -244,6 +251,7 @@ namespace MenkerMenu.Mods.Categories
 
                     var gameobject = new GameObject("Line");
                     LineRenderer lineRenderer = gameobject.AddComponent<LineRenderer>();
+                    color.a = 0.1f;
                     lineRenderer.startColor = color;
                     lineRenderer.endColor = color;
                     lineRenderer.startWidth = 0.01f;
@@ -280,8 +288,10 @@ namespace MenkerMenu.Mods.Categories
                         component.loop = true;
                         component.useWorldSpace = true;
                         component.forceRenderingOff = false;
-                        component.startColor = RoyalBlue;
-                        component.endColor = RoyalBlue;
+                        UnityEngine.Color color = RoyalBlue;
+                        color.a = 0.1f;
+                        component.startColor = color;
+                        component.endColor = color;
                         Vector3 position = vrrig.transform.position;
                         Vector3 vector = Vector3.Cross((GorillaTagger.Instance.headCollider.transform.position - position).normalized, Vector3.up).normalized * 0.43f;
                         Vector3 vector2 = Vector3.up * 0.5f;
@@ -301,8 +311,10 @@ namespace MenkerMenu.Mods.Categories
 
                     var gameobject = new GameObject("Line");
                     LineRenderer lineRenderer = gameobject.AddComponent<LineRenderer>();
-                    lineRenderer.startColor = RoyalBlue;
-                    lineRenderer.endColor = RoyalBlue;
+                    UnityEngine.Color color = RoyalBlue;
+                    color.a = 0.1f;
+                    lineRenderer.startColor = color;
+                    lineRenderer.endColor = color;
                     lineRenderer.startWidth = 0.01f;
                     lineRenderer.endWidth = 0.01f;
                     lineRenderer.positionCount = 2;
@@ -394,7 +406,7 @@ namespace MenkerMenu.Mods.Categories
                     }
                 }
             }
-            else if (espColor == 4) 
+            else if (espColor == 4)
             {
                 foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
                 {
@@ -467,13 +479,17 @@ namespace MenkerMenu.Mods.Categories
                         ESPBall.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
                         if (vrrig.mainSkin.material.name.Contains("fected"))
                         {
+                            UnityEngine.Color color = UnityEngine.Color.red;
+                            color.a = 0.1f;
                             ESPBall.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                            ESPBall.GetComponent<Renderer>().material.color = UnityEngine.Color.red;
+                            ESPBall.GetComponent<Renderer>().material.color = color;
                         }
                         else
                         {
+                            UnityEngine.Color color = UnityEngine.Color.green;
+                            color.a = 0.1f;
                             ESPBall.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                            ESPBall.GetComponent<Renderer>().material.color = UnityEngine.Color.green;
+                            ESPBall.GetComponent<Renderer>().material.color = color;
                         }
                         UnityEngine.Object.Destroy(ESPBall, Time.deltaTime);
                     }
@@ -491,7 +507,9 @@ namespace MenkerMenu.Mods.Categories
                         ESPBall.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
                         ESPBall.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
                         ESPBall.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                        ESPBall.GetComponent<Renderer>().material.color = vrrig.playerColor;
+                        UnityEngine.Color color = vrrig.playerColor;
+                        color.a = 0.1f;
+                        ESPBall.GetComponent<Renderer>().material.color = color;
                         UnityEngine.Object.Destroy(ESPBall, Time.deltaTime);
                     }
                 }
@@ -528,6 +546,7 @@ namespace MenkerMenu.Mods.Categories
                         ESPBall.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
                         ESPBall.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
                         ESPBall.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
+                        color.a = 0.1f;
                         ESPBall.GetComponent<Renderer>().material.color = color;
                         UnityEngine.Object.Destroy(ESPBall, Time.deltaTime);
                     }
@@ -545,7 +564,9 @@ namespace MenkerMenu.Mods.Categories
                         ESPBall.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
                         ESPBall.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
                         ESPBall.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                        ESPBall.GetComponent<Renderer>().material.color = RoyalBlue;
+                        UnityEngine.Color color = RoyalBlue;
+                        color.a = 0.1f;
+                        ESPBall.GetComponent<Renderer>().material.color = color;
                         UnityEngine.Object.Destroy(ESPBall, Time.deltaTime);
                     }
                 }
@@ -564,17 +585,21 @@ namespace MenkerMenu.Mods.Categories
                             GameObject ESPBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
                             ESPBox.transform.position = vrrig.transform.position;
                             UnityEngine.Object.Destroy(ESPBox.GetComponent<BoxCollider>());
-                            ESPBox.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
+                            ESPBox.transform.localScale = new Vector3(0.5f, 1f, 0f);
                             ESPBox.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
                             if (vrrig.mainSkin.material.name.Contains("fected"))
                             {
+                                UnityEngine.Color color = UnityEngine.Color.red;
+                                color.a = 0.1f;
                                 ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                                ESPBox.GetComponent<Renderer>().material.color = UnityEngine.Color.red;
+                                ESPBox.GetComponent<Renderer>().material.color = color;
                             }
                             else
                             {
+                                UnityEngine.Color color = UnityEngine.Color.red;
+                                color.a = 0.1f;
                                 ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                                ESPBox.GetComponent<Renderer>().material.color = UnityEngine.Color.green;
+                                ESPBox.GetComponent<Renderer>().material.color = color;
                             }
                             UnityEngine.Object.Destroy(ESPBox, Time.deltaTime);
                         }
@@ -589,10 +614,12 @@ namespace MenkerMenu.Mods.Categories
                             GameObject ESPBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
                             ESPBox.transform.position = vrrig.transform.position;
                             UnityEngine.Object.Destroy(ESPBox.GetComponent<BoxCollider>());
-                            ESPBox.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
+                            ESPBox.transform.localScale = new Vector3(0.5f, 1f, 0f);
                             ESPBox.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
                             ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                            ESPBox.GetComponent<Renderer>().material.color = vrrig.playerColor;
+                            UnityEngine.Color color = vrrig.playerColor;
+                            color.a = 0.1f;
+                            ESPBox.GetComponent<Renderer>().material.color = color;
                             UnityEngine.Object.Destroy(ESPBox, Time.deltaTime);
                         }
                     }
@@ -626,9 +653,10 @@ namespace MenkerMenu.Mods.Categories
                             GameObject ESPBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
                             ESPBox.transform.position = vrrig.transform.position;
                             UnityEngine.Object.Destroy(ESPBox.GetComponent<BoxCollider>());
-                            ESPBox.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
+                            ESPBox.transform.localScale = new Vector3(0.5f, 1f, 0f);
                             ESPBox.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
                             ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
+                            color.a = 0.1f;
                             ESPBox.GetComponent<Renderer>().material.color = color;
                             UnityEngine.Object.Destroy(ESPBox, Time.deltaTime);
                         }
@@ -643,10 +671,12 @@ namespace MenkerMenu.Mods.Categories
                             GameObject ESPBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
                             ESPBox.transform.position = vrrig.transform.position;
                             UnityEngine.Object.Destroy(ESPBox.GetComponent<BoxCollider>());
-                            ESPBox.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
+                            ESPBox.transform.localScale = new Vector3(0.5f, 1f, 0f);
                             ESPBox.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
                             ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                            ESPBox.GetComponent<Renderer>().material.color = RoyalBlue;
+                            UnityEngine.Color color = RoyalBlue;
+                            color.a = 0.1f;
+                            ESPBox.GetComponent<Renderer>().material.color = color;
                             UnityEngine.Object.Destroy(ESPBox, Time.deltaTime);
                         }
                     }
@@ -666,13 +696,17 @@ namespace MenkerMenu.Mods.Categories
                             ESPBox.transform.localScale = new Vector3(0.5f, 1f, 0.5f);
                             if (vrrig.mainSkin.material.name.Contains("fected"))
                             {
+                                UnityEngine.Color color = UnityEngine.Color.red;
+                                color.a = 0.1f;
                                 ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                                ESPBox.GetComponent<Renderer>().material.color = UnityEngine.Color.red;
+                                ESPBox.GetComponent<Renderer>().material.color = color;
                             }
                             else
                             {
+                                UnityEngine.Color color = UnityEngine.Color.green;
+                                color.a = 0.1f;
                                 ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                                ESPBox.GetComponent<Renderer>().material.color = UnityEngine.Color.green;
+                                ESPBox.GetComponent<Renderer>().material.color = color;
                             }
                             UnityEngine.Object.Destroy(ESPBox, Time.deltaTime);
                         }
@@ -689,7 +723,9 @@ namespace MenkerMenu.Mods.Categories
                             UnityEngine.Object.Destroy(ESPBox.GetComponent<BoxCollider>());
                             ESPBox.transform.localScale = new Vector3(0.5f, 1f, 0.5f);
                             ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                            ESPBox.GetComponent<Renderer>().material.color = vrrig.playerColor;
+                            UnityEngine.Color color = vrrig.playerColor;
+                            color.a = 0.1f;
+                            ESPBox.GetComponent<Renderer>().material.color = color;
                             UnityEngine.Object.Destroy(ESPBox, Time.deltaTime);
                         }
                     }
@@ -725,6 +761,7 @@ namespace MenkerMenu.Mods.Categories
                             UnityEngine.Object.Destroy(ESPBox.GetComponent<BoxCollider>());
                             ESPBox.transform.localScale = new Vector3(0.5f, 1f, 0.5f);
                             ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
+                            color.a = 0.1f;
                             ESPBox.GetComponent<Renderer>().material.color = color;
                             UnityEngine.Object.Destroy(ESPBox, Time.deltaTime);
                         }
@@ -741,7 +778,9 @@ namespace MenkerMenu.Mods.Categories
                             UnityEngine.Object.Destroy(ESPBox.GetComponent<BoxCollider>());
                             ESPBox.transform.localScale = new Vector3(0.5f, 1f, 0.5f);
                             ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                            ESPBox.GetComponent<Renderer>().material.color = RoyalBlue;
+                            UnityEngine.Color color = RoyalBlue;
+                            color.a = 0.1f;
+                            ESPBox.GetComponent<Renderer>().material.color = color;
                             UnityEngine.Object.Destroy(ESPBox, Time.deltaTime);
                         }
                     }
@@ -769,13 +808,17 @@ namespace MenkerMenu.Mods.Categories
 
                         if (vrrig.mainSkin.material.name.Contains("fected"))
                         {
-                            tracer2.startColor = UnityEngine.Color.red;
-                            tracer2.endColor = UnityEngine.Color.red;
+                            UnityEngine.Color color = UnityEngine.Color.red;
+                            color.a = 0.1f;
+                            tracer2.startColor = color;
+                            tracer2.endColor = color;
                         }
                         else
                         {
-                            tracer2.startColor = UnityEngine.Color.green;
-                            tracer2.endColor = UnityEngine.Color.green;
+                            UnityEngine.Color color = UnityEngine.Color.green;
+                            color.a = 0.1f;
+                            tracer2.startColor = color;
+                            tracer2.endColor = color;
                         }
                     }
                 }
@@ -792,9 +835,10 @@ namespace MenkerMenu.Mods.Categories
                         Line.SetPosition(1, vrrig.transform.position);
                         Line.startWidth = 0.0225f;
                         Line.endWidth = 0.0225f;
-
-                        Line.startColor = vrrig.playerColor;
-                        Line.endColor = vrrig.playerColor;
+                        UnityEngine.Color color = vrrig.playerColor;
+                        color.a = 0.1f;
+                        Line.startColor = color;
+                        Line.endColor = color;
                         Line.material.shader = Shader.Find("GUI/Text Shader");
 
                         UnityEngine.Object.Destroy(line, Time.deltaTime);
@@ -833,7 +877,7 @@ namespace MenkerMenu.Mods.Categories
                         Line.SetPosition(1, vrrig.transform.position);
                         Line.startWidth = 0.0225f;
                         Line.endWidth = 0.0225f;
-
+                        color.a = 0.1f;
                         Line.startColor = color;
                         Line.endColor = color;
                         Line.material.shader = Shader.Find("GUI/Text Shader");
@@ -854,9 +898,10 @@ namespace MenkerMenu.Mods.Categories
                         Line.SetPosition(1, vrrig.transform.position);
                         Line.startWidth = 0.0225f;
                         Line.endWidth = 0.0225f;
-
-                        Line.startColor = RoyalBlue;
-                        Line.endColor = RoyalBlue;
+                        UnityEngine.Color color = RoyalBlue;
+                        color.a = 0.1f;
+                        Line.startColor = color;
+                        Line.endColor = color;
                         Line.material.shader = Shader.Find("GUI/Text Shader");
 
                         UnityEngine.Object.Destroy(line, Time.deltaTime);

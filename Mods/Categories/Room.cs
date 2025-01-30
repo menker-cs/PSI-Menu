@@ -108,26 +108,38 @@ namespace MenkerMenu.Mods.Categories
         }
         public static void ReportAll()
         {
-            GorillaPlayerScoreboardLine[] ScoreBoardLine = UnityEngine.Object.FindObjectsOfType<GorillaPlayerScoreboardLine>();
-            foreach (GorillaPlayerScoreboardLine ReportLine in ScoreBoardLine)
+            GorillaPlayerScoreboardLine[] Board = UnityEngine.Object.FindObjectsOfType<GorillaPlayerScoreboardLine>();
+            foreach (GorillaPlayerScoreboardLine Report in Board)
             {
-                if (ReportLine.linePlayer != null)
+                if (Report.linePlayer != null)
                 {
-                    ReportLine.PressButton(true, GorillaPlayerLineButton.ButtonType.HateSpeech);
+                    Report.PressButton(true, GorillaPlayerLineButton.ButtonType.HateSpeech);
                 }
             }
         }
-
         public static void MuteAll()
         {
-            GorillaPlayerScoreboardLine[] ScoreBoardLine = UnityEngine.Object.FindObjectsOfType<GorillaPlayerScoreboardLine>();
-            foreach (GorillaPlayerScoreboardLine MuteLine in ScoreBoardLine)
+            GorillaPlayerScoreboardLine[] Board = UnityEngine.Object.FindObjectsOfType<GorillaPlayerScoreboardLine>();
+            foreach (GorillaPlayerScoreboardLine Mute in Board)
             {
-                if (MuteLine.linePlayer != null)
+                if (Mute.linePlayer != null)
                 {
-                    MuteLine.PressButton(true, GorillaPlayerLineButton.ButtonType.Mute);
-                    MuteLine.muteButton.isOn = true;
-                    MuteLine.muteButton.UpdateColor();
+                    Mute.PressButton(true, GorillaPlayerLineButton.ButtonType.Mute);
+                    Mute.muteButton.isOn = true;
+                    Mute.muteButton.UpdateColor();
+                }
+            }
+        }
+        public static void UnMuteAll()
+        {
+            GorillaPlayerScoreboardLine[] Board = UnityEngine.Object.FindObjectsOfType<GorillaPlayerScoreboardLine>();
+            foreach (GorillaPlayerScoreboardLine Mute in Board)
+            {
+                if (Mute.linePlayer != null)
+                {
+                    Mute.PressButton(false, GorillaPlayerLineButton.ButtonType.Mute);
+                    Mute.muteButton.isOn = false;
+                    Mute.muteButton.UpdateColor();
                 }
             }
         }

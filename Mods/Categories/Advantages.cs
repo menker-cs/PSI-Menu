@@ -9,7 +9,7 @@ using MenkerMenu.Utilities.Patches;
 using UnityEngine.XR;
 using UnityEngine.Animations.Rigging;
 using System.Reflection;
-using MenkerMenu.Utilities.Rigshit;
+using MenkerMenu.Utilities;
 using static MenkerMenu.Utilities.HandOrbs;
 using static MenkerMenu.Utilities.GunTemplate;
 using Oculus.Interaction.Input;
@@ -114,6 +114,22 @@ namespace MenkerMenu.Mods.Categories
             }, true);
             {
                 GorillaTagger.Instance.leftHandTransform = GorillaTagger.Instance.leftHandTransform;
+            }
+        }
+        public static void TagAura()
+        {
+            if (IAmInfected && ControllerInputPoller.instance.rightGrab | UnityInput.Current.GetKey(KeyCode.G))
+            {
+                foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+                {
+                    if (!RigIsInfected(vrrig))
+                    {
+                        if (Vector3.Distance(taggerInstance.offlineVRRig.transform.position, vrrig.transform.position) < 5)
+                        {
+                            GorillaTagger.Instance.rightHandTransform.position = vrrig.transform.position;
+                        }
+                    }
+                }
             }
         }
     }

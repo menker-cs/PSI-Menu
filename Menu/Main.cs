@@ -226,6 +226,7 @@ namespace MenkerMenu.Menu
             menuObj.transform.localScale = new Vector3(0.1f, 0.2f, 0.3f);
         }
 
+        public static Color32 color = new Color32(65, 105, 225, 50);
         private static void CreateBackground()
         {
             // Background
@@ -355,7 +356,7 @@ namespace MenkerMenu.Menu
             {
                 if (button.Enabled)
                 {
-                    btnRenderer.material.color = DarkerGrey;
+                    btnRenderer.material.color = Crimson;
                 }
                 else
                 {

@@ -8,6 +8,7 @@ using static MenkerMenu.Utilities.ColorLib;
 using static MenkerMenu.Menu.ButtonHandler;
 using static MenkerMenu.Mods.ModButtons;
 using static MenkerMenu.Mods.Categories.Settings;
+using static MenkerMenu.Utilities.GunTemplate;
 using UnityEngine;
 using BepInEx;
 using MenkerMenu.Utilities;
@@ -23,7 +24,15 @@ namespace MenkerMenu.Mods.Categories
         public static void CopySelfID()
         {
             string id = PhotonNetwork.LocalPlayer.UserId;
-            NotificationLib.SendNotification("<color=grey>[</color><color=green>SUCCESS</color><color=grey>]</color> " + id);
+            GUIUtility.systemCopyBuffer = id;
+        }
+        public static void CopyIDGun()
+        {
+            GunTemplate.StartBothGuns(() =>
+            {
+                string id = LockedPlayer.Creator.UserId;
+                GUIUtility.systemCopyBuffer = id;
+            }, true);
         }
         public static void GrabBug()
         {

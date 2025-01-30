@@ -5,7 +5,7 @@ using static MenkerMenu.Utilities.GunTemplate;
 using static MenkerMenu.Menu.Main;
 using static MenkerMenu.Utilities.Variables;
 using static MenkerMenu.Utilities.ColorLib;
-using static MenkerMenu.Utilities.Rigshit.RigShit;
+using static MenkerMenu.Utilities.RigManager;
 using static MenkerMenu.Menu.ButtonHandler;
 using static MenkerMenu.Mods.ModButtons;
 using static MenkerMenu.Mods.Categories.Settings;
@@ -15,7 +15,7 @@ using System.Reflection;
 using BepInEx;
 using Photon.Voice;
 using MenkerMenu.Utilities;
-using MenkerMenu.Utilities.Rigshit;
+using MenkerMenu.Utilities;
 
 namespace MenkerMenu.Mods.Categories
 {
@@ -114,21 +114,21 @@ namespace MenkerMenu.Mods.Categories
             GorillaLocomotion.Player.Instance.maxJumpSpeed = speedboostchangerspeed;
             GorillaLocomotion.Player.Instance.jumpMultiplier = speedboostchangerspeed;
         }
-        public static void Platform(ref GameObject platform, bool isGrabbing, Transform controllerTransform, bool InvisPlat)
+        public static void Platform(ref GameObject platform, bool grabbing, Transform position, bool invis)
         {
-            if (isGrabbing)
+            if (grabbing)
             {
                 if (platform == null)
                 {
                     platform = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     platform.transform.localScale = new Vector3(0.28f, 0.015f, 0.28f);
-                    platform.transform.position = controllerTransform.position + new Vector3(0f, -0.02f, 0f);
-                    platform.transform.rotation = controllerTransform.rotation * Quaternion.Euler(0f, 0f, -90f);
+                    platform.transform.position = position.position + new Vector3(0f, -0.02f, 0f);
+                    platform.transform.rotation = position.rotation * Quaternion.Euler(0f, 0f, -90f);
                     platform.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
                     platform.GetComponent<Renderer>().material.color = RoyalBlueTransparent;
                     platform.AddComponent<GorillaSurfaceOverride>().overrideIndex = GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/sky jungle entrance 2/ElevatorClouds/Cloud_Platform_001 Variant").GetComponent<GorillaSurfaceOverride>().overrideIndex;
 
-                    if (InvisPlat == true)
+                    if (invis == true)
                     {
                         platform.GetComponent<Renderer>().enabled = false;
                     }
@@ -254,7 +254,7 @@ namespace MenkerMenu.Mods.Categories
           }
          public static void TPToRandom()
          {
-             GorillaLocomotion.Player.Instance.transform.position = RigShit.GetRandomVRRig(false).transform.position;
+             GorillaLocomotion.Player.Instance.transform.position = RigManager.GetRandomVRRig(false).transform.position;
              GorillaLocomotion.Player.Instance.GetComponent<Rigidbody>().velocity = Vector3.zero;
          }
          
