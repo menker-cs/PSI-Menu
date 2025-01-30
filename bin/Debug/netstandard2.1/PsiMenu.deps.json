@@ -1343,6 +1343,14 @@
           }
         }
       },
+      "nexus.nexussdk.Runtime/0.0.0.0": {
+        "runtime": {
+          "nexus.nexussdk.Runtime.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
       "modio.UnityPlugin/1.4.3.0": {
         "runtime": {
           "modio.UnityPlugin.dll": {
@@ -1370,14 +1378,6 @@
       "Assembly-CSharp-firstpass/0.0.0.0": {
         "runtime": {
           "Assembly-CSharp-firstpass.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
-          }
-        }
-      },
-      "nexus.nexussdk.Runtime/0.0.0.0": {
-        "runtime": {
-          "nexus.nexussdk.Runtime.dll": {
             "assemblyVersion": "0.0.0.0",
             "fileVersion": "0.0.0.0"
           }
@@ -2280,6 +2280,11 @@
       "serviceable": false,
       "sha512": ""
     },
+    "nexus.nexussdk.Runtime/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
     "modio.UnityPlugin/1.4.3.0": {
       "type": "reference",
       "serviceable": false,
@@ -2296,11 +2301,6 @@
       "sha512": ""
     },
     "Assembly-CSharp-firstpass/0.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "nexus.nexussdk.Runtime/0.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
