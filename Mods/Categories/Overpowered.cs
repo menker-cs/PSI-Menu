@@ -27,6 +27,7 @@ using BepInEx;
 using MenkerMenu.Utilities;
 using GorillaTagScripts;
 using System.Threading;
+using PlayFab.ProfilesModels;
 
 namespace MenkerMenu.Mods.Categories
 {
@@ -67,7 +68,13 @@ namespace MenkerMenu.Mods.Categories
                 }
             }, true);
         }
-
+        public static void CrashGun()
+        {
+            GunTemplate.StartBothGuns(() =>
+            {
+                GorillaTagger.Instance.myVRRig.SendRPC("RPC_RequestMaterialColor", RigManager.GetPlayerFromVRRig(LockedPlayer));
+            }, true);
+        }
         public static float lagtimer = 0;
         public static float crashtimer = 0;
     }

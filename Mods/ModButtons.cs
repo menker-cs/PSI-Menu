@@ -26,7 +26,7 @@ using Photon.Pun;
 using System.Collections.Generic;
 using MenkerMenu.Utilities;
 using MenkerMenu.Mods.Categories;
-
+using static MenkerMenu.Menu.UI;
 namespace MenkerMenu.Mods
 {
     public enum Category
@@ -77,7 +77,7 @@ namespace MenkerMenu.Mods
             new Button("Change Fly Speed", Category.Settings, false, false, ()=>FlySpeed()),
             new Button("Change Speed Boost", Category.Settings, false, false, ()=>SpeedSpeed()),
             new Button("Change ESP Color", Category.Settings, false, false, ()=>ESPChange()),
-
+            new Button("Disable Gui", Category.Settings, true, false, ()=>ToggleGui(true), ()=>ToggleGui(false)),
             #endregion
 
             #region Room
@@ -190,7 +190,7 @@ namespace MenkerMenu.Mods
 
             #region OP
             new Button("Nothing Here", Category.OP, false, false, ()=>Placeholder()),
-            new Button("Come Back Later", Category.OP, false, false, ()=>Placeholder()),
+            new Button("Insta Ban Crash Gun", Category.OP, false, false, ()=>CrashGun()),
             //new Button("Lag All", Category.OP, true, false, ()=> LagAll()),
             //new Button("Lag Gun", Category.OP, true, false, ()=> LagGun()),
             //new Button("Crash All", Category.OP, true, false, ()=> CrashAll()),

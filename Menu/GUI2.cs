@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 using MenkerMenu.Menu;
 using MenkerMenu.Mods;
 
-namespace StupidTemplate.Menu
+namespace MenkerMenu.Menu
 {
     [BepInPlugin("com.psi.gorillatag.gui", "PSI GUI", "1.1")]
     public class UI : BaseUnityPlugin
@@ -32,52 +32,61 @@ namespace StupidTemplate.Menu
         private float starSpeed = 0.1f;
         public static Vector2 scrollpos = Vector2.zero;
 
+        public static bool Yes = false;
+        public static void ToggleGui(bool idkdude)
+        {
+            Yes = idkdude;
+        }
+
 
         void OnGUI()
         {
-            GUILayout.BeginHorizontal();
-            room = GUILayout.TextField(room, GUILayout.Width(125), GUILayout.Height(20));
-            GUILayout.EndHorizontal();
-
-            GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Join Specific Room", GUILayout.Height(20), GUILayout.Width(125)))
+            if (!Yes)
             {
-                PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(room, JoinType.Solo);
-            }
-            GUILayout.EndHorizontal();
+                GUILayout.BeginHorizontal();
+                room = GUILayout.TextField(room, GUILayout.Width(125), GUILayout.Height(20));
+                GUILayout.EndHorizontal();
 
-            GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Set Name", GUILayout.Height(20), GUILayout.Width(125)))
-            {
-                PhotonNetwork.LocalPlayer.NickName = room;
-                PhotonNetwork.NickName = room;
-                PhotonNetwork.NetworkingClient.NickName = room;
-                GorillaComputer.instance.currentName = room;
-                GorillaComputer.instance.savedName = room;
-                GorillaComputer.instance.offlineVRRigNametagText.text = room;
-                GorillaLocomotion.Player.Instance.name = room;
-                NetworkSystem.Instance.name = room;
-                NetworkSystem.Instance.SetMyNickName(room);
-                PlayerPrefs.SetString("playerName", room);
-                PlayerPrefs.Save();
-            }
-            GUILayout.EndHorizontal();
+                GUILayout.BeginHorizontal();
+                if (GUILayout.Button("Join Specific Room", GUILayout.Height(20), GUILayout.Width(125)))
+                {
+                    PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(room, JoinType.Solo);
+                }
+                GUILayout.EndHorizontal();
 
-            GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Toggle Gui", GUILayout.Height(20), GUILayout.Width(125)))
-            {
-                GuiOn = !GuiOn;
-            }
-            GUILayout.EndHorizontal();
+                GUILayout.BeginHorizontal();
+                if (GUILayout.Button("Set Name", GUILayout.Height(20), GUILayout.Width(125)))
+                {
+                    PhotonNetwork.LocalPlayer.NickName = room;
+                    PhotonNetwork.NickName = room;
+                    PhotonNetwork.NetworkingClient.NickName = room;
+                    GorillaComputer.instance.currentName = room;
+                    GorillaComputer.instance.savedName = room;
+                    GorillaComputer.instance.offlineVRRigNametagText.text = room;
+                    GorillaLocomotion.Player.Instance.name = room;
+                    NetworkSystem.Instance.name = room;
+                    NetworkSystem.Instance.SetMyNickName(room);
+                    PlayerPrefs.SetString("playerName", room);
+                    PlayerPrefs.Save();
+                }
+                GUILayout.EndHorizontal();
 
-            if (GuiOn)
-            {
-                DrawStarryBackgroundInWindow(windowRect);
-                MoveStars();
-                GUI.backgroundColor = Color.grey;
-                windowRect = GUI.Window(0, windowRect, Mods, $"                                                                                                                                                            N\n                                                                                                                                                            O\n                                                                                                                                                            V\n                                                                                                                                                            A\n                                                                                                                                                            \n                                                                                                                                                            ");
-            }
+                GUILayout.BeginHorizontal();
+                if (GUILayout.Button("Toggle Gui", GUILayout.Height(20), GUILayout.Width(125)))
+                {
+                    GuiOn = !GuiOn;
+                }
+                GUILayout.EndHorizontal();
 
+                if (GuiOn)
+                {
+                    DrawStarryBackgroundInWindow(windowRect);
+                    MoveStars();
+                    GUI.backgroundColor = Color.grey;
+                    windowRect = GUI.Window(0, windowRect, Mods, $"                                                                                                                                                            N\n                                                                                                                                                            O\n                                                                                                                                                            V\n                                                                                                                                                            A\n                                                                                                                                                            \n                                                                                                                                                            ");
+                }
+
+            }
         }
         public static bool GuiOn = false;
         public static string searchthing = "";
