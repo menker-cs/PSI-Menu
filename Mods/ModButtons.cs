@@ -3,7 +3,7 @@ using static MenkerMenu.Utilities.Variables;
 using static MenkerMenu.Utilities.ColorLib;
 using static MenkerMenu.Utilities.HandOrbs;
 using static MenkerMenu.Mods.Categories.Move;
-using static MenkerMenu.Mods.Categories.Player;
+using static MenkerMenu.Mods.Categories.Playerr;
 using static MenkerMenu.Mods.Categories.Room;
 using static MenkerMenu.Mods.Categories.Settings;
 using static MenkerMenu.Mods.Categories.Safety;
@@ -105,7 +105,7 @@ namespace MenkerMenu.Mods
 
             #region Safety
             new Button("AntiReport [USE]", Category.Safety, true, true, ()=>AntiReport()),
-            new Button("Flush RPCs", Category.Safety, true, false, ()=>RPCFlush()),
+            new Button("Flush RPCs", Category.Safety, false, false, ()=>RPCFlush()),
             #endregion
 
             #region Movement
@@ -159,7 +159,12 @@ namespace MenkerMenu.Mods
             new Button("2D Box ESP", Category.Visuals, true, false, ()=>BoxESP(false)),
             new Button("3D Box ESP", Category.Visuals, true, false, ()=>BoxESP(true)),
             new Button("Sphere ESP", Category.Visuals, true, false, ()=>BallESP()),
+            new Button("Prism ESP", Category.Visuals, true, false, ()=>PrismESP()),
             new Button("CSGO ESP", Category.Visuals, true, false, ()=>CSGO(), ()=>DisableCSGO()),
+            new Button("Skeleton ESP", Category.Visuals, true, false, ()=>Skeleton(), ()=>DisableSkeleton()),
+            new Button("Distance ESP", Category.Visuals, true, false, ()=>DistanceESP()),
+            new Button("Nametags", Category.Visuals, true, false, ()=>Nametags()),
+            new Button("Snake ESP", Category.Visuals, true, false, ()=>SnakeESP()),
             new Button("Ball Halo Orbit", Category.Visuals, true, false, ()=>BallHaloOrbit()),
             new Button("Visualize Anti Report", Category.Visuals, false, false, ()=>VisReport()),
             new Button("FPS Boost", Category.Visuals, true, false, ()=>FPSboost(), ()=> fixFPS()),
@@ -190,20 +195,17 @@ namespace MenkerMenu.Mods
 
             #region OP
             new Button("Nothing Here", Category.OP, false, false, ()=>Placeholder()),
-            new Button("Insta Ban Crash Gun", Category.OP, false, false, ()=>CrashGun()),
-            //new Button("Lag All", Category.OP, true, false, ()=> LagAll()),
-            //new Button("Lag Gun", Category.OP, true, false, ()=> LagGun()),
-            //new Button("Crash All", Category.OP, true, false, ()=> CrashAll()),
             #endregion 
 
             #region Credits
             new Button("Menu Credits:", Category.Creds, false, false, ()=>Placeholder()),
             new Button("Menker", Category.Creds, false, false, ()=>Placeholder()),
+            new Button("Cockrs", Category.Creds, false, false, ()=>Placeholder()),
             new Button("Nova", Category.Creds, false, false, ()=>Placeholder()),
             new Button("NxO Template", Category.Creds, false, false, ()=>Placeholder()),
             new Button("Diddy Master", Category.Creds, false, false, ()=>Placeholder()),
+            new Button("Wizzy Is Dumb", Category.Creds, false, false, ()=>Placeholder()),
             new Button("Cha554", Category.Creds, false, false, ()=>Placeholder()),
-            new Button("Nova", Category.Creds, false, false, ()=>Placeholder()),
             new Button("Join The Discord!", Category.Creds, false, false, ()=>Discord()),
             #endregion
         };

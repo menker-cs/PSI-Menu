@@ -28,54 +28,57 @@ using MenkerMenu.Utilities;
 using GorillaTagScripts;
 using System.Threading;
 using PlayFab.ProfilesModels;
+using System.Linq;
+using System.Reflection;
 
 namespace MenkerMenu.Mods.Categories
 {
     public class Overpowered
     {
-        public static void CrashAll()
+        public static bool RUNRPC(PhotonView photonView, string method, Player player, object[] parameters)
         {
-                if (Time.time > crashtimer)
-                {
-                    crashtimer = Time.time + 0.3f;
-                    for (int i = 0; i < 100; i++)
-                        BuilderTableNetworking.instance.PlayerEnterBuilder();
-                    RPCFlush();
-                }
-        }
-        public static void LagAll()
-        {
-            PhotonView view = GameObject.Find("Environment Objects/LocalObjects_Prefab/City_WorkingPrefab/Arcade_prefab/MainRoom/VRArea/ModIOArcadeTeleporter/NetObject_VRTeleporter").GetComponent<Photon.Pun.PhotonView>();
-                if (Time.time > lagtimer)
-                {
-                    lagtimer = Time.time + 0.6f;
-                    for (int i = 0; i < 250; i++)
-                        view.RPC("ActivateTeleportVFX", RpcTarget.Others, new object[] { (short)UnityEngine.Random.Range(0, 7) });
-                    RPCFlush();
-                }
-        }
-        public static void LagGun()
-        {
-            GunTemplate.StartBothGuns(() =>
+            if (photonView != null && parameters != null && !string.IsNullOrEmpty(method))
             {
-                if (Time.time > lagtimer)
+                var rpcHash = new ExitGames.Client.Photon.Hashtable
                 {
-                    lagtimer = Time.time + 0.6f;
-                    PhotonView view = GameObject.Find("Environment Objects/LocalObjects_Prefab/City_WorkingPrefab/Arcade_prefab/MainRoom/VRArea/ModIOArcadeTeleporter/NetObject_VRTeleporter").GetComponent<Photon.Pun.PhotonView>();
-                    for (int i = 0; i < 250; i++)
-                        view.RPC("ActivateTeleportVFX", NetPlayerToPlayer(GetPlayerFromVRRig(LockedPlayer)), new object[] { (short)UnityEngine.Random.Range(0, 7) });
-                    RPCFlush();
+                    { 0, photonView.ViewID },
+                    { 2, (int)(PhotonNetwork.ServerTimestamp + -int.MaxValue) },
+                    { 3, method },
+                    { 4, parameters }
+                };
+
+                if (photonView.Prefix > 0)
+                {
+                    rpcHash[1] = (short)photonView.Prefix;
                 }
-            }, true);
+                if (PhotonNetwork.PhotonServerSettings.RpcList.Contains(method))
+                {
+                    rpcHash[5] = (byte)PhotonNetwork.PhotonServerSettings.RpcList.IndexOf(method);
+                }
+                if (PhotonNetwork.NetworkingClient.LocalPlayer.ActorNumber == player.ActorNumber)
+                {
+                    typeof(PhotonNetwork).GetMethod("ExecuteRpc", BindingFlags.Static | BindingFlags.NonPublic).Invoke(typeof(PhotonNetwork), new object[]
+                    {
+                        (ExitGames.Client.Photon.Hashtable)rpcHash, (Player)PhotonNetwork.LocalPlayer
+                    });
+                }
+                else
+                {
+                    PhotonNetwork.NetworkingClient.LoadBalancingPeer.OpRaiseEvent(200, rpcHash, new RaiseEventOptions
+                    {
+                        TargetActors = new int[]
+                        {
+                            player.ActorNumber,
+                        }
+                    }, new SendOptions
+                    {
+                        Reliability = true,
+                        DeliveryMode = DeliveryMode.ReliableUnsequenced,
+                        Encrypt = false
+                    });
+                }
+            }
+            return false;
         }
-        public static void CrashGun()
-        {
-            GunTemplate.StartBothGuns(() =>
-            {
-                GorillaTagger.Instance.myVRRig.SendRPC("RPC_RequestMaterialColor", RigManager.GetPlayerFromVRRig(LockedPlayer));
-            }, true);
-        }
-        public static float lagtimer = 0;
-        public static float crashtimer = 0;
     }
 }

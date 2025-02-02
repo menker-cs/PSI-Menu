@@ -11,6 +11,8 @@ using System.Linq;
 using Photon.Realtime;
 using UnityEngine.InputSystem.Controls;
 using System.Drawing;
+using System.Xml.Linq;
+using MenkerMenu.Utilities;
 
 
 namespace MenkerMenu.Mods.Categories
@@ -909,7 +911,337 @@ namespace MenkerMenu.Mods.Categories
                 }
             }
         }
+        public static void Skeleton()
+        {
+            // 1 = casual
+            // 2 = infection
+            // 3 = rainbow
+            // 4 = menu color
+            if (espColor == 1)
+            {
+                foreach (VRRig Player in GorillaParent.instance.vrrigs)
+                {
+                    if (Player == GorillaTagger.Instance.offlineVRRig) continue;
 
+                    UnityEngine.Color color;
+                    if (RigIsInfected(Player))
+                    {
+                        color = UnityEngine.Color.red;
+                    }
+                    else
+                    {
+                        color = UnityEngine.Color.green;
+                    }
+
+                    Material material = new Material(Shader.Find("GUI/Text Shader"));
+                    material.color = color;
+                    if (!Player.head.rigTarget.gameObject.GetComponent<LineRenderer>())
+                    {
+                        Player.head.rigTarget.gameObject.AddComponent<LineRenderer>();
+                    }
+                    Player.head.rigTarget.gameObject.GetComponent<LineRenderer>().endWidth = 0.025f;
+                    Player.head.rigTarget.gameObject.GetComponent<LineRenderer>().startWidth = 0.025f;
+                    Player.head.rigTarget.gameObject.GetComponent<LineRenderer>().material = material;
+                    Player.head.rigTarget.gameObject.GetComponent<LineRenderer>().SetPosition(0, Player.head.rigTarget.transform.position + new Vector3(0f, 0.16f, 0f));
+                    Player.head.rigTarget.gameObject.GetComponent<LineRenderer>().SetPosition(1, Player.head.rigTarget.transform.position - new Vector3(0f, 0.4f, 0f));
+                    for (int b = 0; b < Enumerable.Count<int>(bones); b += 2)
+                    {
+                        if (!Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>())
+                        {
+                            Player.mainSkin.bones[bones[b]].gameObject.AddComponent<LineRenderer>();
+                        }
+                        Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>().endWidth = 0.025f;
+                        Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>().startWidth = 0.025f;
+                        Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>().material = material;
+                        Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>().SetPosition(0, Player.mainSkin.bones[bones[b]].position);
+                        Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>().SetPosition(1, Player.mainSkin.bones[bones[b + 1]].position);
+                    }
+                }
+            }
+            else if (espColor == 2)
+            {
+                foreach (VRRig Player in GorillaParent.instance.vrrigs)
+                {
+                    if (Player == GorillaTagger.Instance.offlineVRRig) continue;
+
+                    UnityEngine.Color color;
+                    color.a = 0.1f;
+                    color = vrrig.playerColor;
+                    Material material = new Material(Shader.Find("GUI/Text Shader"));
+                    material.color = color;
+                    if (!Player.head.rigTarget.gameObject.GetComponent<LineRenderer>())
+                    {
+                        Player.head.rigTarget.gameObject.AddComponent<LineRenderer>();
+                    }
+                    Player.head.rigTarget.gameObject.GetComponent<LineRenderer>().endWidth = 0.025f;
+                    Player.head.rigTarget.gameObject.GetComponent<LineRenderer>().startWidth = 0.025f;
+                    Player.head.rigTarget.gameObject.GetComponent<LineRenderer>().material = material;
+                    Player.head.rigTarget.gameObject.GetComponent<LineRenderer>().SetPosition(0, Player.head.rigTarget.transform.position + new Vector3(0f, 0.16f, 0f));
+                    Player.head.rigTarget.gameObject.GetComponent<LineRenderer>().SetPosition(1, Player.head.rigTarget.transform.position - new Vector3(0f, 0.4f, 0f));
+                    for (int b = 0; b < Enumerable.Count<int>(bones); b += 2)
+                    {
+                        if (!Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>())
+                        {
+                            Player.mainSkin.bones[bones[b]].gameObject.AddComponent<LineRenderer>();
+                        }
+                        Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>().endWidth = 0.025f;
+                        Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>().startWidth = 0.025f;
+                        Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>().material = material;
+                        Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>().SetPosition(0, Player.mainSkin.bones[bones[b]].position);
+                        Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>().SetPosition(1, Player.mainSkin.bones[bones[b + 1]].position);
+                    }
+                }
+            }
+            else if (espColor == 3)
+            {
+                GradientColorKey[] array = new GradientColorKey[7];
+                array[0].color = UnityEngine.Color.red;
+                array[0].time = 0f;
+                array[1].color = UnityEngine.Color.yellow;
+                array[1].time = 0.2f;
+                array[2].color = UnityEngine.Color.green;
+                array[2].time = 0.3f;
+                array[3].color = UnityEngine.Color.cyan;
+                array[3].time = 0.5f;
+                array[4].color = UnityEngine.Color.blue;
+                array[4].time = 0.6f;
+                array[5].color = UnityEngine.Color.magenta;
+                array[5].time = 0.8f;
+                array[6].color = UnityEngine.Color.red;
+                array[6].time = 1f;
+                Gradient gradient = new Gradient();
+                gradient.colorKeys = array;
+                float num = Mathf.PingPong(Time.time / 2f, 1f);
+                UnityEngine.Color color = gradient.Evaluate(num);
+
+                foreach (VRRig Player in GorillaParent.instance.vrrigs)
+                {
+                    if (Player == GorillaTagger.Instance.offlineVRRig) continue;
+
+                    color.a = 0.1f;
+                    Material material = new Material(Shader.Find("GUI/Text Shader"));
+                    material.color = color;
+                    if (!Player.head.rigTarget.gameObject.GetComponent<LineRenderer>())
+                    {
+                        Player.head.rigTarget.gameObject.AddComponent<LineRenderer>();
+                    }
+                    Player.head.rigTarget.gameObject.GetComponent<LineRenderer>().endWidth = 0.025f;
+                    Player.head.rigTarget.gameObject.GetComponent<LineRenderer>().startWidth = 0.025f;
+                    Player.head.rigTarget.gameObject.GetComponent<LineRenderer>().material = material;
+                    Player.head.rigTarget.gameObject.GetComponent<LineRenderer>().SetPosition(0, Player.head.rigTarget.transform.position + new Vector3(0f, 0.16f, 0f));
+                    Player.head.rigTarget.gameObject.GetComponent<LineRenderer>().SetPosition(1, Player.head.rigTarget.transform.position - new Vector3(0f, 0.4f, 0f));
+                    for (int b = 0; b < Enumerable.Count<int>(bones); b += 2)
+                    {
+                        if (!Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>())
+                        {
+                            Player.mainSkin.bones[bones[b]].gameObject.AddComponent<LineRenderer>();
+                        }
+                        Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>().endWidth = 0.025f;
+                        Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>().startWidth = 0.025f;
+                        Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>().material = material;
+                        Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>().SetPosition(0, Player.mainSkin.bones[bones[b]].position);
+                        Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>().SetPosition(1, Player.mainSkin.bones[bones[b + 1]].position);
+                    }
+                }
+            }
+            else if (espColor == 4)
+            {
+                foreach (VRRig Player in GorillaParent.instance.vrrigs)
+                {
+                    if (Player == GorillaTagger.Instance.offlineVRRig) continue;
+
+                    UnityEngine.Color color;
+                    color.a = 0.1f;
+                    color = RoyalBlue;
+                    Material material = new Material(Shader.Find("GUI/Text Shader"));
+                    material.color = color;
+                    if (!Player.head.rigTarget.gameObject.GetComponent<LineRenderer>())
+                    {
+                        Player.head.rigTarget.gameObject.AddComponent<LineRenderer>();
+                    }
+                    Player.head.rigTarget.gameObject.GetComponent<LineRenderer>().endWidth = 0.025f;
+                    Player.head.rigTarget.gameObject.GetComponent<LineRenderer>().startWidth = 0.025f;
+                    Player.head.rigTarget.gameObject.GetComponent<LineRenderer>().material = material;
+                    Player.head.rigTarget.gameObject.GetComponent<LineRenderer>().SetPosition(0, Player.head.rigTarget.transform.position + new Vector3(0f, 0.16f, 0f));
+                    Player.head.rigTarget.gameObject.GetComponent<LineRenderer>().SetPosition(1, Player.head.rigTarget.transform.position - new Vector3(0f, 0.4f, 0f));
+                    for (int b = 0; b < Enumerable.Count<int>(bones); b += 2)
+                    {
+                        if (!Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>())
+                        {
+                            Player.mainSkin.bones[bones[b]].gameObject.AddComponent<LineRenderer>();
+                        }
+                        Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>().endWidth = 0.025f;
+                        Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>().startWidth = 0.025f;
+                        Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>().material = material;
+                        Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>().SetPosition(0, Player.mainSkin.bones[bones[b]].position);
+                        Player.mainSkin.bones[bones[b]].gameObject.GetComponent<LineRenderer>().SetPosition(1, Player.mainSkin.bones[bones[b + 1]].position);
+                    }
+                }
+            }
+        }
+        public static void DisableSkeleton()
+        {
+            foreach (VRRig Player in GorillaParent.instance.vrrigs)
+            {
+                for (int j = 0; j < Enumerable.Count<int>(bones); j += 2)
+                {
+                    if (Player.mainSkin.bones[bones[j]].gameObject.GetComponent<LineRenderer>())
+                    {
+                        GameObject.Destroy(Player.mainSkin.bones[bones[j]].gameObject.GetComponent<LineRenderer>());
+                    }
+                    if (Player.head.rigTarget.gameObject.GetComponent<LineRenderer>())
+                    {
+                        GameObject.Destroy(Player.head.rigTarget.gameObject.GetComponent<LineRenderer>());
+                    }
+                }
+            }
+        }
+        public static void DistanceESP()
+        {
+            foreach (VRRig Player in GorillaParent.instance.vrrigs)
+            {
+                if (Player == GorillaTagger.Instance.offlineVRRig) continue;
+                distance = new GameObject($"{Player.playerName}'s Distance");
+                TextMesh textMesh = distance.AddComponent<TextMesh>();
+                textMesh.fontSize = 20;
+                textMesh.fontStyle = FontStyle.Normal;
+                textMesh.characterSize = 0.1f;
+                textMesh.anchor = TextAnchor.MiddleCenter;
+                textMesh.alignment = TextAlignment.Center;
+                textMesh.color = RoyalBlue;
+                textMesh.text = Player.playerName;
+                float textWidth = textMesh.GetComponent<Renderer>().bounds.size.x;
+                distance.transform.position = Player.headMesh.transform.position + new Vector3(0f, .65f, 0f);
+                distance.transform.LookAt(Camera.main.transform.position);
+                distance.transform.Rotate(0, 180, 0);
+                distance.GetComponent<TextMesh>().text = $"{Convert.ToInt32(Vector3.Distance(GorillaLocomotion.Player.Instance.headCollider.transform.position, Player.transform.position))}m";
+                GameObject.Destroy(distance, Time.deltaTime);
+            }
+        }
+        public static void Nametags()
+        {
+            foreach (VRRig Player in GorillaParent.instance.vrrigs)
+            {
+                if (Player == GorillaTagger.Instance.offlineVRRig) continue;
+                name = new GameObject($"{Player.playerName}'s Nametag");
+                TextMesh textMesh = name.AddComponent<TextMesh>();
+                textMesh.fontSize = 20;
+                textMesh.fontStyle = FontStyle.Normal;
+                textMesh.characterSize = 0.1f;
+                textMesh.anchor = TextAnchor.MiddleCenter;
+                textMesh.alignment = TextAlignment.Center;
+                textMesh.color = RoyalBlue;
+                textMesh.text = Player.playerName;
+                float textWidth = textMesh.GetComponent<Renderer>().bounds.size.x;
+                name.transform.position = Player.headMesh.transform.position + new Vector3(0f, .90f, 0f);
+                name.transform.LookAt(Camera.main.transform.position);
+                name.transform.Rotate(0, 180, 0);
+                name.GetComponent<TextMesh>().text = RigManager.GetPlayerFromVRRig(Player).NickName;
+                GameObject.Destroy(name, Time.deltaTime);
+            }
+        }
+        public static void PrismESP()
+        {
+            foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+            {
+                if (vrrig != GorillaTagger.Instance.offlineVRRig)
+                {
+                    UnityEngine.Color playerColor = vrrig.playerColor;
+                    GameObject pyramidWireframe = new GameObject("PyramidWireframe");
+                    pyramidWireframe.transform.position = vrrig.transform.position;
+                    LineRenderer lineRenderer = pyramidWireframe.AddComponent<LineRenderer>();
+                    Shader alwaysVisibleShader = Shader.Find("GUI/Text Shader");
+                    if (!alwaysVisibleShader) alwaysVisibleShader = Shader.Find("Unlit/Color");
+                    Material seeThroughMaterial = new Material(alwaysVisibleShader);
+                    seeThroughMaterial.color = new UnityEngine.Color(playerColor.r, playerColor.g, playerColor.b, 0.8f);
+                    lineRenderer.material = seeThroughMaterial;
+                    lineRenderer.startWidth = 0.025f;
+                    lineRenderer.endWidth = 0.025f;
+                    lineRenderer.positionCount = 16;
+                    lineRenderer.useWorldSpace = true;
+                    float bodyWidth = 0.6f;
+                    float bodyHeight = 1.2f;
+                    Vector3 base1 = vrrig.transform.position + new Vector3(-bodyWidth / 2, 0f, -bodyWidth / 2);
+                    Vector3 base2 = vrrig.transform.position + new Vector3(bodyWidth / 2, 0f, -bodyWidth / 2);
+                    Vector3 base3 = vrrig.transform.position + new Vector3(bodyWidth / 2, 0f, bodyWidth / 2);
+                    Vector3 base4 = vrrig.transform.position + new Vector3(-bodyWidth / 2, 0f, bodyWidth / 2);
+                    Vector3 top = vrrig.transform.position + new Vector3(0f, bodyHeight, 0f);
+                    Vector3[] edges = {
+         base1, base2, base2, base3, base3, base4, base4, base1,
+         base1, top, base2, top, base3, top, base4, top
+     };
+                    lineRenderer.SetPositions(edges);
+                    GameObject.Destroy(pyramidWireframe, Time.deltaTime);
+                }
+            }
+        }
+        public static void SnakeESP()
+        {
+            foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
+            {
+                if (vrrig != GorillaTagger.Instance.offlineVRRig)
+                {
+                    UnityEngine.Color playerColor = vrrig.playerColor;
+                    GameObject trailObject = new GameObject("PlayerTrail");
+                    trailObject.transform.position = vrrig.transform.position;
+                    trailObject.transform.SetParent(vrrig.transform);
+                    TrailRenderer trailRenderer = trailObject.AddComponent<TrailRenderer>();
+                    trailRenderer.material = new Material(Shader.Find("Unlit/Color"));
+                    trailRenderer.material.color = new UnityEngine.Color(playerColor.r, playerColor.g, playerColor.b, 0.5f);
+                    trailRenderer.time = 2f;
+                    trailRenderer.startWidth = 0.2f;
+                    trailRenderer.endWidth = 0f;
+                    trailRenderer.startColor = playerColor;
+                    trailRenderer.endColor = new UnityEngine.Color (playerColor.r, playerColor.g, playerColor.b, 0f);
+                    trailRenderer.autodestruct = true;
+                    GameObject.Destroy(trailObject, trailRenderer.time + 0.5f);
+                }
+            }
+        }
+
+        public static GameObject name;
+        public static GameObject distance;
+        public static int[] bones = new int[]
+  {
+            4,
+            3,
+            5,
+            4,
+            19,
+            18,
+            20,
+            19,
+            3,
+            18,
+            21,
+            20,
+            22,
+            21,
+            25,
+            21,
+            29,
+            21,
+            31,
+            29,
+            27,
+            25,
+            24,
+            22,
+            6,
+            5,
+            7,
+            6,
+            10,
+            6,
+            14,
+            6,
+            16,
+            14,
+            12,
+            10,
+            9,
+            7
+  };
         public static float l;
         public static bool fps;
     }

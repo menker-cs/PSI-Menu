@@ -12,7 +12,7 @@ using MenkerMenu.Mods;
 
 namespace MenkerMenu.Menu
 {
-    [BepInPlugin("com.psi.gorillatag.gui", "PSI GUI", "1.1")]
+    [BepInPlugin("com.psi.gayrillatag.gui", "PSI GUI", "1.1")]
     public class UI : BaseUnityPlugin
     {
         public static int selectedTab;

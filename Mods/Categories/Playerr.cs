@@ -25,7 +25,7 @@ using MenkerMenu.Utilities;
 
 namespace MenkerMenu.Mods.Categories
 {
-    public class Player
+    public class Playerr
     {
         // General toggle and state variables
         private static bool isOn = false;
