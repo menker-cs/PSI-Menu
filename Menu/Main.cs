@@ -547,7 +547,7 @@ namespace MenkerMenu.Menu
                 RefreshMenu();
             }
         }
-        public static int ActuallSound = 1;
+        public static int ActuallSound = 67;
         public static int LOJUHFDG = 1;
         public static void ChangeSound()
         {
