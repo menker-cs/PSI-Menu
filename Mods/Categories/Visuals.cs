@@ -462,6 +462,19 @@ namespace MenkerMenu.Mods.Categories
             }
 
         }
+        public static void MenkerEsp()
+        {
+            foreach (VRRig rig in GorillaParent.instance.vrrigs)
+            {
+                if (rig && rig != GorillaTagger.Instance.offlineVRRig)
+                {
+                    if (rig.Creator.NickName == "MENKER")
+                    {
+                        rig.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
+                    }
+                }
+            }
+        }
         public static void BallESP()
         {
             // 1 = casual

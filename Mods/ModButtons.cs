@@ -78,6 +78,8 @@ namespace MenkerMenu.Mods
             new Button("Change Speed Boost", Category.Settings, false, false, ()=>SpeedSpeed()),
             new Button("Change ESP Color", Category.Settings, false, false, ()=>ESPChange()),
             new Button("Disable Gui", Category.Settings, true, false, ()=>ToggleGui(true), ()=>ToggleGui(false)),
+            new Button("Change Layout", Category.Settings, false, false, ()=> ChangeMenuLayout()),
+            new Button("Change Theme", Category.Settings, false, false, ()=> ChangeTheme()),
             #endregion
 
             #region Room
@@ -168,6 +170,7 @@ namespace MenkerMenu.Mods
             new Button("Ball Halo Orbit", Category.Visuals, true, false, ()=>BallHaloOrbit()),
             new Button("Visualize Anti Report", Category.Visuals, false, false, ()=>VisReport()),
             new Button("FPS Boost", Category.Visuals, true, false, ()=>FPSboost(), ()=> fixFPS()),
+            new Button("Menker Esp", Category.Visuals, true, false, ()=>MenkerEsp()),
             #endregion
 
             #region World
