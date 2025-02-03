@@ -81,7 +81,7 @@ namespace MenkerMenu.Mods.Categories
         {
             GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/motd (1)").GetComponent<TextMeshPro>().text = "Psi Menu | V1.0";
             TextMeshPro textMeshPro = GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/motdtext").GetComponent<TextMeshPro>();
-            textMeshPro.text = "DEVELOPMENT TEAM:\n Menker - Owner\nNova - Developer\nDiddy Master - Developer";
+            textMeshPro.text = "DEVELOPMENT TEAM:\n Menker - Owner\nNova - Developer\nDiddy Master - Developer\n\nThis Message Is From Nova, I Nova Have Made The GUI, Change Theme, Change Layout, And Some More Mods. [IM SO COOL!!!!]";
             textMeshPro.alignment = TextAlignmentOptions.Top;
             GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/CodeOfConduct").GetComponent<TextMeshPro>().text = "WHAT DO THESE SYMBOLS MEAN?";
             TextMeshPro textMeshPro2 = GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/COC Text").GetComponent<TextMeshPro>();

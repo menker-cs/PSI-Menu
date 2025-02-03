@@ -118,6 +118,15 @@ namespace MenkerMenu.Mods.Categories
         {
             GorillaTagger.Instance.transform.localScale = new Vector3(2f, 2f, 2f);
         }
+        public static void VeryLongArmsX()
+        {
+            GorillaTagger.Instance.transform.localScale = new Vector3(10f, 10f, 10f);
+        }
+
+        public static void FlatMonk()
+        {
+            GorillaTagger.Instance.transform.localScale = new Vector3(1f, 0.01f, 1f);
+        }
         public static void FixArms()
         {
             GorillaTagger.Instance.transform.localScale = new Vector3(1f, 1f, 1f);

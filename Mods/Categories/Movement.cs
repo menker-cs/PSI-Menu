@@ -114,41 +114,139 @@ namespace MenkerMenu.Mods.Categories
             GorillaLocomotion.Player.Instance.maxJumpSpeed = speedboostchangerspeed;
             GorillaLocomotion.Player.Instance.jumpMultiplier = speedboostchangerspeed;
         }
-        public static void Platform(ref GameObject platform, bool grabbing, Transform position, bool invis)
-        {
-            if (grabbing)
-            {
-                if (platform == null)
-                {
-                    platform = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    platform.transform.localScale = new Vector3(0.28f, 0.015f, 0.28f);
-                    platform.transform.position = position.position + new Vector3(0f, -0.02f, 0f);
-                    platform.transform.rotation = position.rotation * Quaternion.Euler(0f, 0f, -90f);
-                    platform.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
-                    platform.GetComponent<Renderer>().material.color = RoyalBlueTransparent;
-                    platform.AddComponent<GorillaSurfaceOverride>().overrideIndex = GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/sky jungle entrance 2/ElevatorClouds/Cloud_Platform_001 Variant").GetComponent<GorillaSurfaceOverride>().overrideIndex;
-
-                    if (invis == true)
-                    {
-                        platform.GetComponent<Renderer>().enabled = false;
-                    }
-                }
-            }
-            else if (platform != null)
-            {
-                GameObject.Destroy(platform);
-                platform = null;
-            }
-        }
         public static void Platforms()
         {
-            Platform(ref leftPlatform, ControllerInputPoller.instance.leftGrab | UnityInput.Current.GetKey(KeyCode.H), GorillaLocomotion.Player.Instance.leftControllerTransform, false);
-            Platform(ref rightPlatform, ControllerInputPoller.instance.rightGrab | UnityInput.Current.GetKey(KeyCode.G), GorillaLocomotion.Player.Instance.rightControllerTransform, false);
+            if (ControllerInputPoller.instance.rightGrab)
+            {
+                if (!RPA)
+                {
+                    RP = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    RP.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
+                    RP.GetComponent<Renderer>().material.color = new Color32(0, 8, 252, 80);
+                    RP.transform.rotation = GorillaLocomotion.Player.Instance.rightControllerTransform.rotation;
+                    RP.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
+                    RP.transform.position = GorillaTagger.Instance.rightHandTransform.position - Vector3.up * 0.045f;
+                    RPA = true;
+                }
+            }
+            else
+            {
+                GameObject.Destroy(RP);
+                RPA = false;
+            }
+
+            if (ControllerInputPoller.instance.leftGrab)
+            {
+                if (!LPA)
+                {
+                    LP = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    LP.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
+                    LP.GetComponent<Renderer>().material.color = new Color32(0, 8, 252, 80);
+                    LP.transform.rotation = GorillaLocomotion.Player.Instance.leftControllerTransform.rotation;
+                    LP.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
+                    LP.transform.position = GorillaTagger.Instance.leftHandTransform.position - Vector3.up * 0.045f; ;
+                    LPA = true;
+                }
+            }
+            else
+            {
+                GameObject.Destroy(LP);
+                LPA = false;
+            }
         }
-        public static void InvisPlatforms()
+        public static void StickyPlatforms()
         {
-            Platform(ref leftPlatform, ControllerInputPoller.instance.leftGrab | UnityInput.Current.GetKey(KeyCode.H), GorillaLocomotion.Player.Instance.leftControllerTransform, true);
-            Platform(ref rightPlatform, ControllerInputPoller.instance.rightGrab | UnityInput.Current.GetKey(KeyCode.G), GorillaLocomotion.Player.Instance.rightControllerTransform, true);
+            if (ControllerInputPoller.instance.rightGrab)
+            {
+                if (!RPA2)
+                {
+                    RP2 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    RP2.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
+                    RP2.GetComponent<Renderer>().material.color = new Color32(0, 8, 252, 80);
+                    RP2.transform.rotation = GorillaLocomotion.Player.Instance.rightControllerTransform.rotation;
+                    RP2.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
+                    RP2.transform.position = GorillaTagger.Instance.rightHandTransform.position - Vector3.up * 0.045f;
+
+                    RP22 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    RP22.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
+                    RP22.GetComponent<Renderer>().material.color = new Color32(0, 8, 252, 80);
+                    RP22.transform.rotation = GorillaLocomotion.Player.Instance.rightControllerTransform.rotation;
+                    RP22.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
+                    RP22.transform.position = GorillaTagger.Instance.rightHandTransform.position + Vector3.up * 0.045f;
+                    RPA2 = true;
+                }
+            }
+            else
+            {
+                GameObject.Destroy(RP2);
+                GameObject.Destroy(RP22);
+                RPA2 = false;
+            }
+
+            if (ControllerInputPoller.instance.leftGrab)
+            {
+                if (!LPA2)
+                {
+                    LP2 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    LP2.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
+                    LP2.GetComponent<Renderer>().material.color = new Color32(0, 8, 252, 80);
+                    LP2.transform.rotation = GorillaLocomotion.Player.Instance.leftControllerTransform.rotation;
+                    LP2.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
+                    LP2.transform.position = GorillaTagger.Instance.leftHandTransform.position - Vector3.up * 0.045f;
+
+                    LP22 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    LP22.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
+                    LP22.GetComponent<Renderer>().material.color = new Color32(0, 8, 252, 80);
+                    LP22.transform.rotation = GorillaLocomotion.Player.Instance.leftControllerTransform.rotation;
+                    LP22.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
+                    LP22.transform.position = GorillaTagger.Instance.leftHandTransform.position + Vector3.up * 0.045f;
+                    LPA2 = true;
+                }
+            }
+            else
+            {
+                GameObject.Destroy(LP2);
+                GameObject.Destroy(LP22);
+                LPA2 = false;
+            }
+        }
+        public static bool RPA = false;
+        public static bool LPA = false;
+        public static GameObject RP;
+        public static GameObject LP;
+
+        public static bool RPA2 = false;
+        public static bool LPA2 = false;
+        public static GameObject RP2;
+        public static GameObject LP2;
+        public static GameObject RP22;
+        public static GameObject LP22;
+        public static GameObject Pointy;
+        public static bool Ir = false;
+        public static void Checkpoint()
+        {
+            if (ControllerInputPoller.instance.rightGrab)
+            {
+                if (!Ir)
+                {
+                    Pointy = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    Pointy.GetComponent<Renderer>().material.color = MenuColor;
+                    Pointy.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                    Pointy.transform.position = GorillaTagger.Instance.rightHandTransform.position;
+                    Pointy.transform.rotation = GorillaTagger.Instance.rightHandTransform.rotation;
+                    Ir = true;
+                }
+            }
+            if (ControllerInputPoller.instance.rightControllerPrimaryButton)
+            {
+                GorillaTagger.Instance.transform.position = Pointy.transform.position;
+                GorillaLocomotion.Player.Instance.transform.position = Pointy.transform.position;
+            }
+            if (ControllerInputPoller.instance.rightControllerIndexFloat > 0.1f)
+            {
+                Ir = false;
+                GameObject.Destroy(Pointy);
+            }
         }
         public static void TPGun()
         {

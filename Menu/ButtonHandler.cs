@@ -9,6 +9,7 @@ using static MenkerMenu.Utilities.Variables;
 using static MenkerMenu.Menu.Optimizations;
 using static MenkerMenu.Mods.Categories.Room;
 using System.IO;
+using static MenkerMenu.Menu.Main;
 using Valve.VR;
 
 
@@ -159,7 +160,7 @@ namespace MenkerMenu.Menu
                     clickCooldown = Time.frameCount;
 
                     taggerInstance.StartVibration(rightHandedMenu, taggerInstance.tagHapticStrength / 2, taggerInstance.tagHapticDuration / 2);
-                    taggerInstance.offlineVRRig.PlayHandTapLocal(67, rightHandedMenu, 1);
+                    taggerInstance.offlineVRRig.PlayHandTapLocal(ActuallSound, rightHandedMenu, 1);
                     GetComponent<BoxCollider>().enabled = true;
 
                     Toggle(clickedButton);

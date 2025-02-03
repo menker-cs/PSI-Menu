@@ -527,7 +527,7 @@ namespace MenkerMenu.Menu
                 MenuColor = RoyalBlue;
                 ButtonColorOff = Color.black;
                 ButtonColorOn = Crimson;
-                DisconnecyColor =Crimson;
+                DisconnecyColor = Crimson;
                 RefreshMenu();
             }
             if (Theme == 1)
@@ -547,7 +547,26 @@ namespace MenkerMenu.Menu
                 RefreshMenu();
             }
         }
+        public static int ActuallSound = 1;
+        public static int LOJUHFDG = 1;
+        public static void ChangeSound()
+        {
+            LOJUHFDG++;
+            if (LOJUHFDG > 2)
+            {
+                LOJUHFDG = 1;
+                ActuallSound = 67;
+            }
 
+            if (LOJUHFDG == 1)
+            {
+                ActuallSound = 67;
+            }
+            if (LOJUHFDG == 2)
+            {
+                ActuallSound = 84;
+            }
+        }
         public static void AddDisconnectButton()
         {
             if (toggledisconnectButton)

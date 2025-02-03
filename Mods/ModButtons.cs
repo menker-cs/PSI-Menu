@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using MenkerMenu.Utilities;
 using MenkerMenu.Mods.Categories;
 using static MenkerMenu.Menu.UI;
+using Unity.Mathematics;
 namespace MenkerMenu.Mods
 {
     public enum Category
@@ -80,6 +81,7 @@ namespace MenkerMenu.Mods
             new Button("Disable Gui", Category.Settings, true, false, ()=>ToggleGui(true), ()=>ToggleGui(false)),
             new Button("Change Layout", Category.Settings, false, false, ()=> ChangeMenuLayout()),
             new Button("Change Theme", Category.Settings, false, false, ()=> ChangeTheme()),
+            new Button("Change Button Sound", Category.Settings, false, false, ()=> ChangeSound()),
             #endregion
 
             #region Room
@@ -112,7 +114,7 @@ namespace MenkerMenu.Mods
 
             #region Movement
             new Button("Platforms [G]", Category.Move, true, false, ()=>Platforms()),
-            new Button("Invis Platforms [G]", Category.Move, true, false, ()=>InvisPlatforms()),
+            new Button("Sticky Platforms [G]", Category.Move, true, false, ()=>StickyPlatforms()),
             new Button("Force Tag Freeze", Category.Move, false, false, ()=>TagFreeze()),
             new Button("No Tag Freeze", Category.Move, true, false, ()=>NoTagFreeze()),
             new Button("NoClip [T]", Category.Move, true, false, ()=>Noclip()),
@@ -130,11 +132,14 @@ namespace MenkerMenu.Mods
             new Button("TP Gun", Category.Move, true, false, ()=>TPGun()),
             new Button("TP To Player Gun", Category.Move, true, false, ()=>TPPlayerGun()),
             new Button("Hover Gun", Category.Move, true, false, ()=>HoverGun()),
+            new Button("Check Point [RG, RT, A]", Category.Move, true, false, ()=>Checkpoint()),
             #endregion
 
             #region Player
             new Button("Long Arms", Category.Player, true, false, ()=>LongArms(), ()=>FixArms()),
             new Button("Very Long Arms", Category.Player, true, false, ()=>VeryLongArms(), ()=>FixArms()),
+            new Button("<color=red>[EXTREME]</color> Long Arms", Category.Player, true, false, ()=>VeryLongArmsX(), ()=>FixArms()),
+            new Button("Flat Gorilla", Category.Player, true, false, ()=>FlatMonk(), ()=>FixArms()),
             new Button("Upsidedown Head", Category.Player, true, false, ()=>UpsidedownHead(), ()=>FixHead()),
             new Button("Backwards Head", Category.Player, true, false, ()=>BackwardsHead(), ()=>FixHead()),
             new Button("Hand Orbs", Category.Player, true, false, ()=>HandOrbs1()),
@@ -187,6 +192,14 @@ namespace MenkerMenu.Mods
             new Button("Bug Gun", Category.Fun, true, false, ()=> BugGun()),
             new Button("Grab Bat", Category.Fun, true, false, ()=> GrabBat()),
             new Button("Bat Gun", Category.Fun, true, false, ()=> BatGun()),
+            new Button("Grab Rocket", Category.Fun, true, false, ()=> GrabRocket()),
+            new Button("Rocket Gun", Category.Fun, true, false, ()=> RocketGun()),
+            new Button("Rocket Aura", Category.Fun, true, false, ()=> RocketAura()),
+            new Button("Rocket Halo", Category.Fun, true, false, ()=> RocketHalo()),
+            new Button("Give Rocket All", Category.Fun, true, false, ()=> GiveRocketAll()),
+            new Button("Give Rocket Closest", Category.Fun, true, false, ()=> RocketClosest()),
+            new Button("Fix Rocket Rotation", Category.Fun, true, false, ()=> GameObject.Find("RocketShip_Prefab").transform.rotation = quaternion.identity),
+            new Button("Hide Rocket", Category.Fun, true, false, ()=> GameObject.Find("RocketShip_Prefab").transform.position = new Vector3(99999f, 99999f, 99999f)),
             #endregion
 
             #region Guardian
