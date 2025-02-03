@@ -5,6 +5,7 @@ using UnityEngine;
 using static MenkerMenu.Utilities.Variables;
 using static MenkerMenu.Utilities.ColorLib;
 using static MenkerMenu.Mods.Categories.Settings;
+using static MenkerMenu.Menu.Main;
 using Photon.Pun;
 using Object = UnityEngine.Object;
 using System.Linq;
@@ -290,7 +291,7 @@ namespace MenkerMenu.Mods.Categories
                         component.loop = true;
                         component.useWorldSpace = true;
                         component.forceRenderingOff = false;
-                        UnityEngine.Color color = RoyalBlue;
+                        UnityEngine.Color color = MenuColor;
                         color.a = 0.1f;
                         component.startColor = color;
                         component.endColor = color;
@@ -313,7 +314,7 @@ namespace MenkerMenu.Mods.Categories
 
                     var gameobject = new GameObject("Line");
                     LineRenderer lineRenderer = gameobject.AddComponent<LineRenderer>();
-                    UnityEngine.Color color = RoyalBlue;
+                    UnityEngine.Color color = MenuColor;
                     color.a = 0.1f;
                     lineRenderer.startColor = color;
                     lineRenderer.endColor = color;
@@ -415,7 +416,7 @@ namespace MenkerMenu.Mods.Categories
                     if (vrrig != GorillaTagger.Instance.offlineVRRig)
                     {
                         vrrig.mainSkin.material.shader = Shader.Find("GUI/Text Shader");
-                        vrrig.mainSkin.material.color = RoyalBlue;
+                        vrrig.mainSkin.material.color = MenuColor;
                     }
                 }
             }
@@ -579,7 +580,7 @@ namespace MenkerMenu.Mods.Categories
                         ESPBall.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
                         ESPBall.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
                         ESPBall.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                        UnityEngine.Color color = RoyalBlue;
+                        UnityEngine.Color color = MenuColor;
                         color.a = 0.1f;
                         ESPBall.GetComponent<Renderer>().material.color = color;
                         UnityEngine.Object.Destroy(ESPBall, Time.deltaTime);
@@ -689,7 +690,7 @@ namespace MenkerMenu.Mods.Categories
                             ESPBox.transform.localScale = new Vector3(0.5f, 1f, 0f);
                             ESPBox.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
                             ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                            UnityEngine.Color color = RoyalBlue;
+                            UnityEngine.Color color = MenuColor;
                             color.a = 0.1f;
                             ESPBox.GetComponent<Renderer>().material.color = color;
                             UnityEngine.Object.Destroy(ESPBox, Time.deltaTime);
@@ -793,7 +794,7 @@ namespace MenkerMenu.Mods.Categories
                             UnityEngine.Object.Destroy(ESPBox.GetComponent<BoxCollider>());
                             ESPBox.transform.localScale = new Vector3(0.5f, 1f, 0.5f);
                             ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                            UnityEngine.Color color = RoyalBlue;
+                            UnityEngine.Color color = MenuColor;
                             color.a = 0.1f;
                             ESPBox.GetComponent<Renderer>().material.color = color;
                             UnityEngine.Object.Destroy(ESPBox, Time.deltaTime);
@@ -913,7 +914,7 @@ namespace MenkerMenu.Mods.Categories
                         Line.SetPosition(1, vrrig.transform.position);
                         Line.startWidth = 0.0225f;
                         Line.endWidth = 0.0225f;
-                        UnityEngine.Color color = RoyalBlue;
+                        UnityEngine.Color color = MenuColor;
                         color.a = 0.1f;
                         Line.startColor = color;
                         Line.endColor = color;
@@ -1065,7 +1066,7 @@ namespace MenkerMenu.Mods.Categories
 
                     UnityEngine.Color color;
                     color.a = 0.1f;
-                    color = RoyalBlue;
+                    color = MenuColor;
                     Material material = new Material(Shader.Find("GUI/Text Shader"));
                     material.color = color;
                     if (!Player.head.rigTarget.gameObject.GetComponent<LineRenderer>())

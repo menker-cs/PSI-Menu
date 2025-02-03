@@ -5,6 +5,7 @@ using UnityEngine;
 using MenkerMenu.Utilities;
 using static MenkerMenu.Mods.Categories.Settings;
 using BepInEx;
+using static MenkerMenu.Menu.Main;
 using System.Collections;
 using UnityEngine.InputSystem;
 using UnityEngine.XR;
@@ -31,10 +32,10 @@ namespace MenkerMenu.Utilities
         public static GameObject spherepointer;
         public static VRRig LockedPlayer;
         public static Vector3 lr;
-        public static Color32 PointerColor = new Color32(65, 105, 225, 80);//rgba(159, 0, 255, 1)
-        public static Color32 LineColor = new Color32(65, 105, 225, 80);//rgba(159, 0, 255, 1)
-        public static Color32 TriggeredPointerColor = new Color32(220, 20, 60, 80);
-        public static Color32 TriggeredLineColor = new Color32(220, 20, 60, 80);
+        public static Color32 PointerColor = MenuColor;//rgba(159, 0, 255, 1)
+        public static Color32 LineColor = MenuColor;//rgba(159, 0, 255, 1)
+        public static Color32 TriggeredPointerColor = ButtonColorOn;
+        public static Color32 TriggeredLineColor = ButtonColorOn;
 
 
         private static Vector3 CalculateBezierPoint(Vector3 start, Vector3 mid, Vector3 end, float t)

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PsiMenu")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ad91050fed3ffa4e303de9f1729a6dd46401320f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9eeeb7be2315c5a450d8b73651c75a6247798c13")]
 [assembly: System.Reflection.AssemblyProductAttribute("PsiMenu")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PsiMenu")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -18,6 +18,7 @@ namespace MenkerMenu.Utilities
         public static GameObject background = null;
         public static GameObject canvasObj = null;
         public static GameObject clickerObj = null;
+        public static GameObject PageButtons = null;
         public static GameObject disconnectButton = null;
         public static Text title;
 

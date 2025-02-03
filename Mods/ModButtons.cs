@@ -170,7 +170,6 @@ namespace MenkerMenu.Mods
             new Button("Ball Halo Orbit", Category.Visuals, true, false, ()=>BallHaloOrbit()),
             new Button("Visualize Anti Report", Category.Visuals, false, false, ()=>VisReport()),
             new Button("FPS Boost", Category.Visuals, true, false, ()=>FPSboost(), ()=> fixFPS()),
-            new Button("Menker Esp", Category.Visuals, true, false, ()=>MenkerEsp()),
             #endregion
 
             #region World
