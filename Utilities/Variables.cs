@@ -20,6 +20,7 @@ namespace MenkerMenu.Utilities
         public static GameObject clickerObj = null;
         public static GameObject PageButtons = null;
         public static GameObject disconnectButton = null;
+        public static GameObject ModButton = null;
         public static Text title;
 
         // --- UI Colors ---
@@ -38,7 +39,7 @@ namespace MenkerMenu.Utilities
         // --- Menu and Interaction Settings ---
         public static Category currentPage = Category.Home;
         public static int currentCategoryPage = 0;
-        public static int ButtonsPerPage = 7;
+        public static int ButtonsPerPage = 8;
         public static bool toggledisconnectButton = false;
         public static bool rightHandedMenu = false;
         public static bool toggleNotifications = true;

@@ -93,68 +93,80 @@ namespace MenkerMenu.Menu
             }
             #endregion
         }
-        public static void RoundObj(GameObject toRound)
+        public static void OutlineObj(GameObject obj, Color clr)
+        {
+            GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            UnityEngine.Object.Destroy(gameObject.GetComponent<Rigidbody>());
+            UnityEngine.Object.Destroy(gameObject.GetComponent<BoxCollider>());
+            gameObject.transform.parent = obj.transform;
+            gameObject.transform.rotation = Quaternion.identity;
+            gameObject.transform.localPosition = obj.transform.localPosition;
+            gameObject.transform.localScale = obj.transform.localScale + new Vector3(-0.025f, 0.0125f, 0.01f);
+            gameObject.GetComponent<Renderer>().material.color = clr;
+            //gameObject.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
+        }
+        public static void RoundObj(GameObject obj)
         {
             float Bevel = 0.02f;
 
-            Renderer ToRoundRenderer = toRound.GetComponent<Renderer>();
+            Renderer ToRoundRenderer = obj.GetComponent<Renderer>();
             GameObject BaseA = GameObject.CreatePrimitive(PrimitiveType.Cube);
             BaseA.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
             UnityEngine.Object.Destroy(BaseA.GetComponent<Collider>());
 
-            BaseA.transform.parent = menuObj.transform;
+            BaseA.transform.parent = obj.transform;
             BaseA.transform.rotation = Quaternion.identity;
-            BaseA.transform.localPosition = toRound.transform.localPosition;
-            BaseA.transform.localScale = toRound.transform.localScale + new Vector3(0f, Bevel * -2.55f, 0f);
+            BaseA.transform.localPosition = obj.transform.localPosition;
+            BaseA.transform.localScale = obj.transform.localScale + new Vector3(0f, Bevel * -2.55f, 0f);
 
             GameObject BaseB = GameObject.CreatePrimitive(PrimitiveType.Cube);
             BaseB.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
             UnityEngine.Object.Destroy(BaseB.GetComponent<Collider>());
 
-            BaseB.transform.parent = menuObj.transform;
+            BaseB.transform.parent = obj.transform;
             BaseB.transform.rotation = Quaternion.identity;
-            BaseB.transform.localPosition = toRound.transform.localPosition;
-            BaseB.transform.localScale = toRound.transform.localScale + new Vector3(0f, 0f, -Bevel * 2f);
+            BaseB.transform.localPosition = obj.transform.localPosition;
+            BaseB.transform.localScale = obj.transform.localScale + new Vector3(0f, 0f, -Bevel * 2f);
 
             GameObject RoundCornerA = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             RoundCornerA.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
             UnityEngine.Object.Destroy(RoundCornerA.GetComponent<Collider>());
 
-            RoundCornerA.transform.parent = menuObj.transform;
+            RoundCornerA.transform.parent = obj.transform;
             RoundCornerA.transform.rotation = Quaternion.identity * Quaternion.Euler(0f, 0f, 90f);
 
-            RoundCornerA.transform.localPosition = toRound.transform.localPosition + new Vector3(0f, (toRound.transform.localScale.y / 2f) - (Bevel * 1.275f), (toRound.transform.localScale.z / 2f) - Bevel);
-            RoundCornerA.transform.localScale = new Vector3(Bevel * 2.55f, toRound.transform.localScale.x / 2f, Bevel * 2f);
+            RoundCornerA.transform.localPosition = obj.transform.localPosition + new Vector3(0f, (obj.transform.localScale.y / 2f) - (Bevel * 1.275f), (obj.transform.localScale.z / 2f) - Bevel);
+            RoundCornerA.transform.localScale = new Vector3(Bevel * 2.55f, obj.transform.localScale.x / 2f, Bevel * 2f);
 
             GameObject RoundCornerB = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             RoundCornerB.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
             UnityEngine.Object.Destroy(RoundCornerB.GetComponent<Collider>());
 
-            RoundCornerB.transform.parent = menuObj.transform;
+            RoundCornerB.transform.parent = obj.transform;
             RoundCornerB.transform.rotation = Quaternion.identity * Quaternion.Euler(0f, 0f, 90f);
 
-            RoundCornerB.transform.localPosition = toRound.transform.localPosition + new Vector3(0f, -(toRound.transform.localScale.y / 2f) + (Bevel * 1.275f), (toRound.transform.localScale.z / 2f) - Bevel);
-            RoundCornerB.transform.localScale = new Vector3(Bevel * 2.55f, toRound.transform.localScale.x / 2f, Bevel * 2f);
+            RoundCornerB.transform.localPosition = obj.transform.localPosition + new Vector3(0f, -(obj.transform.localScale.y / 2f) + (Bevel * 1.275f), (obj.transform.localScale.z / 2f) - Bevel);
+            RoundCornerB.transform.localScale = new Vector3(Bevel * 2.55f, obj.transform.localScale.x / 2f, Bevel * 2f);
 
             GameObject RoundCornerC = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             RoundCornerC.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
             UnityEngine.Object.Destroy(RoundCornerC.GetComponent<Collider>());
 
-            RoundCornerC.transform.parent = menuObj.transform;
+            RoundCornerC.transform.parent = obj.transform;
             RoundCornerC.transform.rotation = Quaternion.identity * Quaternion.Euler(0f, 0f, 90f);
 
-            RoundCornerC.transform.localPosition = toRound.transform.localPosition + new Vector3(0f, (toRound.transform.localScale.y / 2f) - (Bevel * 1.275f), -(toRound.transform.localScale.z / 2f) + Bevel);
-            RoundCornerC.transform.localScale = new Vector3(Bevel * 2.55f, toRound.transform.localScale.x / 2f, Bevel * 2f);
+            RoundCornerC.transform.localPosition = obj.transform.localPosition + new Vector3(0f, (obj.transform.localScale.y / 2f) - (Bevel * 1.275f), -(obj.transform.localScale.z / 2f) + Bevel);
+            RoundCornerC.transform.localScale = new Vector3(Bevel * 2.55f, obj.transform.localScale.x / 2f, Bevel * 2f);
 
             GameObject RoundCornerD = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             RoundCornerD.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
             UnityEngine.Object.Destroy(RoundCornerD.GetComponent<Collider>());
 
-            RoundCornerD.transform.parent = menuObj.transform;
+            RoundCornerD.transform.parent = obj.transform;
             RoundCornerD.transform.rotation = Quaternion.identity * Quaternion.Euler(0f, 0f, 90f);
 
-            RoundCornerD.transform.localPosition = toRound.transform.localPosition + new Vector3(0f, -(toRound.transform.localScale.y / 2f) + (Bevel * 1.275f), -(toRound.transform.localScale.z / 2f) + Bevel);
-            RoundCornerD.transform.localScale = new Vector3(Bevel * 2.55f, toRound.transform.localScale.x / 2f, Bevel * 2f);
+            RoundCornerD.transform.localPosition = obj.transform.localPosition + new Vector3(0f, -(obj.transform.localScale.y / 2f) + (Bevel * 1.275f), -(obj.transform.localScale.z / 2f) + Bevel);
+            RoundCornerD.transform.localScale = new Vector3(Bevel * 2.55f, obj.transform.localScale.x / 2f, Bevel * 2f);
 
             GameObject[] ToChange = new GameObject[]
             {
@@ -176,172 +188,7 @@ namespace MenkerMenu.Menu
 
             ToRoundRenderer.enabled = false;
         }
-        public static void RoundObj1(GameObject toRound)
-        {
-            float Bevel = 0.02f;
 
-            Renderer ToRoundRenderer = toRound.GetComponent<Renderer>();
-            GameObject BaseA = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            BaseA.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
-            UnityEngine.Object.Destroy(BaseA.GetComponent<Collider>());
-
-            BaseA.transform.parent = disconnectButton.transform;
-            BaseA.transform.rotation = Quaternion.identity;
-            BaseA.transform.localPosition = toRound.transform.localPosition;
-            BaseA.transform.localScale = toRound.transform.localScale + new Vector3(0f, Bevel * -2.55f, 0f);
-
-            GameObject BaseB = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            BaseB.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
-            UnityEngine.Object.Destroy(BaseB.GetComponent<Collider>());
-
-            BaseB.transform.parent = disconnectButton.transform;
-            BaseB.transform.rotation = Quaternion.identity;
-            BaseB.transform.localPosition = toRound.transform.localPosition;
-            BaseB.transform.localScale = toRound.transform.localScale + new Vector3(0f, 0f, -Bevel * 2f);
-
-            GameObject RoundCornerA = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            RoundCornerA.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
-            UnityEngine.Object.Destroy(RoundCornerA.GetComponent<Collider>());
-
-            RoundCornerA.transform.parent = disconnectButton.transform;
-            RoundCornerA.transform.rotation = Quaternion.identity * Quaternion.Euler(0f, 0f, 90f);
-
-            RoundCornerA.transform.localPosition = toRound.transform.localPosition + new Vector3(0f, (toRound.transform.localScale.y / 2f) - (Bevel * 1.275f), (toRound.transform.localScale.z / 2f) - Bevel);
-            RoundCornerA.transform.localScale = new Vector3(Bevel * 2.55f, toRound.transform.localScale.x / 2f, Bevel * 2f);
-
-            GameObject RoundCornerB = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            RoundCornerB.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
-            UnityEngine.Object.Destroy(RoundCornerB.GetComponent<Collider>());
-
-            RoundCornerB.transform.parent = disconnectButton.transform;
-            RoundCornerB.transform.rotation = Quaternion.identity * Quaternion.Euler(0f, 0f, 90f);
-
-            RoundCornerB.transform.localPosition = toRound.transform.localPosition + new Vector3(0f, -(toRound.transform.localScale.y / 2f) + (Bevel * 1.275f), (toRound.transform.localScale.z / 2f) - Bevel);
-            RoundCornerB.transform.localScale = new Vector3(Bevel * 2.55f, toRound.transform.localScale.x / 2f, Bevel * 2f);
-
-            GameObject RoundCornerC = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            RoundCornerC.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
-            UnityEngine.Object.Destroy(RoundCornerC.GetComponent<Collider>());
-
-            RoundCornerC.transform.parent = disconnectButton.transform;
-            RoundCornerC.transform.rotation = Quaternion.identity * Quaternion.Euler(0f, 0f, 90f);
-
-            RoundCornerC.transform.localPosition = toRound.transform.localPosition + new Vector3(0f, (toRound.transform.localScale.y / 2f) - (Bevel * 1.275f), -(toRound.transform.localScale.z / 2f) + Bevel);
-            RoundCornerC.transform.localScale = new Vector3(Bevel * 2.55f, toRound.transform.localScale.x / 2f, Bevel * 2f);
-
-            GameObject RoundCornerD = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            RoundCornerD.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
-            UnityEngine.Object.Destroy(RoundCornerD.GetComponent<Collider>());
-
-            RoundCornerD.transform.parent = disconnectButton.transform;
-            RoundCornerD.transform.rotation = Quaternion.identity * Quaternion.Euler(0f, 0f, 90f);
-
-            RoundCornerD.transform.localPosition = toRound.transform.localPosition + new Vector3(0f, -(toRound.transform.localScale.y / 2f) + (Bevel * 1.275f), -(toRound.transform.localScale.z / 2f) + Bevel);
-            RoundCornerD.transform.localScale = new Vector3(Bevel * 2.55f, toRound.transform.localScale.x / 2f, Bevel * 2f);
-
-            GameObject[] ToChange = new GameObject[]
-            {
-                BaseA,
-                BaseB,
-                RoundCornerA,
-                RoundCornerB,
-                RoundCornerC,
-                RoundCornerD
-            };
-
-            foreach (GameObject Changed in ToChange)
-            {
-                ClampColor TargetChanger = Changed.AddComponent<ClampColor>();
-                TargetChanger.targetRenderer = ToRoundRenderer;
-
-                TargetChanger.Start();
-            }
-
-            ToRoundRenderer.enabled = false;
-        }
-        public static void RoundObj2(GameObject toRound)
-        {
-            float Bevel = 0.02f;
-
-            Renderer ToRoundRenderer = toRound.GetComponent<Renderer>();
-            GameObject BaseA = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            BaseA.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
-            UnityEngine.Object.Destroy(BaseA.GetComponent<Collider>());
-
-            BaseA.transform.parent = PageButtons.transform;
-            BaseA.transform.rotation = Quaternion.identity;
-            BaseA.transform.localPosition = toRound.transform.localPosition;
-            BaseA.transform.localScale = toRound.transform.localScale + new Vector3(0f, Bevel * -2.55f, 0f);
-
-            GameObject BaseB = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            BaseB.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
-            UnityEngine.Object.Destroy(BaseB.GetComponent<Collider>());
-
-            BaseB.transform.parent = PageButtons.transform;
-            BaseB.transform.rotation = Quaternion.identity;
-            BaseB.transform.localPosition = toRound.transform.localPosition;
-            BaseB.transform.localScale = toRound.transform.localScale + new Vector3(0f, 0f, -Bevel * 2f);
-
-            GameObject RoundCornerA = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            RoundCornerA.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
-            UnityEngine.Object.Destroy(RoundCornerA.GetComponent<Collider>());
-
-            RoundCornerA.transform.parent = PageButtons.transform;
-            RoundCornerA.transform.rotation = Quaternion.identity * Quaternion.Euler(0f, 0f, 90f);
-
-            RoundCornerA.transform.localPosition = toRound.transform.localPosition + new Vector3(0f, (toRound.transform.localScale.y / 2f) - (Bevel * 1.275f), (toRound.transform.localScale.z / 2f) - Bevel);
-            RoundCornerA.transform.localScale = new Vector3(Bevel * 2.55f, toRound.transform.localScale.x / 2f, Bevel * 2f);
-
-            GameObject RoundCornerB = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            RoundCornerB.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
-            UnityEngine.Object.Destroy(RoundCornerB.GetComponent<Collider>());
-
-            RoundCornerB.transform.parent = PageButtons.transform;
-            RoundCornerB.transform.rotation = Quaternion.identity * Quaternion.Euler(0f, 0f, 90f);
-
-            RoundCornerB.transform.localPosition = toRound.transform.localPosition + new Vector3(0f, -(toRound.transform.localScale.y / 2f) + (Bevel * 1.275f), (toRound.transform.localScale.z / 2f) - Bevel);
-            RoundCornerB.transform.localScale = new Vector3(Bevel * 2.55f, toRound.transform.localScale.x / 2f, Bevel * 2f);
-
-            GameObject RoundCornerC = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            RoundCornerC.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
-            UnityEngine.Object.Destroy(RoundCornerC.GetComponent<Collider>());
-
-            RoundCornerC.transform.parent = PageButtons.transform;
-            RoundCornerC.transform.rotation = Quaternion.identity * Quaternion.Euler(0f, 0f, 90f);
-
-            RoundCornerC.transform.localPosition = toRound.transform.localPosition + new Vector3(0f, (toRound.transform.localScale.y / 2f) - (Bevel * 1.275f), -(toRound.transform.localScale.z / 2f) + Bevel);
-            RoundCornerC.transform.localScale = new Vector3(Bevel * 2.55f, toRound.transform.localScale.x / 2f, Bevel * 2f);
-
-            GameObject RoundCornerD = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            RoundCornerD.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
-            UnityEngine.Object.Destroy(RoundCornerD.GetComponent<Collider>());
-
-            RoundCornerD.transform.parent = PageButtons.transform;
-            RoundCornerD.transform.rotation = Quaternion.identity * Quaternion.Euler(0f, 0f, 90f);
-
-            RoundCornerD.transform.localPosition = toRound.transform.localPosition + new Vector3(0f, -(toRound.transform.localScale.y / 2f) + (Bevel * 1.275f), -(toRound.transform.localScale.z / 2f) + Bevel);
-            RoundCornerD.transform.localScale = new Vector3(Bevel * 2.55f, toRound.transform.localScale.x / 2f, Bevel * 2f);
-
-            GameObject[] ToChange = new GameObject[]
-            {
-                BaseA,
-                BaseB,
-                RoundCornerA,
-                RoundCornerB,
-                RoundCornerC,
-                RoundCornerD
-            };
-
-            foreach (GameObject Changed in ToChange)
-            {
-                ClampColor TargetChanger = Changed.AddComponent<ClampColor>();
-                TargetChanger.targetRenderer = ToRoundRenderer;
-
-                TargetChanger.Start();
-            }
-
-            ToRoundRenderer.enabled = false;
-        }
         public class ClampColor : MonoBehaviour
         {
             public void Start()
@@ -494,7 +341,7 @@ namespace MenkerMenu.Menu
             Destroy(menuObj.GetComponent<Renderer>());
             menuObj.name = "menu";
 
-            menuObj.transform.localScale = new Vector3(0.1f, 0.2f, 0.3f);
+            menuObj.transform.localScale = new Vector3(0.1f, 0.3f, 0.3825f);
         }
 
         public static Color32 color = new Color32(65, 105, 225, 50);
@@ -504,41 +351,54 @@ namespace MenkerMenu.Menu
             background = GameObject.CreatePrimitive(PrimitiveType.Cube);
             Destroy(background.GetComponent<Rigidbody>());
             Destroy(background.GetComponent<BoxCollider>());
-            RoundObj(background);
+            //RoundObj(background);
+            OutlineObj(background, outColor);
             background.GetComponent<MeshRenderer>().material.color = MenuColor;
             background.transform.parent = menuObj.transform;
             background.transform.rotation = Quaternion.identity;
-            background.transform.localScale = new Vector3(0.1f, 0.3f, 0.3825f);
+            background.transform.localScale = new Vector3(0.1f, 1f, 1f);
             background.name = "menucolor";
-            background.transform.position = new Vector3(0.05f, 0, 0.025f);
+            background.transform.position = new Vector3(0.05f, 0f, 0f);
         }
         public static int Theme = 1;
-        public static Color MenuColor = RoyalBlue;
-        public static Color ButtonColorOff = Black;
-        public static Color ButtonColorOn = Crimson;
+        public static Color MenuColor = SkyBlue;
+        public static Color ButtonColorOff = RoyalBlue;
+        public static Color ButtonColorOn = DodgerBlue;
         public static Color DisconnecyColor = Crimson;
+        public static Color outColor = DarkDodgerBlue;
 
         public static void ChangeTheme()
         { 
             Theme++;
-            if (Theme > 2)
+            if (Theme > 3)
             {
                 Theme = 1;
-                MenuColor = RoyalBlue;
-                ButtonColorOff = Color.black;
-                ButtonColorOn = Crimson;
+                MenuColor = SkyBlue;
+                ButtonColorOff = RoyalBlue;
+                ButtonColorOn = DodgerBlue;
                 DisconnecyColor = Crimson;
+                NotificationLib.SendNotification("<color=white>[</color><color=blue>Theme</color><color=white>] Blue</color>");
                 RefreshMenu();
             }
             if (Theme == 1)
             {
-                 MenuColor = RoyalBlue;
-                 ButtonColorOff = Color.black;
-                 ButtonColorOn = Crimson;
-                 DisconnecyColor = Crimson;
-                 RefreshMenu();
+                MenuColor = SkyBlue;
+                ButtonColorOff = RoyalBlue;
+                ButtonColorOn = DodgerBlue;
+                DisconnecyColor = Crimson;
+                NotificationLib.SendNotification("<color=white>[</color><color=blue>Theme</color><color=white>] OG</color>");
+                RefreshMenu();
             }
             if (Theme == 2)
+            {
+                MenuColor = RoyalBlue;
+                ButtonColorOff = Color.black;
+                ButtonColorOn = Crimson;
+                DisconnecyColor = Crimson;
+                NotificationLib.SendNotification("<color=white>[</color><color=blue>Theme</color><color=white>] Dark</color>");
+                RefreshMenu();
+            }
+            if (Theme == 3)
             {
                 MenuColor = Black;
                 ButtonColorOff = DarkerGrey;
@@ -575,7 +435,15 @@ namespace MenkerMenu.Menu
                 disconnectButton = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 Destroy(disconnectButton.GetComponent<Rigidbody>());
                 disconnectButton.GetComponent<BoxCollider>().isTrigger = true;
-                RoundObj1(disconnectButton);
+                //RoundObj(disconnectButton);
+                if (Theme == 3)
+                {
+                    OutlineObj(disconnectButton, Maroon);
+                }
+                else
+                {
+                    OutlineObj(disconnectButton, WineRed);
+                }
                 disconnectButton.transform.parent = menuObj.transform;
                 disconnectButton.transform.rotation = Quaternion.identity;
                 disconnectButton.transform.localScale = new Vector3(0.09f, 0.9f, 0.08f);
@@ -594,9 +462,9 @@ namespace MenkerMenu.Menu
                 discontext.resizeTextForBestFit = true;
                 discontext.resizeTextMinSize = 0;
                 RectTransform rectt = discontext.GetComponent<RectTransform>();
-                rectt.sizeDelta = new Vector2(0.2f, 0.02f);
-                rectt.localPosition = new Vector3(0.064f, 0f, 0.1747f);
                 rectt.localScale = new Vector3(0.9f, 0.9f, 0.9f);
+                rectt.sizeDelta = new Vector2(0.2f, 0.03f);
+                rectt.localPosition = new Vector3(0.064f, 0f, 0.225f);
                 rectt.rotation = Quaternion.Euler(new Vector3(180f, 90f, 90f));
             }
         }
@@ -621,15 +489,15 @@ namespace MenkerMenu.Menu
             title.font = ResourceLoader.ArialFont;
             title.fontStyle = FontStyle.Bold;
             title.color = White;
-            title.fontSize = 6;
+            title.fontSize = 7;
             title.alignment = TextAnchor.MiddleCenter;
             title.resizeTextForBestFit = true;
             title.resizeTextMinSize = 0;
             RectTransform titleTransform = title.GetComponent<RectTransform>();
             titleTransform.localPosition = Vector3.zero;
-            titleTransform.position = new Vector3(0.051f, 0f, 0.130f);
+            titleTransform.position = new Vector3(0.07f, 0f, .16f);
             titleTransform.rotation = Quaternion.Euler(new Vector3(180f, 90f, 90f));
-            titleTransform.sizeDelta = new Vector2(0.19f, 0.04f);
+            titleTransform.sizeDelta = new Vector2(0.2f, 0.06f);
         }
         public static void AddTitleAndFPSCounter()
         {
@@ -645,7 +513,7 @@ namespace MenkerMenu.Menu
         public static void AddModButtons(float offset, ButtonHandler.Button button)
         {
             // Mod Buttons
-            GameObject ModButton = ButtonPool.GetButton();
+            ModButton = ButtonPool.GetButton();
             Rigidbody btnRigidbody = ModButton.GetComponent<Rigidbody>();
             if (btnRigidbody != null)
             {
@@ -659,11 +527,10 @@ namespace MenkerMenu.Menu
 
             ModButton.transform.SetParent(menuObj.transform, false);
             ModButton.transform.rotation = Quaternion.identity;
-            ModButton.transform.localScale = new Vector3(0.005f, 0.82f, 0.08f);
-            ModButton.transform.localPosition = new Vector3(0.505f, 0f, 0.3250f - offset);
+            ModButton.transform.localScale = new Vector3(0.09f, 0.9f, 0.08f);
+            ModButton.transform.localPosition = new Vector3(0.56f, 0f, 0.32f - offset);
             BtnCollider btnColScript = ModButton.GetComponent<BtnCollider>() ?? ModButton.AddComponent<BtnCollider>();
             btnColScript.clickedButton = button;
-
             // Mod Buttons Text
             GameObject titleObj = TextPool.GetTextObject();
             titleObj.transform.SetParent(canvasObj.transform, false);
@@ -674,7 +541,7 @@ namespace MenkerMenu.Menu
             title.fontStyle = FontStyle.Normal;
             title.color = White;
             RectTransform titleTransform = title.GetComponent<RectTransform>();
-            titleTransform.localPosition = new Vector3(0.051f, 0f, 0.0975f - offset / 3.35f);
+            titleTransform.localPosition = new Vector3(.064f, 0, .126f - offset / 2.6f);
             titleTransform.rotation = Quaternion.Euler(new Vector3(180f, 90f, 90f));
             titleTransform.sizeDelta = new Vector2(0.16f, 0.01725f);
 
@@ -707,8 +574,8 @@ namespace MenkerMenu.Menu
                 PageButtons.GetComponent<BoxCollider>().isTrigger = true;
                 PageButtons.transform.parent = menuObj.transform;
                 PageButtons.transform.rotation = Quaternion.identity;
-                PageButtons.transform.localScale = new Vector3(0.005f, 0.25f, 0.08f);
-                PageButtons.transform.localPosition = new Vector3(0.505f, button.Contains("<") ? 0.285f : -0.285f, -0.31f);
+                PageButtons.transform.localScale = new Vector3(0.09f, 0.25f, 0.079f);
+                PageButtons.transform.localPosition = new Vector3(0.56f, button.Contains("<") ? 0.285f : -0.285f, -0.435f);
                 PageButtons.GetComponent<Renderer>().material.color = ButtonColorOff;
                 PageButtons.AddComponent<BtnCollider>().clickedButton = new ButtonHandler.Button(button, Category.Home, false, false, null, null);
 
@@ -729,14 +596,15 @@ namespace MenkerMenu.Menu
                 titleTransform.sizeDelta = new Vector2(0.2f, 0.03f);
                 title.text = button.Contains("<") ? "<" : ">";
                 titleTransform.rotation = Quaternion.Euler(new Vector3(180f, 90f, 90f));
-                titleTransform.position = new Vector3(0.051f, button.Contains("<") ? 0.059f : -0.059f, -0.0935f);
+                titleTransform.position = new Vector3(0.064f, button.Contains("<") ? 0.087f : -.087f, -0.165f);
             }
             if (Laytou == 2)
             {
                 PageButtons = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 Destroy(PageButtons.GetComponent<Rigidbody>());
                 PageButtons.GetComponent<BoxCollider>().isTrigger = true;
-                RoundObj2(PageButtons);
+                //RoundObj(PageButtons);
+                OutlineObj(PageButtons, outColor);
                 PageButtons.transform.parent = menuObj.transform;
                 PageButtons.transform.rotation = Quaternion.identity;
                 PageButtons.transform.localScale = new Vector3(0.09f, 0.15f, 0.9f);
@@ -761,7 +629,7 @@ namespace MenkerMenu.Menu
                 titleTransform.sizeDelta = new Vector2(0.2f, 0.03f);
                 title.text = button.Contains("<") ? "<" : ">";
                 titleTransform.rotation = Quaternion.Euler(new Vector3(180f, 90f, 90f));
-                titleTransform.position = new Vector3(0.064f, button.Contains("<") ? 0.13f : -0.13f, 0f);
+                titleTransform.position = new Vector3(0.064f, button.Contains("<") ? 0.1955f : -0.1955f, 0f);
             }
         }
         public static void AddReturnButton()
@@ -774,8 +642,8 @@ namespace MenkerMenu.Menu
                 BackToStartButton.GetComponent<BoxCollider>().isTrigger = true;
                 BackToStartButton.transform.parent = menuObj.transform;
                 BackToStartButton.transform.rotation = Quaternion.identity;
-                BackToStartButton.transform.localScale = new Vector3(0.005f, 0.30625f, 0.08f);
-                BackToStartButton.transform.localPosition = new Vector3(0.505f, 0f, -0.31f);
+                BackToStartButton.transform.localScale = new Vector3(0.09f, 0.30625f, 0.08f);
+                BackToStartButton.transform.localPosition = new Vector3(0.56f, 0f, -0.435f);
                 BackToStartButton.AddComponent<BtnCollider>().clickedButton = new ButtonHandler.Button("ReturnButton", Category.Home, false, false, null, null);
                 BackToStartButton.GetComponent<Renderer>().material.color = ButtonColorOff;
 
@@ -796,7 +664,7 @@ namespace MenkerMenu.Menu
                 RectTransform titleTransform = title.GetComponent<RectTransform>();
                 titleTransform.localPosition = Vector3.zero;
                 titleTransform.sizeDelta = new Vector2(0.2f, 0.02f);
-                titleTransform.localPosition = new Vector3(0.051f, 0f, -0.0935f);
+                titleTransform.localPosition = new Vector3(.064f, 0f, -0.165f);
                 titleTransform.rotation = Quaternion.Euler(new Vector3(180f, 90f, 90f));
             }
             if (Laytou == 2)
@@ -807,8 +675,8 @@ namespace MenkerMenu.Menu
                 BackToStartButton.GetComponent<BoxCollider>().isTrigger = true;
                 BackToStartButton.transform.parent = menuObj.transform;
                 BackToStartButton.transform.rotation = Quaternion.identity;
-                BackToStartButton.transform.localScale = new Vector3(0.005f, 0.82f, 0.08f);
-                BackToStartButton.transform.localPosition = new Vector3(0.505f, 0f, -0.31f);
+                BackToStartButton.transform.localScale = new Vector3(0.09f, 0.82f, 0.08f);
+                BackToStartButton.transform.localPosition = new Vector3(0.56f, 0f, -0.435f);
                 BackToStartButton.AddComponent<BtnCollider>().clickedButton = new ButtonHandler.Button("ReturnButton", Category.Home, false, false, null, null);
                 BackToStartButton.GetComponent<Renderer>().material.color = ButtonColorOff;
 
@@ -829,7 +697,7 @@ namespace MenkerMenu.Menu
                 RectTransform titleTransform = title.GetComponent<RectTransform>();
                 titleTransform.localPosition = Vector3.zero;
                 titleTransform.sizeDelta = new Vector2(0.2f, 0.02f);
-                titleTransform.localPosition = new Vector3(0.051f, 0f, -0.0935f);
+                titleTransform.localPosition = new Vector3(.064f, 0f, -0.165f);
                 titleTransform.rotation = Quaternion.Euler(new Vector3(180f, 90f, 90f));
             }
         }

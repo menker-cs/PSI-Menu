@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using MenkerMenu.Utilities;
+using static MenkerMenu.Utilities.ColorLib;
 using static MenkerMenu.Mods.Categories.Settings;
 using BepInEx;
 using static MenkerMenu.Menu.Main;
@@ -32,10 +33,10 @@ namespace MenkerMenu.Utilities
         public static GameObject spherepointer;
         public static VRRig LockedPlayer;
         public static Vector3 lr;
-        public static Color32 PointerColor = MenuColor;//rgba(159, 0, 255, 1)
-        public static Color32 LineColor = MenuColor;//rgba(159, 0, 255, 1)
-        public static Color32 TriggeredPointerColor = ButtonColorOn;
-        public static Color32 TriggeredLineColor = ButtonColorOn;
+        public static Color32 PointerColor = SkyBlue;//rgba(159, 0, 255, 1)
+        public static Color32 LineColor = SkyBlue;//rgba(159, 0, 255, 1)
+        public static Color32 TriggeredPointerColor = WineRed;
+        public static Color32 TriggeredLineColor = WineRed;
 
 
         private static Vector3 CalculateBezierPoint(Vector3 start, Vector3 mid, Vector3 end, float t)

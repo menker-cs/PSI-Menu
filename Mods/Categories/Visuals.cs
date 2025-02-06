@@ -59,10 +59,8 @@ namespace MenkerMenu.Mods.Categories
             {
                 foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
                 {
-                    bool flag = vrrig == GorillaTagger.Instance.offlineVRRig;
-                    bool flag2 = !flag;
-                    bool flag3 = flag2;
-                    if (flag3)
+                    bool off = vrrig == GorillaTagger.Instance.offlineVRRig;
+                    if (off)
                     {
                         UnityEngine.Color color;
                         if (RigIsInfected(vrrig))
@@ -73,10 +71,8 @@ namespace MenkerMenu.Mods.Categories
                         {
                             color = UnityEngine.Color.green;
                         }
-                        bool flag7 = vrrig.gameObject.GetComponent<LineRenderer>() == null;
-                        bool flag8 = flag7;
-                        bool flag9 = flag8;
-                        if (flag9)
+                        bool idk = vrrig.gameObject.GetComponent<LineRenderer>() == null;
+                        if (idk)
                         {
                             vrrig.gameObject.AddComponent<LineRenderer>();
                         }
@@ -131,15 +127,11 @@ namespace MenkerMenu.Mods.Categories
             {
                 foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
                 {
-                    bool flag = vrrig == GorillaTagger.Instance.offlineVRRig;
-                    bool flag2 = !flag;
-                    bool flag3 = flag2;
-                    if (flag3)
+                    bool off = vrrig == GorillaTagger.Instance.offlineVRRig;
+                    if (off)
                     {
-                        bool flag7 = vrrig.gameObject.GetComponent<LineRenderer>() == null;
-                        bool flag8 = flag7;
-                        bool flag9 = flag8;
-                        if (flag9)
+                        bool idk = vrrig.gameObject.GetComponent<LineRenderer>() == null;
+                        if (idk)
                         {
                             vrrig.gameObject.AddComponent<LineRenderer>();
                         }
@@ -212,15 +204,11 @@ namespace MenkerMenu.Mods.Categories
 
                 foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
                 {
-                    bool flag = vrrig == GorillaTagger.Instance.offlineVRRig;
-                    bool flag2 = !flag;
-                    bool flag3 = flag2;
-                    if (flag3)
+                    bool off = vrrig == GorillaTagger.Instance.offlineVRRig;
+                    if (off)
                     {
-                        bool flag7 = vrrig.gameObject.GetComponent<LineRenderer>() == null;
-                        bool flag8 = flag7;
-                        bool flag9 = flag8;
-                        if (flag9)
+                        bool idk = vrrig.gameObject.GetComponent<LineRenderer>() == null;
+                        if (idk)
                         {
                             vrrig.gameObject.AddComponent<LineRenderer>();
                         }
@@ -271,15 +259,11 @@ namespace MenkerMenu.Mods.Categories
             {
                 foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
                 {
-                    bool flag = vrrig == GorillaTagger.Instance.offlineVRRig;
-                    bool flag2 = !flag;
-                    bool flag3 = flag2;
-                    if (flag3)
+                    bool off = vrrig == GorillaTagger.Instance.offlineVRRig;
+                    if (off)
                     {
-                        bool flag7 = vrrig.gameObject.GetComponent<LineRenderer>() == null;
-                        bool flag8 = flag7;
-                        bool flag9 = flag8;
-                        if (flag9)
+                        bool idk = vrrig.gameObject.GetComponent<LineRenderer>() == null;
+                        if (idk)
                         {
                             vrrig.gameObject.AddComponent<LineRenderer>();
                         }
