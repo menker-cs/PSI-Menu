@@ -14,6 +14,7 @@ using MenkerMenu.Utilities;
 using UnityEngine.InputSystem;
 using GorillaNetworking;
 using TMPro;
+using Photon.Pun;
 
 
 namespace MenkerMenu.Mods.Categories
@@ -77,17 +78,6 @@ namespace MenkerMenu.Mods.Categories
         {
             BetterDayNightManager.instance.SetTimeOfDay(4);
         }
-        public static void Coc()
-        {
-            GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/motd (1)").GetComponent<TextMeshPro>().text = "Psi Menu | V1.0";
-            TextMeshPro textMeshPro = GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/motdtext").GetComponent<TextMeshPro>();
-            textMeshPro.text = "DEVELOPMENT TEAM:\n Menker - Owner\nNova - Developer\nDiddy Master - Developer\n\nThis Message Is From Nova, I Nova Have Made The GUI, Change Theme, Change Layout, And Some More Mods. [IM SO COOL!!!!]";
-            textMeshPro.alignment = TextAlignmentOptions.Top;
-            GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/CodeOfConduct").GetComponent<TextMeshPro>().text = "WHAT DO THESE SYMBOLS MEAN?";
-            TextMeshPro textMeshPro2 = GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/COC Text").GetComponent<TextMeshPro>();
-            textMeshPro2.text = "\n[D?] = MIGHT BE DETECTED \n[D] - DETECTED\n[U] - USE\n[P] - PRIMARY\n[S] - SECONDARY\n[G] - GRIP\n[T] - TRIGGER\n[W?] - MAYBE WORKING\n[B] - BUGGY\n\nIF A MOD HAS NO SYMBOL, IT WORKS WITHOUT HAVING TO PRESS ANYTHING AND IS COMPLETELY SAFE TO USE";
-            textMeshPro2.alignment = TextAlignmentOptions.Top; // Center the text horizontally and vertically
-            GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/GameModes Title Text").GetComponent<TextMeshPro>().text = "Psi Menu";
-        }
+
     }
 }

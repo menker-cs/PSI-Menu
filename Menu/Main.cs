@@ -37,6 +37,36 @@ namespace MenkerMenu.Menu
         {
             try
             {
+                GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/motd (1)")
+                    .GetComponent<TextMeshPro>().text = $"<color=#a0a1f3>PSI MENU | V{menuVersion}\n--------------------------------------------</color>";
+                TextMeshPro textMeshPro = GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/motdtext").GetComponent<TextMeshPro>();
+                if (PhotonNetwork.InRoom)
+                {
+                    string roomName = PhotonNetwork.CurrentRoom.Name.ToUpper();
+                    string playerCount = PhotonNetwork.CurrentRoom.PlayerCount.ToString().ToUpper();
+                    string maxPlayers = PhotonNetwork.CurrentRoom.MaxPlayers.ToString().ToUpper();
+                    string ping = PhotonNetwork.GetPing().ToString().ToUpper();
+                    string isMaster = PhotonNetwork.IsMasterClient ? "YES" : "NO";
+                    string masterClient = PhotonNetwork.MasterClient.NickName.ToUpper();
+                    textMeshPro.text = $"<color=#00ff00>\nIN ROOM: {roomName}</color>\n<color=#a0a1f3>PLAYERS: {playerCount}/{maxPlayers}\n" +
+                           $"PING: {ping}ms\nAM I MASTER CLIENT?: {isMaster}\nMASTER CLIENT: {masterClient}\nMADE BY: COSMICCRYSTAL</color>";
+                }
+                else
+                {
+                    textMeshPro.text = "<color=#ff0000>\nNOT CONNECTED TO A ROOM</color>\n<color=#a0a1f3>MADE BY: COSMICCRYSTAL</color>";
+                }
+                textMeshPro.alignment = TextAlignmentOptions.Top;
+                GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/CodeOfConduct").GetComponent<TextMeshPro>().text = "WHAT DO THESE SYMBOLS MEAN?";
+                TextMeshPro textMeshPro2 = GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/COC Text").GetComponent<TextMeshPro>();
+                textMeshPro2.text = "\n[D?] = MIGHT BE DETECTED \n[D] - DETECTED\n[U] - USE\n[P] - PRIMARY\n[S] - SECONDARY\n[G] - GRIP\n[T] - TRIGGER\n[W?] - MAYBE WORKING\n[B] - BUGGY\n\nIF A MOD HAS NO SYMBOL, IT WORKS WITHOUT HAVING TO PRESS ANYTHING AND IS COMPLETELY SAFE TO USE";
+                textMeshPro2.alignment = TextAlignmentOptions.Top; // Center the text horizontally and vertically
+                GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/GameModes Title Text").GetComponent<TextMeshPro>().text = "Psi Menu";
+            }
+            catch
+            {
+            }
+                try
+            {
                 if (playerInstance == null || taggerInstance == null)
                 {
                     UnityEngine.Debug.LogError("Player instance or GorillaTagger is null. Skipping menu updates.");

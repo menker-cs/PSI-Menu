@@ -183,7 +183,6 @@ namespace MenkerMenu.Mods
             new Button("Enable Rain", Category.World, true, false, ()=>Rain(), ()=>Rain1()),
             new Button("Change Time Night", Category.World, false, false, ()=> NightTimeMod()),
             new Button("Change Time Day", Category.World, false, false, ()=> idkTimeMod()),
-            new Button("Custom Boards", Category.Unlisted, false, true, ()=> Coc()),
             #endregion
 
             #region Fun

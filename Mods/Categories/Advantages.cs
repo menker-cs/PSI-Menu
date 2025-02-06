@@ -103,6 +103,7 @@ namespace MenkerMenu.Mods.Categories
             else
             {
                 GorillaTagger.Instance.offlineVRRig.enabled = true;
+                NotificationLib.SendNotification("<color=white>[</color><color=blue>Tag Self:</color><color=white>] You are already tagged</color>");
             }
         }
 
