@@ -963,7 +963,6 @@ namespace MenkerMenu.Mods.Categories
                     if (Player == GorillaTagger.Instance.offlineVRRig) continue;
 
                     UnityEngine.Color color;
-                    color.a = 0.1f;
                     color = vrrig.playerColor;
                     Material material = new Material(Shader.Find("GUI/Text Shader"));
                     material.color = color;

@@ -17,6 +17,7 @@ using static MenkerMenu.Utilities.Patches.OtherPatches;
 using static MenkerMenu.Utilities.GunTemplate;
 using System.Linq;
 using Oculus.Platform;
+using Photon.Pun;
 
 namespace MenkerMenu.Mods.Categories
 {
