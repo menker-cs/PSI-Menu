@@ -44,11 +44,14 @@ namespace MenkerMenu.Mods
         Fun,
         Experimental,
         World,
-        Creds,
         Safety,
         Guardian,
         OP,
-        Unlisted,
+
+        // Credits
+        Creds,
+        MenuCreds,
+        ModCreds,
     }
     public class ModButtons
     {
@@ -82,6 +85,7 @@ namespace MenkerMenu.Mods
             new Button("Change Layout", Category.Settings, false, false, ()=> ChangeMenuLayout()),
             new Button("Change Theme", Category.Settings, false, false, ()=> ChangeTheme()),
             new Button("Change Button Sound", Category.Settings, false, false, ()=> ChangeSound()),
+            new Button("Refresh Menu", Category.Settings, false, false, ()=> RefreshMenu()),
             #endregion
 
             #region Room
@@ -96,11 +100,11 @@ namespace MenkerMenu.Mods
             new Button("Join Code Menker", Category.Room, false, false, ()=>JoinRoom("MENKER")),
             new Button("Join Code PBBV", Category.Room, false, false, ()=>JoinRoom("PBBV")),
             new Button("Join Code Daisy09", Category.Room, false, false, ()=>JoinRoom("DAISY09")),
-            new Button("Set Mode Hunt [CS]", Category.Room, false, false, ()=>SetMode("Hunt")),
-            new Button("Set Mode Paintbrawl [CS]", Category.Room, false, false, ()=>SetMode("Paintbrawl")),
-            new Button("Set Mode Ghost [CS]", Category.Room, false, false, ()=>SetMode("Ghost")),
-            new Button("Set Mode Ambush [CS]", Category.Room, false, false, ()=>SetMode("Ambush")),
-            new Button("Set Mode ERROR [CS]", Category.Room, false, false, ()=>SetMode("ERROR")),
+            //new Button("Set Mode Hunt [CS]", Category.Room, false, false, ()=>SetMode("Hunt")),
+            //new Button("Set Mode Paintbrawl [CS]", Category.Room, false, false, ()=>SetMode("Paintbrawl")),
+            //new Button("Set Mode Ghost [CS]", Category.Room, false, false, ()=>SetMode("Ghost")),
+            //new Button("Set Mode Ambush [CS]", Category.Room, false, false, ()=>SetMode("Ambush")),
+            //new Button("Set Mode ERROR [CS]", Category.Room, false, false, ()=>SetMode("ERROR")),
             new Button("Mute Everyone", Category.Room, false, false, ()=>MuteAll()),
             new Button("Report Everyone", Category.Room, false, false, ()=>ReportAll()),
             new Button("Copy Self ID", Category.Fun, false, false, ()=> CopySelfID()),
@@ -120,7 +124,6 @@ namespace MenkerMenu.Mods
             new Button("NoClip [T]", Category.Move, true, false, ()=>Noclip()),
             new Button("Speed Boost", Category.Move, true, false, ()=>Speedboost()),
             new Button("Fly [P]", Category.Move, true, false, ()=>Fly()),
-            new Button("Fly [P]", Category.Move, true, false, ()=>NoclipFly()),
             new Button("Trigger Fly [T]", Category.Move, true, false, ()=>TriggerFly()),
             new Button("Car Monkey [T]", Category.Move, true, false, ()=>carmonkey()),
             new Button("WASD [PC]", Category.Move, true, false, ()=>WASDFly()),
@@ -211,14 +214,16 @@ namespace MenkerMenu.Mods
             #endregion 
 
             #region Credits
-            new Button("Menu Credits:", Category.Creds, false, false, ()=>Placeholder()),
-            new Button("Menker", Category.Creds, false, false, ()=>Placeholder()),
-            new Button("Cockrs", Category.Creds, false, false, ()=>Placeholder()),
-            new Button("Nova", Category.Creds, false, false, ()=>Placeholder()),
-            new Button("NxO Template", Category.Creds, false, false, ()=>Placeholder()),
-            new Button("Diddy Master", Category.Creds, false, false, ()=>Placeholder()),
-            new Button("Wizzy Is Dumb", Category.Creds, false, false, ()=>Placeholder()),
-            new Button("Cha554", Category.Creds, false, false, ()=>Placeholder()),
+            new Button("Menu Credits", Category.Creds, false, false, ()=>ChangePage(Category.MenuCreds)),
+                new Button("Menu Credits:", Category.MenuCreds, false, false, ()=>Placeholder()),
+                new Button("Menker", Category.MenuCreds, false, false, ()=>Placeholder()),
+                new Button("Cosmic Crystak", Category.MenuCreds, false, false, ()=>Placeholder()),
+                new Button("Nova", Category.MenuCreds, false, false, ()=>Placeholder()),
+                new Button("NxO Template", Category.MenuCreds, false, false, ()=>Placeholder()),
+            new Button("Mod Credits", Category.Creds, false, false, ()=>ChangePage(Category.ModCreds)),
+                new Button("Diddy Master", Category.ModCreds, false, false, ()=>Placeholder()),
+                new Button("Wizzy Is Dumb", Category.ModCreds, false, false, ()=>Placeholder()),
+                new Button("Cha554", Category.ModCreds, false, false, ()=>Placeholder()),
             new Button("Join The Discord!", Category.Creds, false, false, ()=>Discord()),
             #endregion
         };

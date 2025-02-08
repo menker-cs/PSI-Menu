@@ -237,6 +237,10 @@ namespace MenkerMenu.Menu
         }
         public void Awake()
         {
+            ExitGames.Client.Photon.Hashtable table = Photon.Pun.PhotonNetwork.LocalPlayer.CustomProperties;
+            table.Add("Psi Menu", true);
+            Photon.Pun.PhotonNetwork.LocalPlayer.SetCustomProperties(table);
+
             ResourceLoader.LoadResources();
             taggerInstance = GorillaTagger.Instance;
             playerInstance = GorillaLocomotion.Player.Instance;
