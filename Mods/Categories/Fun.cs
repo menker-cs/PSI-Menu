@@ -74,7 +74,6 @@ namespace MenkerMenu.Mods.Categories
             GameObject rocket = GameObject.Find("RocketShip_Prefab");
             rocket.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
             rocket.transform.position = GorillaTagger.Instance.headCollider.transform.position + new Vector3(MathF.Cos((float)Time.frameCount / 30), 1f, MathF.Sin((float)Time.frameCount / 30));
-            rocket.transform.rotation = Quaternion.Euler(new Vector3(UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360)));
         }
         public static void CopyIDGun()
         {
@@ -128,8 +127,45 @@ namespace MenkerMenu.Mods.Categories
         {
             GorillaTagger.Instance.rightHandTransform.transform.position = Bat.transform.position;
         }
-
+        public static void GrabSBall()
+        {
+            if (ControllerInputPoller.instance.rightGrab)
+            {
+                SBall.transform.position = GorillaTagger.Instance.rightHandTransform.position;
+            }
+            if (ControllerInputPoller.instance.leftGrab)
+            {
+                SBall.transform.position = GorillaTagger.Instance.leftHandTransform.position;
+            }
+        }
+        public static void SBallGun()
+        {
+            GunTemplate.StartBothGuns(() =>
+            {
+                SBall.transform.position = GunTemplate.spherepointer.transform.position;
+            }, false);
+        }
+        public static void SnipeSBall()
+        {
+            GorillaTagger.Instance.rightHandTransform.transform.position = SBall.transform.position;
+        }
+        public static void SBallHalo()
+        {
+            SBall.transform.position = GorillaTagger.Instance.headCollider.transform.position + new Vector3(MathF.Cos((float)Time.frameCount / 30), 1f, MathF.Sin((float)Time.frameCount / 30));
+            SBall.transform.rotation = Quaternion.Euler(new Vector3(UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360)));
+        }
+        public static void BugHalo()
+        {
+            Bug.transform.position = GorillaTagger.Instance.headCollider.transform.position + new Vector3(MathF.Cos((float)Time.frameCount / 30), 1f, MathF.Sin((float)Time.frameCount / 30));
+            Bug.transform.rotation = Quaternion.Euler(new Vector3(UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360)));
+        }
+        public static void BatHalo()
+        {
+            Bat.transform.position = GorillaTagger.Instance.headCollider.transform.position + new Vector3(MathF.Cos((float)Time.frameCount / 30), 1f, MathF.Sin((float)Time.frameCount / 30));
+            Bat.transform.rotation = Quaternion.Euler(new Vector3(UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360)));
+        }
         public static GameObject Bat = GameObject.Find("Cave Bat Holdable");
         public static GameObject Bug = GameObject.Find("Floating Bug Holdable");
+        public static GameObject SBall = GameObject.Find("GameBall");
     }
 }

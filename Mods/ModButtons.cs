@@ -28,6 +28,7 @@ using MenkerMenu.Utilities;
 using MenkerMenu.Mods.Categories;
 using static MenkerMenu.Menu.UI;
 using Unity.Mathematics;
+using System.Net.Sockets;
 namespace MenkerMenu.Mods
 {
     public enum Category
@@ -191,8 +192,16 @@ namespace MenkerMenu.Mods
             #region Fun
             new Button("Grab Bug", Category.Fun, true, false, ()=> GrabBug()),
             new Button("Bug Gun", Category.Fun, true, false, ()=> BugGun()),
+            new Button("Snipe Bug", Category.Fun, true, false, ()=> SnipeBug()),
+            new Button("Bug Halo", Category.Fun, true, false, ()=> BugHalo()),
             new Button("Grab Bat", Category.Fun, true, false, ()=> GrabBat()),
             new Button("Bat Gun", Category.Fun, true, false, ()=> BatGun()),
+            new Button("Snipe Bat", Category.Fun, true, false, ()=> SnipeBat()),
+            new Button("Bat Halo", Category.Fun, true, false, ()=> BatHalo()),
+            new Button("Grab Soccer Ball", Category.Fun, true, false, ()=> GrabSBall()),
+            new Button("Soccer Ball Gun", Category.Fun, true, false, ()=> SBallGun()),
+            new Button("Snipe Soccer Ball", Category.Fun, true, false, ()=> SnipeSBall()),
+            new Button("Soccer Ball Halo", Category.Fun, true, false, ()=> SBallHalo()),
             new Button("Grab Rocket [CS]", Category.Fun, true, false, ()=> GrabRocket()),
             new Button("Rocket Gun [CS]", Category.Fun, true, false, ()=> RocketGun()),
             new Button("Rocket Aura [CS]", Category.Fun, true, false, ()=> RocketAura()),
