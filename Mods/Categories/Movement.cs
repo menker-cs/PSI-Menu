@@ -229,7 +229,7 @@ namespace MenkerMenu.Mods.Categories
             {
                 if (!Ir)
                 {
-                    Pointy = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    Pointy = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                     Pointy.GetComponent<Renderer>().material.color = MenuColor;
                     Pointy.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                     Pointy.transform.position = GorillaTagger.Instance.rightHandTransform.position;
