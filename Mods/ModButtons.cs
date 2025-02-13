@@ -201,7 +201,7 @@ namespace MenkerMenu.Mods
             new Button("Grab Soccer Ball", Category.Fun, true, false, ()=> GrabSBall()),
             new Button("Soccer Ball Gun", Category.Fun, true, false, ()=> SBallGun()),
             new Button("Snipe Soccer Ball", Category.Fun, true, false, ()=> SnipeSBall()),
-            new Button("Soccer Ball Halo", Category.Fun, true, false, ()=> SBallHalo()),
+            //new Button("Soccer Ball Halo", Category.Fun, true, false, ()=> SBallHalo()),
             new Button("Grab Rocket [CS]", Category.Fun, true, false, ()=> GrabRocket()),
             new Button("Rocket Gun [CS]", Category.Fun, true, false, ()=> RocketGun()),
             new Button("Rocket Aura [CS]", Category.Fun, true, false, ()=> RocketAura()),
@@ -219,7 +219,7 @@ namespace MenkerMenu.Mods
             #endregion
 
             #region OP
-            new Button("Nothing Here", Category.OP, false, false, ()=>Placeholder()),
+            new Button("Nothing Here", Category.OP, false, false, ()=>bangun()),
             #endregion 
 
             #region Credits

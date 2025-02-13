@@ -30,55 +30,23 @@ using System.Threading;
 using PlayFab.ProfilesModels;
 using System.Linq;
 using System.Reflection;
+using PlayFab;
 
 namespace MenkerMenu.Mods.Categories
 {
     public class Overpowered
     {
-        public static bool RUNRPC(PhotonView photonView, string method, Player player, object[] parameters)
+        public static void bangun()
         {
-            if (photonView != null && parameters != null && !string.IsNullOrEmpty(method))
+            GunTemplate.StartBothGuns(() =>
             {
-                var rpcHash = new ExitGames.Client.Photon.Hashtable
+                if (GunTemplate.LockedPlayer)
                 {
-                    { 0, photonView.ViewID },
-                    { 2, (int)(PhotonNetwork.ServerTimestamp + -int.MaxValue) },
-                    { 3, method },
-                    { 4, parameters }
-                };
+                    PlayFabAuthenticationAPI.ForgetAllCredentials();
+                }
 
-                if (photonView.Prefix > 0)
-                {
-                    rpcHash[1] = (short)photonView.Prefix;
-                }
-                if (PhotonNetwork.PhotonServerSettings.RpcList.Contains(method))
-                {
-                    rpcHash[5] = (byte)PhotonNetwork.PhotonServerSettings.RpcList.IndexOf(method);
-                }
-                if (PhotonNetwork.NetworkingClient.LocalPlayer.ActorNumber == player.ActorNumber)
-                {
-                    typeof(PhotonNetwork).GetMethod("ExecuteRpc", BindingFlags.Static | BindingFlags.NonPublic).Invoke(typeof(PhotonNetwork), new object[]
-                    {
-                        (ExitGames.Client.Photon.Hashtable)rpcHash, (Player)PhotonNetwork.LocalPlayer
-                    });
-                }
-                else
-                {
-                    PhotonNetwork.NetworkingClient.LoadBalancingPeer.OpRaiseEvent(200, rpcHash, new RaiseEventOptions
-                    {
-                        TargetActors = new int[]
-                        {
-                            player.ActorNumber,
-                        }
-                    }, new SendOptions
-                    {
-                        Reliability = true,
-                        DeliveryMode = DeliveryMode.ReliableUnsequenced,
-                        Encrypt = false
-                    });
-                }
-            }
-            return false;
+            }, true);
+
         }
     }
 }
