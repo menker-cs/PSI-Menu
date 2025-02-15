@@ -45,14 +45,11 @@ namespace MenkerMenu.Mods.Categories
                 rocket.transform.position = rig.transform.position;
             }
         }
-
-
         public static void RocketClosest()
         {
             GameObject rocket = GameObject.Find("RocketShip_Prefab");
             rocket.transform.position = RigManager.GetClosestVRRig().transform.position;
         }
-
         public static void RocketGun()
         {
             GunTemplate.StartBothGuns(() =>

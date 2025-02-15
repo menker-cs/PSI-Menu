@@ -46,7 +46,42 @@ namespace MenkerMenu.Mods.Categories
                 }
 
             }, true);
-
         }
+        public static void LagAll()
+        {
+            bool flag = Time.time > r;
+            if (flag)
+            {
+                r = Time.time + 0.11f;
+                for (int i = 0; i < 25; i++)
+                {
+                    FriendshipGroupDetection.Instance.photonView.RPC("RequestPartyGameMode", RpcTarget.Others, new object[1]);
+                    FriendshipGroupDetection.Instance.photonView.RPC("NotifyPartyGameModeChanged", RpcTarget.Others, new object[1]);
+                    FriendshipGroupDetection.Instance.photonView.RPC("VerifyPartyMember", RpcTarget.Others, new object[1]);
+                    FriendshipGroupDetection.Instance.photonView.RPC("PartyMemberIsAboutToGroupJoin", RpcTarget.Others, new object[1]);
+                    FlushRPCs(0.56f);
+                }
+            }
+        }
+        public static void LagGun()
+        {
+            GunTemplate.StartBothGuns(() =>
+            {
+                bool flag = Time.time > r;
+                if (flag)
+                {
+                    r = Time.time + 0.11f;
+                    for (int i = 0; i < 25; i++)
+                    {
+                        FriendshipGroupDetection.Instance.photonView.RPC("RequestPartyGameMode", RigManager.NetPlayerToPlayer(RigManager.GetPlayerFromVRRig(LockedPlayer)), new object[1]);
+                        FriendshipGroupDetection.Instance.photonView.RPC("NotifyPartyGameModeChanged", RigManager.NetPlayerToPlayer(RigManager.GetPlayerFromVRRig(LockedPlayer)), new object[1]);
+                        FriendshipGroupDetection.Instance.photonView.RPC("VerifyPartyMember", RigManager.NetPlayerToPlayer(RigManager.GetPlayerFromVRRig(LockedPlayer)), new object[1]);
+                        FriendshipGroupDetection.Instance.photonView.RPC("PartyMemberIsAboutToGroupJoin", RigManager.NetPlayerToPlayer(RigManager.GetPlayerFromVRRig(LockedPlayer)), new object[1]);
+                        FlushRPCs(0.56f);
+                    }
+                }
+            }, true);
+        }
+        static float r = 1f;
     }
 }

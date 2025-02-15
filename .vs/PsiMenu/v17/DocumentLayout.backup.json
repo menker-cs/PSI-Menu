@@ -11,24 +11,39 @@
       "RelativeMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|solutionrelative:mods\\modbuttons.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|c:\\users\\tommy\\onedrive\\documents\\github\\psimenu\\psi-menu\\mods\\categories\\fun.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|solutionrelative:mods\\categories\\fun.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|c:\\users\\tommy\\onedrive\\documents\\github\\psimenu\\psi-menu\\mods\\categories\\safety.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|solutionrelative:mods\\categories\\safety.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|c:\\users\\tommy\\onedrive\\documents\\github\\psimenu\\psi-menu\\mods\\categories\\guardian.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|solutionrelative:mods\\categories\\guardian.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|c:\\users\\tommy\\onedrive\\documents\\github\\psimenu\\psi-menu\\mods\\categories\\advantages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|solutionrelative:mods\\categories\\advantages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|c:\\users\\tommy\\onedrive\\documents\\github\\psimenu\\psi-menu\\mods\\categories\\world.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|solutionrelative:mods\\categories\\world.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|c:\\users\\tommy\\onedrive\\documents\\github\\psimenu\\psi-menu\\mods\\categories\\movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|solutionrelative:mods\\categories\\movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|c:\\users\\tommy\\onedrive\\documents\\github\\psimenu\\psi-menu\\mods\\categories\\playerr.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|solutionrelative:mods\\categories\\playerr.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|c:\\users\\tommy\\onedrive\\documents\\github\\psimenu\\psi-menu\\mods\\categories\\fun.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|solutionrelative:mods\\categories\\fun.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|c:\\users\\tommy\\onedrive\\documents\\github\\psimenu\\psi-menu\\menu\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|solutionrelative:menu\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|c:\\users\\tommy\\onedrive\\documents\\github\\psimenu\\psi-menu\\mods\\categories\\advantages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|solutionrelative:mods\\categories\\advantages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|c:\\users\\tommy\\onedrive\\documents\\github\\psimenu\\psi-menu\\mods\\categories\\settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -39,24 +54,12 @@
       "RelativeMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|solutionrelative:utilities\\visuals.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|c:\\users\\tommy\\onedrive\\documents\\github\\psimenu\\psi-menu\\mods\\categories\\world.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|solutionrelative:mods\\categories\\world.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|c:\\users\\tommy\\onedrive\\documents\\github\\psimenu\\psi-menu\\initialization\\plugininfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|solutionrelative:initialization\\plugininfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|c:\\users\\tommy\\onedrive\\documents\\github\\psimenu\\psi-menu\\mods\\categories\\visuals.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|solutionrelative:mods\\categories\\visuals.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|c:\\users\\tommy\\onedrive\\documents\\github\\psimenu\\psi-menu\\mods\\categories\\playerr.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|solutionrelative:mods\\categories\\playerr.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|c:\\users\\tommy\\onedrive\\documents\\github\\psimenu\\psi-menu\\mods\\categories\\safety.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|solutionrelative:mods\\categories\\safety.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{60C49799-0746-4959-A527-B67DCCBCBDB2}|PsiMenu.csproj|c:\\users\\tommy\\onedrive\\documents\\github\\psimenu\\psi-menu\\mods\\categories\\experimental.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -98,19 +101,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Main.cs",
-              "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Menu\\Main.cs",
-              "RelativeDocumentMoniker": "Menu\\Main.cs",
-              "ToolTip": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Menu\\Main.cs",
-              "RelativeToolTip": "Menu\\Main.cs",
-              "ViewState": "AgIAAHwAAAAAAAAAAAAgwPMAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-06T01:28:13.67Z"
+              "DocumentIndex": 3,
+              "Title": "Microsoft.Common.CurrentVersion.targets",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ViewState": "AgIAAGIJAAAAAAAAAAAewHEJAABWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2025-02-14T03:56:36.066Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 5,
               "Title": "World.cs",
               "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\Categories\\World.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\World.cs",
@@ -118,36 +122,36 @@
               "RelativeToolTip": "Mods\\Categories\\World.cs",
               "ViewState": "AgIAAEYAAAAAAAAAAAAowFAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-03T02:06:03.07Z"
+              "WhenOpened": "2025-02-03T02:06:03.07Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 8,
               "Title": "Fun.cs",
               "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\Categories\\Fun.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\Fun.cs",
               "ToolTip": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\Categories\\Fun.cs",
               "RelativeToolTip": "Mods\\Categories\\Fun.cs",
-              "ViewState": "AgIAAHkAAAAAAAAAAADwv5QAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAABcAAAAAAAAAAAAQwC4AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-03T01:56:49.396Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-03T01:56:49.396Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Movement.cs",
               "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\Categories\\Movement.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\Movement.cs",
               "ToolTip": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\Categories\\Movement.cs",
               "RelativeToolTip": "Mods\\Categories\\Movement.cs",
-              "ViewState": "AgIAACgBAAAAAAAAAAAwwCYBAAAdAAAAAAAAAA==",
+              "ViewState": "AgIAAJwAAAAAAAAAAAAtwLwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-03T01:44:01.161Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "Settings.cs",
               "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\Categories\\Settings.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\Settings.cs",
@@ -159,7 +163,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "Visuals.cs",
               "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\Categories\\Visuals.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\Visuals.cs",
@@ -171,7 +175,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "GUI2.cs",
               "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Menu\\GUI2.cs",
               "RelativeDocumentMoniker": "Menu\\GUI2.cs",
@@ -183,7 +187,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "Visuals.cs",
               "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Utilities\\Visuals.cs",
               "RelativeDocumentMoniker": "Utilities\\Visuals.cs",
@@ -201,26 +205,27 @@
               "RelativeDocumentMoniker": "Mods\\ModButtons.cs",
               "ToolTip": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\ModButtons.cs",
               "RelativeToolTip": "Mods\\ModButtons.cs",
-              "ViewState": "AgIAALEAAAAAAAAAAAAgwMoAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAAMQAAAAAAAAAAAAMwNkAAABSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-03T00:57:23.313Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 2,
               "Title": "Safety.cs",
               "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\Categories\\Safety.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\Safety.cs",
               "ToolTip": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\Categories\\Safety.cs",
               "RelativeToolTip": "Mods\\Categories\\Safety.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAMwBcAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-06T02:06:50.877Z"
+              "WhenOpened": "2025-02-06T02:06:50.877Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 10,
               "Title": "Advantages.cs",
               "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\Categories\\Advantages.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\Advantages.cs",
@@ -236,16 +241,16 @@
               "Title": "Overpowered.cs",
               "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\Categories\\Overpowered.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\Overpowered.cs",
-              "ToolTip": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\Categories\\Overpowered.cs*",
-              "RelativeToolTip": "Mods\\Categories\\Overpowered.cs*",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAACUAAAAFAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\Categories\\Overpowered.cs",
+              "RelativeToolTip": "Mods\\Categories\\Overpowered.cs",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAQwEEAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-06T04:34:30.645Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
               "Title": "PluginInfo.cs",
               "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Initialization\\PluginInfo.cs",
               "RelativeDocumentMoniker": "Initialization\\PluginInfo.cs",
@@ -257,31 +262,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Guardian.cs",
               "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\Categories\\Guardian.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\Guardian.cs",
               "ToolTip": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\Categories\\Guardian.cs",
               "RelativeToolTip": "Mods\\Categories\\Guardian.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAFoAAAAAAAAAAIAwwGYAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-06T04:34:29.493Z"
+              "WhenOpened": "2025-02-06T04:34:29.493Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Experimental.cs",
-              "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\Categories\\Experimental.cs",
-              "RelativeDocumentMoniker": "Mods\\Categories\\Experimental.cs",
-              "ToolTip": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\Categories\\Experimental.cs",
-              "RelativeToolTip": "Mods\\Categories\\Experimental.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-06T04:34:28.997Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 7,
               "Title": "Playerr.cs",
               "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\Categories\\Playerr.cs",
               "RelativeDocumentMoniker": "Mods\\Categories\\Playerr.cs",
@@ -293,7 +287,31 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 9,
+              "Title": "Main.cs",
+              "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Menu\\Main.cs",
+              "RelativeDocumentMoniker": "Menu\\Main.cs",
+              "ToolTip": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Menu\\Main.cs",
+              "RelativeToolTip": "Menu\\Main.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAPMAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-06T01:28:13.67Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Experimental.cs",
+              "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\Categories\\Experimental.cs",
+              "RelativeDocumentMoniker": "Mods\\Categories\\Experimental.cs",
+              "ToolTip": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Mods\\Categories\\Experimental.cs",
+              "RelativeToolTip": "Mods\\Categories\\Experimental.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-06T04:34:28.997Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
               "Title": "ColorLib.cs",
               "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Utilities\\ColorLib.cs",
               "RelativeDocumentMoniker": "Utilities\\ColorLib.cs",
@@ -305,7 +323,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "Gun.cs",
               "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Utilities\\Gun.cs",
               "RelativeDocumentMoniker": "Utilities\\Gun.cs",
@@ -317,18 +335,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "PsiMenu",
               "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\PsiMenu.csproj",
               "RelativeDocumentMoniker": "PsiMenu.csproj",
               "ToolTip": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\PsiMenu.csproj",
               "RelativeToolTip": "PsiMenu.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-02-03T00:48:55.006Z"
+              "WhenOpened": "2025-02-03T00:48:55.006Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "ButtonHandler.cs",
               "DocumentMoniker": "C:\\Users\\Tommy\\OneDrive\\Documents\\GitHub\\PsiMenu\\PSI-Menu\\Menu\\ButtonHandler.cs",
               "RelativeDocumentMoniker": "Menu\\ButtonHandler.cs",

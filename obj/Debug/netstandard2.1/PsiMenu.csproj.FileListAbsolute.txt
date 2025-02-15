@@ -391,7 +391,6 @@ C:\Users\Tommy\OneDrive\Documents\GitHub\PsiMenu\PSI-Menu\bin\Debug\netstandard2
 C:\Users\Tommy\OneDrive\Documents\GitHub\PsiMenu\PSI-Menu\bin\Debug\netstandard2.1\Cinemachine.dll
 C:\Users\Tommy\OneDrive\Documents\GitHub\PsiMenu\PSI-Menu\bin\Debug\netstandard2.1\Fusion.Realtime.dll
 C:\Users\Tommy\OneDrive\Documents\GitHub\PsiMenu\PSI-Menu\bin\Debug\netstandard2.1\Fusion.Runtime.dll
-C:\Users\Tommy\OneDrive\Documents\GitHub\PsiMenu\PSI-Menu\bin\Debug\netstandard2.1\Newtonsoft.Json.dll
 C:\Users\Tommy\OneDrive\Documents\GitHub\PsiMenu\PSI-Menu\bin\Debug\netstandard2.1\Oculus.AudioManager.dll
 C:\Users\Tommy\OneDrive\Documents\GitHub\PsiMenu\PSI-Menu\bin\Debug\netstandard2.1\Oculus.Interaction.dll
 C:\Users\Tommy\OneDrive\Documents\GitHub\PsiMenu\PSI-Menu\bin\Debug\netstandard2.1\Oculus.Interaction.OVR.dll
@@ -561,3 +560,4 @@ C:\Users\Tommy\OneDrive\Documents\GitHub\PsiMenu\PSI-Menu\bin\Debug\netstandard2
 C:\Users\Tommy\OneDrive\Documents\GitHub\PsiMenu\PSI-Menu\bin\Debug\netstandard2.1\MonoMod.Utils.xml
 C:\Users\Tommy\OneDrive\Documents\GitHub\PsiMenu\PSI-Menu\bin\Debug\netstandard2.1\MonoMod.RuntimeDetour.xml
 C:\Users\Tommy\OneDrive\Documents\GitHub\PsiMenu\PSI-Menu\obj\Debug\netstandard2.1\PsiMenu.csproj.Up2Date
+C:\Users\Tommy\OneDrive\Documents\GitHub\PsiMenu\PSI-Menu\bin\Debug\netstandard2.1\Newtonsoft.Json.dll

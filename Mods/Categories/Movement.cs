@@ -122,7 +122,7 @@ namespace MenkerMenu.Mods.Categories
                 {
                     RP = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     RP.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
-                    RP.GetComponent<Renderer>().material.color = new Color32(0, 8, 252, 80);
+                    RP.GetComponent<Renderer>().material.color = MenuColor;
                     RP.transform.rotation = GorillaLocomotion.Player.Instance.rightControllerTransform.rotation;
                     RP.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
                     RP.transform.position = GorillaTagger.Instance.rightHandTransform.position - Vector3.up * 0.045f;
@@ -141,7 +141,7 @@ namespace MenkerMenu.Mods.Categories
                 {
                     LP = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     LP.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
-                    LP.GetComponent<Renderer>().material.color = new Color32(0, 8, 252, 80);
+                    LP.GetComponent<Renderer>().material.color = MenuColor;
                     LP.transform.rotation = GorillaLocomotion.Player.Instance.leftControllerTransform.rotation;
                     LP.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
                     LP.transform.position = GorillaTagger.Instance.leftHandTransform.position - Vector3.up * 0.045f; ;
@@ -160,26 +160,30 @@ namespace MenkerMenu.Mods.Categories
             {
                 if (!RPA2)
                 {
+                    RP1 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    RP1.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
+                    RP1.GetComponent<Renderer>().material.color = MenuColor;
+                    RP1.transform.rotation = GorillaLocomotion.Player.Instance.rightControllerTransform.rotation;
+                    RP1.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
+                    RP1.transform.position = GorillaTagger.Instance.rightHandTransform.position - Vector3.up * 0.045f;
+
                     RP2 = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     RP2.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
-                    RP2.GetComponent<Renderer>().material.color = new Color32(0, 8, 252, 80);
+                    RP2.GetComponent<Renderer>().material.color = MenuColor;
                     RP2.transform.rotation = GorillaLocomotion.Player.Instance.rightControllerTransform.rotation;
                     RP2.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
-                    RP2.transform.position = GorillaTagger.Instance.rightHandTransform.position - Vector3.up * 0.045f;
-
-                    RP22 = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    RP22.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
-                    RP22.GetComponent<Renderer>().material.color = new Color32(0, 8, 252, 80);
-                    RP22.transform.rotation = GorillaLocomotion.Player.Instance.rightControllerTransform.rotation;
-                    RP22.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
-                    RP22.transform.position = GorillaTagger.Instance.rightHandTransform.position + Vector3.up * 0.045f;
+                    RP2.transform.position = GorillaTagger.Instance.rightHandTransform.position + Vector3.up * 0.045f;
                     RPA2 = true;
+                   // if (invis == true)
+                   // {
+
+                  //  }
                 }
             }
             else
             {
+                GameObject.Destroy(RP1);
                 GameObject.Destroy(RP2);
-                GameObject.Destroy(RP22);
                 RPA2 = false;
             }
 
@@ -187,42 +191,29 @@ namespace MenkerMenu.Mods.Categories
             {
                 if (!LPA2)
                 {
+                    LP1 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    LP1.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
+                    LP1.GetComponent<Renderer>().material.color = new Color32(0, 8, 252, 80);
+                    LP1.transform.rotation = GorillaLocomotion.Player.Instance.leftControllerTransform.rotation;
+                    LP1.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
+                    LP1.transform.position = GorillaTagger.Instance.leftHandTransform.position - Vector3.up * 0.045f;
+
                     LP2 = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     LP2.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
                     LP2.GetComponent<Renderer>().material.color = new Color32(0, 8, 252, 80);
                     LP2.transform.rotation = GorillaLocomotion.Player.Instance.leftControllerTransform.rotation;
                     LP2.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
-                    LP2.transform.position = GorillaTagger.Instance.leftHandTransform.position - Vector3.up * 0.045f;
-
-                    LP22 = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    LP22.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
-                    LP22.GetComponent<Renderer>().material.color = new Color32(0, 8, 252, 80);
-                    LP22.transform.rotation = GorillaLocomotion.Player.Instance.leftControllerTransform.rotation;
-                    LP22.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
-                    LP22.transform.position = GorillaTagger.Instance.leftHandTransform.position + Vector3.up * 0.045f;
+                    LP2.transform.position = GorillaTagger.Instance.leftHandTransform.position + Vector3.up * 0.045f;
                     LPA2 = true;
                 }
             }
             else
             {
+                GameObject.Destroy(LP1);
                 GameObject.Destroy(LP2);
-                GameObject.Destroy(LP22);
                 LPA2 = false;
             }
         }
-        public static bool RPA = false;
-        public static bool LPA = false;
-        public static GameObject RP;
-        public static GameObject LP;
-
-        public static bool RPA2 = false;
-        public static bool LPA2 = false;
-        public static GameObject RP2;
-        public static GameObject LP2;
-        public static GameObject RP22;
-        public static GameObject LP22;
-        public static GameObject Pointy;
-        public static bool Ir = false;
         public static void Checkpoint()
         {
             if (ControllerInputPoller.instance.rightGrab)
@@ -358,13 +349,18 @@ namespace MenkerMenu.Mods.Categories
          
           private static Vector3 oldMousePos;
 
-          public static bool rp = false;
-          public static bool lp = false;
+         public static bool RPA = false;
+         public static bool LPA = false;
+         public static GameObject RP;
+         public static GameObject LP;
 
-          public static GameObject rightPlat;
-          public static GameObject leftPlat;
-
-          public static GameObject leftPlatform;
-          public static GameObject rightPlatform;
+         public static bool RPA2 = false;
+         public static bool LPA2 = false;
+         public static GameObject RP1;
+         public static GameObject LP1;
+         public static GameObject RP2;
+         public static GameObject LP2;
+         public static GameObject Pointy;
+         public static bool Ir = false;
     }
 }

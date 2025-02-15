@@ -24,6 +24,9 @@ using BepInEx;
 using MenkerMenu.Utilities;
 using Photon.Realtime;
 using GorillaLocomotion;
+using MenkerMenu.Menu;
+using Oculus.Platform;
+using System;
 
 namespace MenkerMenu.Mods.Categories
 {
@@ -121,6 +124,52 @@ namespace MenkerMenu.Mods.Categories
             PhotonNetwork.RemoveBufferedRPCs(GorillaTagger.Instance.myVRRig.ViewID, null, null);
             PhotonNetwork.OpCleanActorRpcBuffer(PhotonNetwork.LocalPlayer.ActorNumber);
             PhotonNetwork.OpCleanRpcBuffer(GorillaTagger.Instance.myVRRig.GetView);
+        }
+        private static float flushCooldown;
+        public static void FlushRPCs(float cooldown = 0.56f)
+        {
+            bool inRoom = PhotonNetwork.InRoom;
+            if (inRoom)
+            {
+                bool flag = cooldown < 0.1f;
+                if (flag)
+                {
+                    SendNotification("May Quit Low RPCS");
+                }
+                bool flag2 = Time.time > flushCooldown;
+                if (flag2)
+                {
+                    flushCooldown = Time.time + cooldown;
+                    try
+                    {
+                        PhotonNetwork.RemoveBufferedRPCs(0, null, null);
+                        PhotonNetwork.RemoveRPCs(PhotonNetwork.LocalPlayer);
+                        PhotonNetwork.RemoveRPCsInGroup(999);
+                    }
+                    catch
+                    {
+                    }
+                    GorillaNot.instance.rpcCallLimit = int.MaxValue;
+
+                    GorillaNot.instance.rpcErrorMax = int.MaxValue;
+                    GorillaNot.instance.rpcCallLimit = int.MaxValue;
+                    GorillaNot.instance.logErrorMax = int.MaxValue;
+                    try
+                    {
+                    }
+                    catch
+                    {
+                    }
+                    try
+                    {
+                        PhotonNetwork.OpCleanRpcBuffer(GorillaTagger.Instance.myVRRig.GetView);
+                    }
+                    catch
+                    {
+                    }
+                    Traverse.Create(GorillaNot.instance).Method("RefreshRPCs", Array.Empty<object>()).GetValue();
+                }
+            }
         }
     }
 }
