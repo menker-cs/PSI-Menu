@@ -49,17 +49,17 @@ namespace MenkerMenu.Mods.Categories
         }
         public static void LagAll()
         {
-            bool flag = Time.time > r;
-            if (flag)
+            bool lag = Time.time > r;
+            if (lag)
             {
-                r = Time.time + 0.11f;
-                for (int i = 0; i < 25; i++)
+                r = Time.time + 0.2f;
+                for (int i = 0; i < 20; i++)
                 {
-                    FriendshipGroupDetection.Instance.photonView.RPC("RequestPartyGameMode", RpcTarget.Others, new object[1]);
-                    FriendshipGroupDetection.Instance.photonView.RPC("NotifyPartyGameModeChanged", RpcTarget.Others, new object[1]);
-                    FriendshipGroupDetection.Instance.photonView.RPC("VerifyPartyMember", RpcTarget.Others, new object[1]);
-                    FriendshipGroupDetection.Instance.photonView.RPC("PartyMemberIsAboutToGroupJoin", RpcTarget.Others, new object[1]);
-                    FlushRPCs(0.56f);
+                    FriendshipGroupDetection.Instance.photonView.RPC("RequestPartyGameMode", Photon.Pun.RpcTarget.Others, new object[1]);
+                    FriendshipGroupDetection.Instance.photonView.RPC("NotifyPartyGameModeChanged", Photon.Pun.RpcTarget.Others, new object[1]);
+                    FriendshipGroupDetection.Instance.photonView.RPC("VerifyPartyMember", Photon.Pun.RpcTarget.Others, new object[1]);
+                    FriendshipGroupDetection.Instance.photonView.RPC("PartyMemberIsAboutToGroupJoin", Photon.Pun.RpcTarget.Others, new object[1]);
+                    FlushRPCs(0.4f);
                 }
             }
         }
@@ -67,20 +67,26 @@ namespace MenkerMenu.Mods.Categories
         {
             GunTemplate.StartBothGuns(() =>
             {
-                bool flag = Time.time > r;
-                if (flag)
+                bool lag = Time.time > r;
+                if (lag)
                 {
-                    r = Time.time + 0.11f;
-                    for (int i = 0; i < 25; i++)
+                    if (ControllerInputPoller.instance.rightGrab)
                     {
-                        FriendshipGroupDetection.Instance.photonView.RPC("RequestPartyGameMode", RigManager.NetPlayerToPlayer(RigManager.GetPlayerFromVRRig(LockedPlayer)), new object[1]);
-                        FriendshipGroupDetection.Instance.photonView.RPC("NotifyPartyGameModeChanged", RigManager.NetPlayerToPlayer(RigManager.GetPlayerFromVRRig(LockedPlayer)), new object[1]);
-                        FriendshipGroupDetection.Instance.photonView.RPC("VerifyPartyMember", RigManager.NetPlayerToPlayer(RigManager.GetPlayerFromVRRig(LockedPlayer)), new object[1]);
-                        FriendshipGroupDetection.Instance.photonView.RPC("PartyMemberIsAboutToGroupJoin", RigManager.NetPlayerToPlayer(RigManager.GetPlayerFromVRRig(LockedPlayer)), new object[1]);
-                        FlushRPCs(0.56f);
+                        r = Time.time + 0.2f;
+                        for (int i = 0; i < 20; i++)
+                        {
+                            FriendshipGroupDetection.Instance.photonView.RPC("RequestPartyGameMode", RigManager.NetPlayerToPlayer(RigManager.GetPlayerFromVRRig(GunTemplate.LockedPlayer)), new object[1]);
+                            FriendshipGroupDetection.Instance.photonView.RPC("NotifyPartyGameModeChanged", RigManager.NetPlayerToPlayer(RigManager.GetPlayerFromVRRig(GunTemplate.LockedPlayer)), new object[1]);
+                            FriendshipGroupDetection.Instance.photonView.RPC("VerifyPartyMember", RigManager.NetPlayerToPlayer(RigManager.GetPlayerFromVRRig(GunTemplate.LockedPlayer)), new object[1]);
+                            FriendshipGroupDetection.Instance.photonView.RPC("PartyMemberIsAboutToGroupJoin", RigManager.NetPlayerToPlayer(RigManager.GetPlayerFromVRRig(GunTemplate.LockedPlayer)), new object[1]);
+                            Safety.FlushRPCs(0.4f);
+                        }
                     }
+
                 }
+
             }, true);
+
         }
         static float r = 1f;
     }

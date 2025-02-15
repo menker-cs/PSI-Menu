@@ -17,6 +17,7 @@ using static MenkerMenu.Mods.Categories.World;
 using static MenkerMenu.Menu.ButtonHandler;
 using static MenkerMenu.Menu.Optimizations;
 using static MenkerMenu.Menu.Optimizations.ResourceLoader;
+using static MenkerMenu.Menu.UI;
 using static MenkerMenu.Menu.Main;
 using UnityEngine;
 using Fusion;
@@ -26,7 +27,6 @@ using Photon.Pun;
 using System.Collections.Generic;
 using MenkerMenu.Utilities;
 using MenkerMenu.Mods.Categories;
-using static MenkerMenu.Menu.UI;
 using Unity.Mathematics;
 using System.Net.Sockets;
 namespace MenkerMenu.Mods
@@ -82,11 +82,11 @@ namespace MenkerMenu.Mods
             new Button("Change Fly Speed", Category.Settings, false, false, ()=>FlySpeed()),
             new Button("Change Speed Boost", Category.Settings, false, false, ()=>SpeedSpeed()),
             new Button("Change ESP Color", Category.Settings, false, false, ()=>ESPChange()),
-            new Button("Disable Gui", Category.Settings, true, false, ()=>ToggleGui(true), ()=>ToggleGui(false)),
             new Button("Change Layout", Category.Settings, false, false, ()=> ChangeMenuLayout()),
             new Button("Change Theme", Category.Settings, false, false, ()=> ChangeTheme()),
             new Button("Change Button Sound", Category.Settings, false, false, ()=> ChangeSound()),
             new Button("Refresh Menu", Category.Settings, false, false, ()=> RefreshMenu()),
+            new Button("Toggle Gui", Category.Settings, true, true, ()=>ToggleGUI(true), ()=>ToggleGUI(false)),
             #endregion
 
             #region Room
@@ -216,12 +216,12 @@ namespace MenkerMenu.Mods
             new Button("Always Guradian", Category.Guardian, true, false, ()=> AlwaysGuardian()),
             new Button("Void All [T]", Category.Guardian, true, false, ()=> VoidAll()),
             new Button("Grab All", Category.Guardian, true, false, ()=> GrabAll()),
-            new Button("Grab All", Category.Guardian, true, false, ()=> UnGudian()),
+            new Button("Un Guardian All [M]", Category.Guardian, true, false, ()=> UnGudian()),
             #endregion
 
             #region OP
-            new Button("Lag All", Category.OP, true, false, ()=>LagAll()),
-            new Button("Lag Gun", Category.OP, true, false, ()=>LagGun()),
+            new Button("Lag All [UND]", Category.OP, true, false, ()=>LagAll()),
+            new Button("Lag Gun [UND]", Category.OP, true, false, ()=>LagGun()),
             #endregion 
 
             #region Credits
@@ -235,6 +235,7 @@ namespace MenkerMenu.Mods
                 new Button("Diddy Master", Category.ModCreds, false, false, ()=>Placeholder()),
                 new Button("Wizzy Is Dumb", Category.ModCreds, false, false, ()=>Placeholder()),
                 new Button("Cha554", Category.ModCreds, false, false, ()=>Placeholder()),
+                new Button("Tortise", Category.ModCreds, false, false, ()=>Placeholder()),
             new Button("Join The Discord!", Category.Creds, false, false, ()=>Discord()),
             #endregion
         };

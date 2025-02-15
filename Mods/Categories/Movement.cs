@@ -120,9 +120,11 @@ namespace MenkerMenu.Mods.Categories
             {
                 if (!RPA)
                 {
+                    Color clr = MenuColor;
                     RP = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     RP.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
-                    RP.GetComponent<Renderer>().material.color = MenuColor;
+                    RP.GetComponent<Renderer>().material.color = clr;
+                    OutlineObj(RP,outColor);
                     RP.transform.rotation = GorillaLocomotion.Player.Instance.rightControllerTransform.rotation;
                     RP.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
                     RP.transform.position = GorillaTagger.Instance.rightHandTransform.position - Vector3.up * 0.045f;
@@ -142,6 +144,7 @@ namespace MenkerMenu.Mods.Categories
                     LP = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     LP.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
                     LP.GetComponent<Renderer>().material.color = MenuColor;
+                    OutlineObj(LP, outColor);
                     LP.transform.rotation = GorillaLocomotion.Player.Instance.leftControllerTransform.rotation;
                     LP.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
                     LP.transform.position = GorillaTagger.Instance.leftHandTransform.position - Vector3.up * 0.045f; ;
@@ -174,10 +177,8 @@ namespace MenkerMenu.Mods.Categories
                     RP2.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
                     RP2.transform.position = GorillaTagger.Instance.rightHandTransform.position + Vector3.up * 0.045f;
                     RPA2 = true;
-                   // if (invis == true)
-                   // {
-
-                  //  }
+                    OutlineObj(RP1, outColor);
+                    OutlineObj(RP2, outColor);
                 }
             }
             else
@@ -205,6 +206,8 @@ namespace MenkerMenu.Mods.Categories
                     LP2.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
                     LP2.transform.position = GorillaTagger.Instance.leftHandTransform.position + Vector3.up * 0.045f;
                     LPA2 = true;
+                    OutlineObj(LP1, outColor);
+                    OutlineObj(LP2, outColor);
                 }
             }
             else

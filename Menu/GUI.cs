@@ -1,980 +1,404 @@
-﻿/*using BepInEx;
+﻿using System.Buffers.Text;
+using System.Collections.Generic;
+using BepInEx;
 using GorillaNetworking;
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
-using static MenkerMenu.Utilities.ColorLib;
-using static MenkerMenu.Mods.Categories.Move;
-using static MenkerMenu.Mods.Categories.Player;
-using static MenkerMenu.Mods.Categories.Room;
-using static MenkerMenu.Mods.Categories.Settings;
-using static MenkerMenu.Mods.Categories.Safety;
-using static MenkerMenu.Mods.Categories.Advantage;
-using static MenkerMenu.Mods.Categories.Experimental;
-using static MenkerMenu.Mods.Categories.Fun;
-using static MenkerMenu.Mods.Categories.Guardian;
-using static MenkerMenu.Mods.Categories.Visuals;
-using static MenkerMenu.Mods.Categories.World;
-using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Networking;
-using MenkerMenu.Mods.Categories;
 using Photon.Realtime;
-using UnityEngine.UIElements;
+using MenkerMenu.Utilities;
+using static MenkerMenu.Initialization.PluginInfo;
+using static MenkerMenu.Utilities.Variables;
 using MenkerMenu.Menu;
+using UnityEngine;
+using MenkerMenu.Mods;
 
-namespace GorillaTagPlugin
+namespace MenkerMenu.Menu
 {
-    [BepInPlugin("com.Gui.GayrillaTag", "GUI", "1.0.0")]
-    public class GorillaTagGui : BaseUnityPlugin
+    [BepInPlugin("Psi.GUI", "GayrillaTag", "1.0")]
+    public class UI : BaseUnityPlugin
     {
-        private bool isGuiEnabled = false;
-        private string buttonText = "Enable GUI";
-        private string windowTitle = "Psi Menu";
-        private Rect windowRectangle = new Rect(60, 20, 800, 500);
-        private int currentPage = 0;
+        private Rect windowRect = new Rect(10, 10, 700, 500);
+        static bool showGUI = true;
+        private Vector2 scrollPosition = Vector2.zero;
+        private int selectedTab = 0;
+        //private string roomCode = "";
+        private Color theme = new Color32(0, 0, 0, 255);
+        private bool wasdthing = false;
+        public static Vector2 scrollpos1 = Vector2.zero;
+        public static Vector2 scrollpos2 = Vector2.zero;
+        private float moveSpeed = 5f;
+        private float shiftMultiplier = 2.5f;
+        private float verticalSpeed = 5f;
+        private float arrowKeyTurnSpeed = 50f;
+        private string searchQuery = "";
+        private float buttonCooldown = 0.1f;
+        private float lastButtonPressTime = 0f;
+        private Texture2D buttonTexture;
+        private Texture2D buttonTextureActive;
+        private Texture2D tabTexture;
+        private Texture2D tabTextureActive;
+        private string userInput = "";
 
-        private Color sidePanelColor = new Color(0.8f, 0.0f, 0.8f);
-        private Color buttonColor = new Color(0.8f, 0.0f, 0.8f);
-        private Color activeButtonColor = new Color(1.0f, 0.5f, 1.0f);
-        private Color buttonTextColor = Color.white;
-        private Color mainContentColor = new Color(0.9f, 0.1f, 0.9f);
-
-        private Texture2D buttonImage;
-        private bool imagething = false;
-
-        public void Start()
-        //image link for gui on button
+        public static void ToggleGUI(bool yes)
         {
-            StartCoroutine(LoadTextureFromURL("https://cdn.discordapp.com/attachments/1298799649590607942/1331458787931848786/image_2025-01-21_220138760-removebg-preview.png?ex=6791b120&is=67905fa0&hm=dd22e7455e19fba7c495fcb5b6cf46f00c52f9eb8abb40daa996cf96237bef7e&"));
+            showGUI = yes;
+        }
+        void Start()
+        {
+            //regular buttons
+            buttonTexture = CreateTexture(new Color32(25, 25, 25, 255));
+            buttonTextureActive = CreateTexture(new Color32(65, 65, 65, 255));
+
+            //tab buttons
+            tabTexture = CreateTexture(new Color32(50, 50, 50, 255));
+            tabTextureActive = CreateTexture(new Color32(255, 0, 255, 255));
         }
 
-        private System.Collections.IEnumerator LoadTextureFromURL(string url)
+        void Update()
         {
-            UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
-            yield return www.SendWebRequest();
-
-            if (www.result == UnityWebRequest.Result.Success)
+            if (UnityInput.Current.GetKeyDown(KeyCode.RightShift) && Time.time >= lastButtonPressTime + buttonCooldown)
             {
-                buttonImage = ((DownloadHandlerTexture)www.downloadHandler).texture;
-                imagething = true;
-            }
-            else
-            {
-                Debug.LogError("Failed to load texture: " + www.error);
+                //showGUI = !showGUI;
+                lastButtonPressTime = Time.time;
             }
         }
 
         void OnGUI()
         {
-            if (!isGuiEnabled)
+            GUIStyle titleStyle = new GUIStyle(GUI.skin.label)
             {
-                feedbackText = "";
-                feedbackTimeRemaining = 0f;
+                fontSize = 24,
+                fontStyle = FontStyle.Bold,
+                normal = { textColor = Color.white }
+            };
+
+            GUI.Label(new Rect(10, 10, 300, 50), $"<color=#FF0000>P</color><color=#FF7F00>S</color><color=#FFFF00>I </color><color=#00FF00>O</color><color=#0000FF>N </color><color=#4B0082>T</color><color=#8B00FF>O</color><color=#FF0000>P</color> {menuVersion}", titleStyle);
+
+            if (showGUI)
+            {
+                int fps = (Time.deltaTime > 0) ? Mathf.RoundToInt(1.0f / Time.deltaTime) : 0;
+
+                GUI.backgroundColor = theme;
+                windowRect = GUI.Window(0, windowRect, DrawMainWindow, "");
             }
 
-            if (imagething && buttonImage != null)
+            GUIStyle roomStatusStyle = new GUIStyle(GUI.skin.label)
             {
-                float buttonWidth = 200;
-                float buttonHeight = 200;
-
-                GUIStyle buttonStyle = new GUIStyle(GUI.skin.button)
-                {
-                    normal = { background = null },
-                    active = { background = null },
-                    hover = { background = null }
-                };
-
-                if (GUI.Button(new Rect(20, 20, buttonWidth, buttonHeight), "", buttonStyle))
-                {
-                    isGuiEnabled = !isGuiEnabled;
-                    buttonText = isGuiEnabled ? "Disable GUI" : "Enable GUI";
-                }
-
-                GUI.DrawTexture(new Rect(20, 20, buttonWidth, buttonHeight), buttonImage);
-            }
-
-            if (isGuiEnabled)
-            {
-                windowRectangle = GUI.Window(10000, windowRectangle, MainGUI, windowTitle);
-            }
-            if (feedbackTimeRemaining > 0f)
-            {
-                GUIStyle feedbackStyle = new GUIStyle(GUI.skin.label)
-                {
-                    fontSize = 26,
-                    normal = { textColor = Color.white },
-                    alignment = TextAnchor.MiddleCenter
-                };
-
-                Rect rect = new Rect(Screen.width / 2 - 150, Screen.height / 2 - 25, 300, 50);
-                GUI.Label(rect, feedbackText, feedbackStyle);
-            }
-
-        }
-        void HideFeedbackText()
-        {
-            showFeedback = false;
-        }
-        private IEnumerator ShowCustomFeedback(string message, float duration)
-        {
-            feedbackText = message;
-            feedbackTimeRemaining = duration;
-
-            while (feedbackTimeRemaining > 0f)
-            {
-                feedbackTimeRemaining -= Time.deltaTime;
-                yield return null;
-            }
-
-            feedbackText = "";
-            feedbackTimeRemaining = 0f;
-        }
-        void MainGUI(int windowID)
-        {
-            GUIStyle buttonStyle = new GUIStyle(GUI.skin.button)
-            {
-                normal = { background = MakeTex(1, 1, buttonColor), textColor = buttonTextColor },
-                active = { background = MakeTex(1, 1, activeButtonColor) },
-                fontSize = 16,
+                fontSize = 20,
                 alignment = TextAnchor.MiddleCenter,
+                richText = true
             };
+            float baseY = Screen.height - 30;
 
-            GUIStyle labelStyle = new GUIStyle(GUI.skin.label)
+            string roomStatus;
+            if (PhotonNetwork.InRoom)
             {
-                fontSize = 22,
-                normal = { textColor = buttonTextColor },
-                alignment = TextAnchor.MiddleCenter
-            };
-
-            GUIStyle sidePanelStyle = new GUIStyle()
-            {
-                normal = { background = MakeTex(1, 1, sidePanelColor) }
-            };
-
-            GUIStyle mainContentStyle = new GUIStyle()
-            {
-                normal = { background = MakeTex(1, 1, mainContentColor) }
-            };
-
-            GUILayout.BeginArea(new Rect(0, 0, 250, windowRectangle.height), sidePanelStyle);
-            GUILayout.Label("Developer Build", labelStyle);
-            GUILayout.Space(10);
-            if (GUILayout.Button("Room", buttonStyle)) currentPage = 0;
-            if (GUILayout.Button("Game", buttonStyle)) currentPage = 1;
-            GUILayout.Space(20);
-            GUILayout.Label("Player", labelStyle);
-            if (GUILayout.Button("Movement", buttonStyle)) currentPage = 2;
-            if (GUILayout.Button("Rig", buttonStyle)) currentPage = 3;
-            GUILayout.Space(20);
-            GUILayout.Label("Visual", labelStyle);
-            if (GUILayout.Button("ESP", buttonStyle)) currentPage = 4;
-            if (GUILayout.Button("World", buttonStyle)) currentPage = 5;
-            GUILayout.Space(20);
-            GUILayout.Label("Fun", labelStyle);
-            if (GUILayout.Button("Fun", buttonStyle)) currentPage = 6;
-            GUILayout.Space(20);
-            GUILayout.Label("Misc", labelStyle);
-            if (GUILayout.Button("Theme", buttonStyle)) currentPage = 7;
-            if (GUILayout.Button("Credits", buttonStyle)) currentPage = 9;
-            GUILayout.EndArea();
-
-            GUILayout.BeginArea(new Rect(250, 0, windowRectangle.width - 250, windowRectangle.height), mainContentStyle);
-            GUILayout.BeginVertical();
-            GUILayout.Label(windowTitle, labelStyle);
-
-            switch (currentPage)
-            {
-                case 0: RoomPage(buttonStyle); break;
-                case 1: GamePage(buttonStyle); break;
-                case 2: MovementPage(buttonStyle); break;
-                case 3: RigPage(buttonStyle); break;
-                case 4: ESPPage(buttonStyle); break;
-                case 5: World(buttonStyle); break;
-                case 6: Fun(buttonStyle); break;
-                case 7: ThemePage(buttonStyle); break;
-                case 9: CreditsPage(buttonStyle); break;
-                default: break;
+                roomStatus = $"<color=green>In Room: {PhotonNetwork.CurrentRoom.Name}</color>";
             }
+            else
+            {
+                roomStatus = "<color=red>Not Connected To A Room</color>";
+            }
+            Rect roomStatusRect = new Rect(Screen.width / 2 - 150, baseY, 300, 30);
+            GUI.Label(roomStatusRect, roomStatus, roomStatusStyle);
+        }
 
-            GUILayout.EndVertical();
-            GUILayout.EndArea();
+        private void DrawMainWindow(int windowID)
+        {
+            GUIStyle guiTitleStyle = new GUIStyle(GUI.skin.label)
+            {
+                fontSize = 20,
+                fontStyle = FontStyle.Bold,
+                normal = { textColor = Color.white }
+            };
+            fps = (Time.deltaTime > 0) ? Mathf.RoundToInt(1.0f / Time.deltaTime) : 0;
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Label($"<color=#FF0000>P</color><color=#FF7F00>S</color><color=#FFFF00>I </color><color=#00FF00>O</color><color=#0000FF>N </color><color=#4B0082>T</color><color=#8B00FF>O</color><color=#FF0000>P</color> {menuVersion} [{fps}]", guiTitleStyle);
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+
+            GUILayout.Space(5);
+
+            DrawTabs();
+
+            GUILayout.Space(5);
+            switch (selectedTab)
+            {
+                case 0: DrawRoomTab(); break;
+                case 1: DrawSelfTab(); break;
+                case 2: DrawPlayerListTab(); break;
+                case 3: DrawMiscTab(); break;
+                case 4: DrawMenuButtonsTab(); break;
+            }
 
             GUI.DragWindow();
         }
-
-        void RoomPage(GUIStyle buttonStyle)
+        private void DrawTabs()
         {
-            GUILayout.Space(10);
-            roomCodeInput = GUILayout.TextField(roomCodeInput, 25);
-            if (GUILayout.Button("Join Room", buttonStyle))
+            GUILayout.BeginHorizontal();
+
+            string[] tabNames = { "Room", "Self", "Player List", "Console", "Menu Buttons" };
+            for (int i = 0; i < tabNames.Length; i++)
             {
-                Debug.Log($"Joining room: {roomCodeInput}");
-                PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(roomCodeInput, 0);
-                string customMessage = "Joining...";
-                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
-
-
+                if (GUILayout.Button(tabNames[i], GetTabStyle(i == selectedTab)))
+                {
+                    selectedTab = i;
+                }
             }
-            if (GUILayout.Button("Set Name", buttonStyle))
-            {
-                PhotonNetwork.LocalPlayer.NickName = roomCodeInput;
-                PhotonNetwork.NickName = roomCodeInput;
-                PhotonNetwork.NetworkingClient.NickName = roomCodeInput;
-                GorillaComputer.instance.currentName = roomCodeInput;
-                GorillaComputer.instance.savedName = roomCodeInput;
-                GorillaComputer.instance.offlineVRRigNametagText.text = roomCodeInput;
-                GorillaLocomotion.Player.Instance.name = roomCodeInput;
-                NetworkSystem.Instance.name = roomCodeInput;
-                NetworkSystem.Instance.SetMyNickName(roomCodeInput);
-                PlayerPrefs.SetString("playerName", roomCodeInput);
-                PlayerPrefs.Save();
-            }
-            if (GUILayout.Button("Join Random (Forest)", buttonStyle))
-            {
-                Debug.Log("Joining random room");
-                PhotonNetworkController.Instance.AttemptToJoinPublicRoom(GameObject.Find("Environment Objects/TriggerZones_Prefab/JoinRoomTriggers_Prefab/JoinPublicRoom - Forest, Tree Exit").GetComponent<GorillaNetworkJoinTrigger>(), 0);
-                string customMessage = "Joining...";
-                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
 
+            GUILayout.EndHorizontal();
+        }
+        private void DrawRoomTab()
+        {
+            GUILayout.Label("Room", GUI.skin.label);
 
-            }
-            if (GUILayout.Button("Disconnect", buttonStyle))
+            GUILayout.BeginHorizontal();
+
+            if (GUILayout.Button("Join Room", GetButtonStyle(false)))
             {
-                Debug.Log("Disconnecting...");
+                if (!string.IsNullOrEmpty(userInput))
+                {
+                    PhotonNetworkController.Instance.AttemptToJoinSpecificRoom(userInput, JoinType.Solo);
+                }
+            }
+            if (GUILayout.Button("Set Name", GetButtonStyle(false)))
+            {
+                if (!string.IsNullOrEmpty(userInput))
+                {
+                    PhotonNetwork.NickName = userInput;
+                }
+            }
+            if (GUILayout.Button("Disconnect", GetButtonStyle(false)))
+            {
                 PhotonNetwork.Disconnect();
-
-                string customMessage = "Disconnected";
-                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
             }
-            if (GUILayout.Button("Quit Game", buttonStyle))
-            {
-                Application.Quit();
-            }
-            if (GUILayout.Button("Delete TOS", buttonStyle))
-            {
-                string customMessage = "Enjoy!";
-                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
+            GUILayout.EndHorizontal();
+            userInput = GUILayout.TextField(userInput, 25);
+            string serverIP = PhotonNetwork.ServerAddress;
+            int ping = PhotonNetwork.GetPing();
+            int playerCount = PhotonNetwork.CountOfPlayers;
+            int roomCount = PhotonNetwork.CountOfRooms;
+            string gameVersion = PhotonNetwork.AppVersion;
+            bool isMasterClient = PhotonNetwork.IsMasterClient;
 
-                GameObject root = GameObject.Find("Miscellaneous Scripts/PrivateUIRoom/Root").gameObject;
-                root.SetActive(false);
-
-                GameObject Geode = GameObject.Find("Miscellaneous Scripts/PrivateUIRoom/ReportOccluder/Geode").gameObject;
-                Geode.SetActive(false);
-
-                GameObject Canvas = GameObject.Find("Miscellaneous Scripts/MetaReporting/Canvas").gameObject;
-                Canvas.SetActive(false);
-
-                GameObject Geode2 = GameObject.Find("Miscellaneous Scripts/MetaReporting/ReportOccluder/Geode").gameObject;
-                Geode2.SetActive(false);
-            }
-        }
-        private static bool toggleNotif = true;
-        void GamePage(GUIStyle buttonStyle)
-        {
-            if (GUILayout.Button("Toggle Notifs", buttonStyle))
-            {
-                toggleNotif = !toggleNotif;
-
-                if (toggleNotif)
-                {
-                    Settings.ToggleNotifications(true);
-                }
-                else
-                {
-                    Settings.ToggleNotifications(false);
-                }
-            }
-            if (GUILayout.Button("Change Fly Speed", buttonStyle))
-            {
-                Settings.FlySpeed();
-
-                string customMessage = "Changed Speed";
-                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
-            }
-
-            if (GUILayout.Button("Change Speed Boost", buttonStyle))
-            {
-                Settings.SpeedSpeed();
-
-                string customMessage = "Changed Speed";
-                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
-            }
-
-            if (GUILayout.Button("Change ESP Color", buttonStyle))
-            {
-                Settings.ESPChange();
-
-                string customMessage = "Changed Color";
-                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
-            }
+            GUILayout.Label($"Server IP: {serverIP}");
+            GUILayout.Label($"Ping: {ping}");
+            GUILayout.Label($"Player Count: {playerCount}");
+            GUILayout.Label($"Room Count: {roomCount}");
+            GUILayout.Label($"Game Version: {gameVersion}");
+            GUILayout.Label($"Master Client: {isMasterClient}");
         }
 
-        void MovementPage(GUIStyle buttonStyle)
+        private void DrawSelfTab()
         {
-            if (GUILayout.Button("FreeCam", buttonStyle))
+            GUILayout.Label("Self", GUI.skin.label);
+
+
+            wasdthing = GUILayout.Toggle(wasdthing, "WASD");
+            if (wasdthing)
+                wasdarrow();
+
+            GUILayout.Label("Movement Speed");
+            moveSpeed = GUILayout.HorizontalSlider(moveSpeed, 1f, 20f);
+
+            GUILayout.Label("Shift Speed");
+            shiftMultiplier = GUILayout.HorizontalSlider(shiftMultiplier, 1f, 5f);
+
+            GUILayout.Label("Vertical Speed");
+            verticalSpeed = GUILayout.HorizontalSlider(verticalSpeed, 1f, 20f);
+
+            GUILayout.Label("Turning Speed");
+            arrowKeyTurnSpeed = GUILayout.HorizontalSlider(arrowKeyTurnSpeed, 10f, 200f);
+        }
+
+        private void DrawPlayerListTab()
+        {
+            GUILayout.Label("Player List", GUI.skin.label);
+
+            Player[] players = PhotonNetwork.PlayerList;
+
+            if (players.Length == 0)
             {
-                isWASDEnabled = !isWASDEnabled;
-
-                if (isWASDEnabled)
-                {
-                    Move.WASDFly();
-                }
-
-                string customMessage = isWASDEnabled ? "FreeCam Enabled" : "FreeCam Disabled";
-                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
+                GUILayout.Label("Not in a room", GUI.skin.label);
+                return;
             }
 
-            if (GUILayout.Button("Noclip", buttonStyle))
+            GUIStyle smallTextStyle = new GUIStyle(GUI.skin.label)
             {
-                isNCEnabled = !isNCEnabled;
+                fontSize = 24
+            };
 
-                if (isNCEnabled)
-                {
-                    foreach (MeshCollider collider in Resources.FindObjectsOfTypeAll<MeshCollider>())
-                    {
-                        if (ControllerInputPoller.instance.rightControllerIndexFloat > 0.2f | UnityInput.Current.GetKey(KeyCode.T))
-                        {
-                            collider.enabled = false;
-                        }
-                        else
-                        {
-                            collider.enabled = true;
-                        }
-                    }
-                }
+            foreach (Player player in players)
+            {
+                GUILayout.BeginHorizontal();
 
-                string customMessage = isNCEnabled ? "Noclip Enabled" : "Noclip Disabled";
-                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
+                GUILayout.Label($"Nickname: {player.NickName}   ID: {player.UserId}", smallTextStyle);
+
+                GUILayout.EndHorizontal();
+                GUILayout.Space(10);
             }
         }
 
-        void RigPage(GUIStyle buttonStyle)
-        {
-            if (GUILayout.Button("Ghost Monke", buttonStyle))
-            {
-                GhostToggled = !GhostToggled;
+        private List<string> logMessages = new List<string>();
 
-                if (GhostToggled)
-                {
-                    GorillaTagger.Instance.offlineVRRig.enabled = false;
-                    string customMessage = "Ghost Enabled";
-                    StartCoroutine(ShowCustomFeedback(customMessage, 3f));
-                }
-                else
-                {
-                    GorillaTagger.Instance.offlineVRRig.enabled = true;
-                    string customMessage = "Ghost Disabled";
-                    StartCoroutine(ShowCustomFeedback(customMessage, 3f));
-                }
+        private bool autoScroll = true;
+
+        private void OnEnable()
+        {
+            Application.logMessageReceived += HandleLog;
+        }
+
+        private void OnDisable()
+        {
+            Application.logMessageReceived -= HandleLog;
+        }
+
+        private void HandleLog(string logString, string stackTrace, LogType type)
+        {
+            string logEntry = $"[{type}] {logString}";
+
+            if (type == LogType.Error || type == LogType.Exception)
+            {
+                logEntry += $"\nStackTrace:\n{stackTrace}";
             }
 
-            if (GUILayout.Button("Invis Monke", buttonStyle))
+            logMessages.Add(logEntry);
+            if (logMessages.Count > 100)
             {
-                InvisToggled = !InvisToggled;
+                logMessages.RemoveAt(0);
+            }
+            float contentHeight = logMessages.Count * 20f;
+            float viewHeight = 400f;
+            float maxScroll = contentHeight - viewHeight;
 
-                if (InvisToggled)
+            if (scrollPosition.y >= maxScroll - 50f)
+            {
+                autoScroll = true;
+            }
+
+            if (autoScroll)
+            {
+                scrollPosition.y = maxScroll;
+            }
+        }
+
+        private void DrawMiscTab()
+        {
+            GUILayout.Label("Console Log", GUI.skin.label);
+
+            float consoleHeight = Mathf.Min(Screen.height * 0.5f, 350f);
+
+            scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Height(consoleHeight));
+
+            foreach (string log in logMessages)
+            {
+                GUILayout.Label(log, GUI.skin.label);
+            }
+
+            GUILayout.EndScrollView();
+
+            if (Event.current.type == EventType.Repaint)
+            {
+                float contentHeight = logMessages.Count * 20f;
+                float viewHeight = consoleHeight;
+                float maxScroll = contentHeight - viewHeight;
+
+                if (scrollPosition.y < maxScroll - 50f)
                 {
-                    GorillaTagger.Instance.offlineVRRig.enabled = false;
-                    GorillaTagger.Instance.offlineVRRig.transform.position = new Vector3(100f, 0f, 100f);
-                    string customMessage = "Invisible Enabled";
-                    StartCoroutine(ShowCustomFeedback(customMessage, 3f));
-                }
-                else
-                {
-                    GorillaTagger.Instance.offlineVRRig.enabled = true;
-                    string customMessage = "Invisible Disabled";
-                    StartCoroutine(ShowCustomFeedback(customMessage, 3f));
+                    autoScroll = false;
                 }
             }
         }
 
-        void Update()
-        {
 
+        private GUIStyle GetButtonStyle(bool isActive)
+        {
+            GUIStyle style = new GUIStyle(GUI.skin.button);
+            style.normal.background = isActive ? buttonTextureActive : buttonTexture;
+            style.active.background = buttonTextureActive;
+            style.hover.background = buttonTextureActive;
+            style.normal.textColor = Color.white;
+            style.alignment = TextAnchor.MiddleCenter;
+            return style;
         }
 
-        void ESPPage(GUIStyle buttonStyle)
+        private GUIStyle GetTabStyle(bool isActive)
         {
-            if (GUILayout.Button("ESP", buttonStyle))
-            {
-                ESPActive = !ESPActive;
+            GUIStyle style = new GUIStyle(GUI.skin.button);
+            style.normal.background = isActive ? tabTextureActive : tabTexture;
+            style.active.background = tabTextureActive;
+            style.hover.background = tabTextureActive;
+            style.normal.textColor = Color.white;
+            style.alignment = TextAnchor.MiddleCenter;
+            return style;
+        }
 
-                if (ESPActive)
+        private void DrawMenuButtonsTab()
+        {
+            scrollpos1 = GUILayout.BeginScrollView(scrollpos1, GUILayout.Width(windowRect.width - 30), GUILayout.Height(windowRect.height - 40));
+
+            foreach (ButtonHandler.Button info in ModButtons.buttons)
+            {
+                // foreach (ButtonHandler.Button info in btninfo)
+                //  {
+                if (string.IsNullOrEmpty(searchQuery) || info.buttonText.ToLower().Contains(searchQuery.ToLower()))
                 {
-                    Visuals.ESP();
+                    GUILayout.BeginHorizontal();
+
+                    bool isActive = info.Enabled;
+
+                    if (GUILayout.Button(new GUIContent(info.buttonText), GetButtonStyle(isActive)))
+                    {
+                        GUI.backgroundColor = Color.green;
+                        info.Enabled = !info.Enabled;
+                        GorillaTagger.Instance.offlineVRRig.PlayHandTapLocal(66, false, 0.25f);
+                    }
+
+                    GUILayout.EndHorizontal();
                 }
-                else
-                {
-                    Visuals.DisableESP();
-                }
-                string customMessage = ESPActive ? "ESP Enabled" : "ESP Disabled";
-                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
+                //   }
             }
 
-            if (GUILayout.Button("Tracers [NW For GUI]", buttonStyle))
+            GUILayout.EndScrollView();
+        }
+
+        public void wasdarrow()
+        {
+            float currentSpeed = moveSpeed;
+            Transform bodyTransform = Camera.main.transform;
+
+            GorillaTagger.Instance.rigidbody.useGravity = false;
+            GorillaTagger.Instance.rigidbody.velocity = Vector3.zero;
+
+            if (UnityInput.Current.GetKey(KeyCode.LeftShift))
             {
-                tracersActive = !tracersActive;
-
-                if (tracersActive)
-                {
-                    if (espColor == 1)
-                    {
-                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
-                        {
-                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
-                            {
-                                line = new GameObject("Line");
-                                LineRenderer Line = line.AddComponent<LineRenderer>();
-                                Line.SetPosition(0, GorillaTagger.Instance.rightHandTransform.position);
-                                Line.SetPosition(1, vrrig.transform.position);
-                                Line.startWidth = 0.0225f;
-                                Line.endWidth = 0.0225f;
-
-                                Line.material.shader = Shader.Find("GUI/Text Shader");
-
-                                if (vrrig.mainSkin.material.name.Contains("fected"))
-                                {
-                                    Line.startColor = UnityEngine.Color.red;
-                                    Line.endColor = UnityEngine.Color.red;
-                                }
-                                else
-                                {
-                                    Line.startColor = UnityEngine.Color.green;
-                                    Line.endColor = UnityEngine.Color.green;
-                                }
-                            }
-                        }
-                    }
-                    else if (espColor == 2)
-                    {
-                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
-                        {
-                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
-                            {
-                                line = new GameObject("Line");
-                                LineRenderer Line = line.AddComponent<LineRenderer>();
-                                Line.SetPosition(0, GorillaTagger.Instance.rightHandTransform.position);
-                                Line.SetPosition(1, vrrig.transform.position);
-                                Line.startWidth = 0.0225f;
-                                Line.endWidth = 0.0225f;
-
-                                Line.startColor = vrrig.playerColor;
-                                Line.endColor = vrrig.playerColor;
-                                Line.material.shader = Shader.Find("GUI/Text Shader");
-                            }
-                        }
-                    }
-                    else if (espColor == 3)
-                    {
-                        GradientColorKey[] array = new GradientColorKey[7];
-                        array[0].color = UnityEngine.Color.red;
-                        array[0].time = 0f;
-                        array[1].color = UnityEngine.Color.yellow;
-                        array[1].time = 0.2f;
-                        array[2].color = UnityEngine.Color.green;
-                        array[2].time = 0.3f;
-                        array[3].color = UnityEngine.Color.cyan;
-                        array[3].time = 0.5f;
-                        array[4].color = UnityEngine.Color.blue;
-                        array[4].time = 0.6f;
-                        array[5].color = UnityEngine.Color.magenta;
-                        array[5].time = 0.8f;
-                        array[6].color = UnityEngine.Color.red;
-                        array[6].time = 1f;
-                        Gradient gradient = new Gradient();
-                        gradient.colorKeys = array;
-                        float num = Mathf.PingPong(Time.time / 2f, 1f);
-                        UnityEngine.Color color = gradient.Evaluate(num);
-
-                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
-                        {
-                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
-                            {
-                                line = new GameObject("Line");
-                                LineRenderer Line = line.AddComponent<LineRenderer>();
-                                Line.SetPosition(0, GorillaTagger.Instance.rightHandTransform.position);
-                                Line.SetPosition(1, vrrig.transform.position);
-                                Line.startWidth = 0.0225f;
-                                Line.endWidth = 0.0225f;
-
-                                Line.startColor = color;
-                                Line.endColor = color;
-                                Line.material.shader = Shader.Find("GUI/Text Shader");
-                            }
-                        }
-                    }
-                    else if (espColor == 4)
-                    {
-                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
-                        {
-                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
-                            {
-                                line = new GameObject("Line");
-                                LineRenderer Line = line.AddComponent<LineRenderer>();
-                                Line.SetPosition(0, GorillaTagger.Instance.rightHandTransform.position);
-                                Line.SetPosition(1, vrrig.transform.position);
-                                Line.startWidth = 0.0225f;
-                                Line.endWidth = 0.0225f;
-
-                                Line.startColor = RoyalBlue;
-                                Line.endColor = RoyalBlue;
-                                Line.material.shader = Shader.Find("GUI/Text Shader");
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    UnityEngine.Object.Destroy(line, Time.deltaTime);
-                }
-                string customMessage = tracersActive ? "Tracers Enabled" : "Tracers Disabled";
-                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
+                currentSpeed *= shiftMultiplier;
             }
 
-            if (GUILayout.Button("2D Box ESP", buttonStyle))
+            if (UnityInput.Current.GetKey(KeyCode.W))
             {
-                box2 = !box2;
-
-                if (box2)
-                {
-                    if (espColor == 1)
-                    {
-                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
-                        {
-                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
-                            {
-                                ESPBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                                ESPBox.transform.position = vrrig.transform.position;
-                                UnityEngine.Object.Destroy(ESPBox.GetComponent<BoxCollider>());
-                                ESPBox.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
-                                ESPBox.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
-                                if (vrrig.mainSkin.material.name.Contains("fected"))
-                                {
-                                    ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                                    ESPBox.GetComponent<Renderer>().material.color = UnityEngine.Color.red;
-                                }
-                                else
-                                {
-                                    ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                                    ESPBox.GetComponent<Renderer>().material.color = UnityEngine.Color.green;
-                                }
-                            }
-                        }
-                    }
-                    if (espColor == 2)
-                    {
-                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
-                        {
-                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
-                            {
-                                ESPBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                                ESPBox.transform.position = vrrig.transform.position;
-                                UnityEngine.Object.Destroy(ESPBox.GetComponent<BoxCollider>());
-                                ESPBox.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
-                                ESPBox.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
-                                ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                                ESPBox.GetComponent<Renderer>().material.color = vrrig.playerColor;
-                            }
-                        }
-                    }
-                    if (espColor == 3)
-                    {
-                        GradientColorKey[] array = new GradientColorKey[7];
-                        array[0].color = UnityEngine.Color.red;
-                        array[0].time = 0f;
-                        array[1].color = UnityEngine.Color.yellow;
-                        array[1].time = 0.2f;
-                        array[2].color = UnityEngine.Color.green;
-                        array[2].time = 0.3f;
-                        array[3].color = UnityEngine.Color.cyan;
-                        array[3].time = 0.5f;
-                        array[4].color = UnityEngine.Color.blue;
-                        array[4].time = 0.6f;
-                        array[5].color = UnityEngine.Color.magenta;
-                        array[5].time = 0.8f;
-                        array[6].color = UnityEngine.Color.red;
-                        array[6].time = 1f;
-                        Gradient gradient = new Gradient();
-                        gradient.colorKeys = array;
-                        float num = Mathf.PingPong(Time.time / 2f, 1f);
-                        UnityEngine.Color color = gradient.Evaluate(num);
-
-                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
-                        {
-                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
-                            {
-                                ESPBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                                ESPBox.transform.position = vrrig.transform.position;
-                                UnityEngine.Object.Destroy(ESPBox.GetComponent<BoxCollider>());
-                                ESPBox.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
-                                ESPBox.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
-                                ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                                ESPBox.GetComponent<Renderer>().material.color = color;
-                            }
-                        }
-                    }
-                    if (espColor == 4)
-                    {
-                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
-                        {
-                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
-                            {
-                                ESPBox = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                                ESPBox.transform.position = vrrig.transform.position;
-                                UnityEngine.Object.Destroy(ESPBox.GetComponent<BoxCollider>());
-                                ESPBox.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
-                                ESPBox.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
-                                ESPBox.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                                ESPBox.GetComponent<Renderer>().material.color = RoyalBlue;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    UnityEngine.Object.Destroy(ESPBox, Time.deltaTime);
-                }
-                string customMessage = box2 ? "ESP Enabled" : "ESP Disabled";
-                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
+                bodyTransform.position += bodyTransform.forward * currentSpeed * Time.deltaTime;
             }
-
-            if (GUILayout.Button("ESP", buttonStyle))
+            if (UnityInput.Current.GetKey(KeyCode.A))
             {
-                ESPActive = !ESPActive;
-
-                if (ESPActive)
-                {
-                    Visuals.ESP();
-                }
-                else
-                {
-                    Visuals.DisableESP();
-                }
-                string customMessage = ESPActive ? "ESP Enabled" : "ESP Disabled";
-                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
+                bodyTransform.Rotate(0, -arrowKeyTurnSpeed * Time.deltaTime, 0);
             }
-
-            if (GUILayout.Button("Sphere ESP", buttonStyle))
+            if (UnityInput.Current.GetKey(KeyCode.S))
             {
-                sphere = !sphere;
-
-                if (sphere)
-                {
-                    if (espColor == 1)
-                    {
-                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
-                        {
-                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
-                            {
-                                ESPBall = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                                ESPBall.transform.position = vrrig.transform.position;
-                                UnityEngine.Object.Destroy(ESPBall.GetComponent<BoxCollider>());
-                                ESPBall.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
-                                ESPBall.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
-                                if (vrrig.mainSkin.material.name.Contains("fected"))
-                                {
-                                    ESPBall.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                                    ESPBall.GetComponent<Renderer>().material.color = UnityEngine.Color.red;
-                                }
-                                else
-                                {
-                                    ESPBall.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                                    ESPBall.GetComponent<Renderer>().material.color = UnityEngine.Color.green;
-                                }
-                            }
-                        }
-                    }
-                    else if (espColor == 2)
-                    {
-                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
-                        {
-                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
-                            {
-                                GameObject ESPBall = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                                ESPBall.transform.position = vrrig.transform.position;
-                                UnityEngine.Object.Destroy(ESPBall.GetComponent<BoxCollider>());
-                                ESPBall.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
-                                ESPBall.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
-                                ESPBall.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                                ESPBall.GetComponent<Renderer>().material.color = vrrig.playerColor;
-                            }
-                        }
-                    }
-                    else if (espColor == 3)
-                    {
-                        GradientColorKey[] array = new GradientColorKey[7];
-                        array[0].color = UnityEngine.Color.red;
-                        array[0].time = 0f;
-                        array[1].color = UnityEngine.Color.yellow;
-                        array[1].time = 0.2f;
-                        array[2].color = UnityEngine.Color.green;
-                        array[2].time = 0.3f;
-                        array[3].color = UnityEngine.Color.cyan;
-                        array[3].time = 0.5f;
-                        array[4].color = UnityEngine.Color.blue;
-                        array[4].time = 0.6f;
-                        array[5].color = UnityEngine.Color.magenta;
-                        array[5].time = 0.8f;
-                        array[6].color = UnityEngine.Color.red;
-                        array[6].time = 1f;
-                        Gradient gradient = new Gradient();
-                        gradient.colorKeys = array;
-                        float num = Mathf.PingPong(Time.time / 2f, 1f);
-                        UnityEngine.Color color = gradient.Evaluate(num);
-
-                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
-                        {
-                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
-                            {
-                                GameObject ESPBall = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                                ESPBall.transform.position = vrrig.transform.position;
-                                UnityEngine.Object.Destroy(ESPBall.GetComponent<BoxCollider>());
-                                ESPBall.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
-                                ESPBall.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
-                                ESPBall.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                                ESPBall.GetComponent<Renderer>().material.color = color;
-                            }
-                        }
-                    }
-                    else if (espColor == 4)
-                    {
-                        foreach (VRRig vrrig in GorillaParent.instance.vrrigs)
-                        {
-                            if (vrrig != GorillaTagger.Instance.offlineVRRig)
-                            {
-                                GameObject ESPBall = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                                ESPBall.transform.position = vrrig.transform.position;
-                                UnityEngine.Object.Destroy(ESPBall.GetComponent<BoxCollider>());
-                                ESPBall.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
-                                ESPBall.transform.LookAt(GorillaTagger.Instance.headCollider.transform.position);
-                                ESPBall.GetComponent<Renderer>().material.shader = Shader.Find("GUI/Text Shader");
-                                ESPBall.GetComponent<Renderer>().material.color = RoyalBlue;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    UnityEngine.Object.Destroy(ESPBall, Time.deltaTime);
-                }
-                string customMessage = ESPActive ? "ESP Enabled" : "ESP Disabled";
-                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
+                bodyTransform.position += -bodyTransform.forward * currentSpeed * Time.deltaTime;
             }
-
-            if (GUILayout.Button("CSGO ESP", buttonStyle))
+            if (UnityInput.Current.GetKey(KeyCode.D))
             {
-                CSGO = !CSGO;
-
-                if (CSGO)
-                {
-                    Visuals.CSGO();
-                }
-                else
-                {
-                    Visuals.DisableCSGO();
-                }
-                string customMessage = CSGO ? "ESP Enabled" : "ESP Disabled";
-                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
+                bodyTransform.Rotate(0, arrowKeyTurnSpeed * Time.deltaTime, 0);
             }
         }
 
-        void World(GUIStyle buttonStyle)
+        private Texture2D CreateTexture(Color color)
         {
-            GUILayout.Label("World", buttonStyle);
-        }
-        void Fun(GUIStyle buttonStyle)
-        {
-            GUILayout.Label("Fun", buttonStyle);
-        }
-
-        void ThemePage(GUIStyle buttonStyle)
-        {
-            if (GUILayout.Button("Crimson Theme", buttonStyle))
-            {
-                sidePanelColor = Color.black;
-                buttonColor = Color.black;
-                activeButtonColor = Color.green;
-                buttonTextColor = Color.red;
-                mainContentColor = Color.black;
-            }
-
-            if (GUILayout.Button("Magenta", buttonStyle))
-            {
-                sidePanelColor = new Color(0.8f, 0.0f, 0.8f);
-                buttonColor = new Color(0.8f, 0.0f, 0.8f);
-                activeButtonColor = new Color(1.0f, 0.5f, 1.0f);
-                buttonTextColor = Color.white;
-                mainContentColor = new Color(0.9f, 0.1f, 0.9f);
-            }
-
-            if (GUILayout.Button("Purple", buttonStyle))
-            {
-                sidePanelColor = new Color(0.4f, 0.0f, 0.6f);
-                buttonColor = new Color(0.4f, 0.0f, 0.6f);
-                activeButtonColor = new Color(0.6f, 0.3f, 0.8f);
-                buttonTextColor = Color.white;
-                mainContentColor = new Color(0.5f, 0.1f, 0.7f);
-            }
-
-            if (GUILayout.Button("Blue", buttonStyle))
-            {
-                sidePanelColor = DarkDodgerBlue;
-                buttonColor = RoyalBlue;
-                activeButtonColor = DarkDodgerBlue;
-                buttonTextColor = Color.white;
-                mainContentColor = DodgerBlue;
-            }
-
-            if (GUILayout.Button("Green", buttonStyle))
-            {
-                sidePanelColor = new Color(0.0f, 0.8f, 0.0f);
-                buttonColor = new Color(0.0f, 0.8f, 0.0f);
-                activeButtonColor = new Color(0.3f, 1.0f, 0.3f);
-                buttonTextColor = Color.white;
-                mainContentColor = new Color(0.1f, 0.9f, 0.1f);
-            }
-
-            if (GUILayout.Button("Yellow", buttonStyle))
-            {
-                sidePanelColor = new Color(0.8f, 0.7f, 0.0f);
-                buttonColor = new Color(0.8f, 0.7f, 0.0f);
-                activeButtonColor = new Color(1.0f, 0.9f, 0.3f);
-                buttonTextColor = Color.black;
-                mainContentColor = new Color(0.9f, 0.8f, 0.2f);
-            }
-
-            if (GUILayout.Button("Red", buttonStyle))
-            {
-                sidePanelColor = new Color(0.8f, 0.0f, 0.0f);
-                buttonColor = new Color(0.8f, 0.0f, 0.0f);
-                activeButtonColor = new Color(1.0f, 0.3f, 0.3f);
-                buttonTextColor = Color.white;
-                mainContentColor = new Color(0.9f, 0.1f, 0.1f);
-            }
-
-            if (GUILayout.Button("Orange", buttonStyle))
-            {
-                sidePanelColor = new Color(1.0f, 0.5f, 0.0f);
-                buttonColor = new Color(1.0f, 0.5f, 0.0f);
-                activeButtonColor = new Color(1.0f, 0.7f, 0.3f);
-                buttonTextColor = Color.black;
-                mainContentColor = new Color(1.0f, 0.6f, 0.2f);
-            }
-
-
-            if (GUILayout.Button("Cyan", buttonStyle))
-            {
-                sidePanelColor = new Color(0.0f, 0.7f, 0.7f);
-                buttonColor = new Color(0.0f, 0.7f, 0.7f);
-                activeButtonColor = new Color(0.3f, 0.9f, 0.9f);
-                buttonTextColor = Color.black;
-                mainContentColor = new Color(0.1f, 0.8f, 0.8f);
-            }
-
-
-            if (GUILayout.Button("Pink", buttonStyle))
-            {
-                sidePanelColor = new Color(1.0f, 0.2f, 0.6f);
-                buttonColor = new Color(1.0f, 0.2f, 0.6f);
-                activeButtonColor = new Color(1.0f, 0.5f, 0.8f);
-                buttonTextColor = Color.white;
-                mainContentColor = new Color(1.0f, 0.4f, 0.7f);
-            }
-
-
-            if (GUILayout.Button("Dark Mode", buttonStyle))
-            {
-                sidePanelColor = new Color(0.05f, 0.05f, 0.05f);
-                buttonColor = new Color(0.05f, 0.05f, 0.05f);
-                activeButtonColor = new Color(0.83f, 0.18f, 0.40f);
-                buttonTextColor = Color.white;
-                mainContentColor = new Color(0.1f, 0.1f, 0.1f);
-            }
-
-            if (GUILayout.Button("Light Mode", buttonStyle))
-            {
-                sidePanelColor = new Color(0.9f, 0.9f, 0.9f);
-                buttonColor = new Color(0.9f, 0.9f, 0.9f);
-                activeButtonColor = new Color(0.83f, 0.18f, 0.40f);
-                buttonTextColor = Color.black;
-                mainContentColor = Color.white;
-            }
-
-
-        }
-
-        void WhatsNewPage(GUIStyle buttonStyle)
-        {
-
-            if (GUILayout.Button("What's New?", buttonStyle))
-            {
-                string customMessage = "The entire fucking menu lol";
-                StartCoroutine(ShowCustomFeedback(customMessage, 3f));
-            }
-        }
-
-        void CreditsPage(GUIStyle buttonStyle)
-        {
-            GUILayout.Label("Click On A Person To Open Their Link/s", buttonStyle);
-
-            if (GUILayout.Button("Menker: Owner", buttonStyle))
-            {
-                if (!hasOpenedLink)
-                {
-                    hasOpenedLink = true;
-
-                    Application.OpenURL("https://guns.lol/menker");
-
-                    string customMessage = "Thanks!";
-                    StartCoroutine(ShowCustomFeedback(customMessage, 7.5f));
-                }
-            }
-
-        }
-
-
-        private Texture2D MakeTex(int width, int height, Color col)
-        {
-            Texture2D texture = new Texture2D(width, height);
-            for (int x = 0; x < width; x++)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    texture.SetPixel(x, y, col);
-                }
-            }
+            Texture2D texture = new Texture2D(1, 1);
+            texture.SetPixel(0, 0, color);
             texture.Apply();
             return texture;
         }
-        public static bool IsPlayerInfected(VRRig player)
-        {
-            return player.mainSkin.material.name.Contains("fected");
-        }
-
-        private string roomCodeInput = "";
-        private List<GameObject> tracerObjects = new List<GameObject>();
-        private List<LineRenderer> lineRenderers = new List<LineRenderer>();
-        private bool showFeedback = false;
-        private string feedbackText = "";
-        private float feedbackTimeRemaining = 0f;
-        private float feedbackDuration = 2f;
-        public static bool hasOpenedLink = false;
-
-        private bool box2 = false;
-        private bool box3 = false;
-        private bool sphere = false;
-        private bool ESPActive = false;
-        private bool CSGO = false;
-        private bool tracersActive = false;
-        private bool isWASDEnabled = false;
-        private bool isNCEnabled = false;
-        private static bool GhostToggled = false;
-        private static bool InvisToggled = false;
-
-        private GameObject ESPBox;
-        private GameObject line;
-        private GameObject ESPBall;
     }
 }
-*/

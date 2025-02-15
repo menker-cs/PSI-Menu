@@ -7,6 +7,7 @@ using static MenkerMenu.Utilities.Variables;
 using static MenkerMenu.Utilities.ColorLib;
 using static MenkerMenu.Menu.Optimizations;
 using static MenkerMenu.Menu.ButtonHandler;
+using static MenkerMenu.Menu.UI;
 using static MenkerMenu.Mods.Categories.Room;
 using BepInEx;
 using UnityEngine.InputSystem;
@@ -26,6 +27,7 @@ using MenkerMenu.Mods.Categories;
 using GorillaExtensions;
 using TMPro;
 using System.Reflection;
+using MenkerMenu.Menu;
 
 namespace MenkerMenu.Menu
 {
@@ -537,7 +539,7 @@ namespace MenkerMenu.Menu
         {
             if (Time.time - lastFPSTime >= 0.1f)
             {
-                fps = Mathf.CeilToInt(1f / Time.smoothDeltaTime);
+                fps = (Time.deltaTime > 0) ? Mathf.RoundToInt(1.0f / Time.deltaTime) : 0;
                 lastFPSTime = Time.time;
             }
 
