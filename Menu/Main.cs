@@ -67,7 +67,7 @@ namespace MenkerMenu.Menu
             catch
             {
             }
-                try
+            try
             {
                 if (playerInstance == null || taggerInstance == null)
                 {
@@ -117,11 +117,12 @@ namespace MenkerMenu.Menu
             {
                 UnityEngine.Debug.LogError($"Unexpected error: {ex.Message}\nStack Trace: {ex.StackTrace}");
             }
-            #region Idk (ALL HAIL HITLER)
-            if (Laytou == 3)
+
+            #region Layout Manager
+            if (Laytou > 2)
             {
-                RefreshMenu();
                 Laytou = 1;
+                RefreshMenu();
             }
             #endregion
         }
@@ -306,7 +307,7 @@ namespace MenkerMenu.Menu
                     cm?.SetActive(true);
                 }
 
-                openMenu = rightHandedMenu ? pollerInstance.rightControllerSecondaryButton : pollerInstance.leftControllerSecondaryButton;
+                openMenu = rightHandedMenu ? ControllerInputPoller.instance.rightControllerSecondaryButton : ControllerInputPoller.instance.leftControllerSecondaryButton;
 
                 if (openMenu && !InPcCondition)
                 {
@@ -342,7 +343,10 @@ namespace MenkerMenu.Menu
                 UnityEngine.Debug.LogError($"Error handling menu interaction. Exception: {ex}");
             }
         }
-
+        public static void Bark(bool on)
+        {
+            bark = on;
+        }
         public static void Draw()
         {
             if (menuObj != null)
@@ -402,17 +406,20 @@ namespace MenkerMenu.Menu
         public static Color ButtonColorOn = DodgerBlue;
         public static Color DisconnecyColor = Crimson;
         public static Color outColor = DarkDodgerBlue;
+        public static Color disOut = WineRed;
 
         public static void ChangeTheme()
-        { 
+        {
             Theme++;
-            if (Theme > 3)
+            if (Theme > 5)
             {
                 Theme = 1;
                 MenuColor = SkyBlue;
                 ButtonColorOff = RoyalBlue;
                 ButtonColorOn = DodgerBlue;
                 DisconnecyColor = Crimson;
+                outColor = DarkDodgerBlue;
+                disOut = WineRed;
                 NotificationLib.SendNotification("<color=white>[</color><color=blue>Theme</color><color=white>] Blue</color>");
                 RefreshMenu();
             }
@@ -421,25 +428,54 @@ namespace MenkerMenu.Menu
                 MenuColor = SkyBlue;
                 ButtonColorOff = RoyalBlue;
                 ButtonColorOn = DodgerBlue;
+                outColor = DarkDodgerBlue;
                 DisconnecyColor = Crimson;
-                NotificationLib.SendNotification("<color=white>[</color><color=blue>Theme</color><color=white>] OG</color>");
+                disOut = WineRed;
+                NotificationLib.SendNotification("<color=white>[</color><color=blue>Theme</color><color=white>] Blue</color>");
                 RefreshMenu();
             }
             if (Theme == 2)
+            {
+                MenuColor = FireBrick;
+                ButtonColorOff = WineRed;
+                ButtonColorOn = IndianRed;
+                outColor = IndianRed;
+                DisconnecyColor = Crimson;
+                disOut = WineRed;
+                NotificationLib.SendNotification("<color=white>[</color><color=blue>Theme</color><color=white>] Red</color>");
+                RefreshMenu();
+            }
+            if (Theme == 3)
+            {
+                MenuColor = Lavender;
+                ButtonColorOff = Plum;
+                ButtonColorOn = MediumOrchid;
+                outColor = SlateBlue;
+                DisconnecyColor = Plum;
+                disOut = SlateBlue;
+                NotificationLib.SendNotification("<color=white>[</color><color=blue>Theme</color><color=white>] Lavendar</color>");
+                RefreshMenu();
+            }
+            if (Theme == 4)
             {
                 MenuColor = RoyalBlue;
                 ButtonColorOff = Color.black;
                 ButtonColorOn = Crimson;
                 DisconnecyColor = Crimson;
-                NotificationLib.SendNotification("<color=white>[</color><color=blue>Theme</color><color=white>] Dark</color>");
+                outColor = Black;
+                disOut = WineRed;
+                NotificationLib.SendNotification("<color=white>[</color><color=blue>Theme</color><color=white>] OG</color>");
                 RefreshMenu();
             }
-            if (Theme == 3)
+            if (Theme == 5)
             {
                 MenuColor = Black;
                 ButtonColorOff = DarkerGrey;
                 ButtonColorOn = WineRed;
                 DisconnecyColor = WineRed;
+                outColor = DarkDodgerBlue;
+                disOut = Maroon;
+                NotificationLib.SendNotification("<color=white>[</color><color=blue>Theme</color><color=white>] Dark</color>");
                 RefreshMenu();
             }
         }
@@ -472,14 +508,7 @@ namespace MenkerMenu.Menu
                 Destroy(disconnectButton.GetComponent<Rigidbody>());
                 disconnectButton.GetComponent<BoxCollider>().isTrigger = true;
                 //RoundObj(disconnectButton);
-                if (Theme == 3)
-                {
-                    OutlineObj(disconnectButton, Maroon);
-                }
-                else
-                {
-                    OutlineObj(disconnectButton, WineRed);
-                }
+                OutlineObj(disconnectButton, disOut);
                 disconnectButton.transform.parent = menuObj.transform;
                 disconnectButton.transform.rotation = Quaternion.identity;
                 disconnectButton.transform.localScale = new Vector3(0.09f, 0.9f, 0.08f);
@@ -493,7 +522,14 @@ namespace MenkerMenu.Menu
                 discontext.font = ResourceLoader.ArialFont;
                 discontext.fontStyle = FontStyle.Normal;
                 discontext.fontSize = 3;
-                discontext.color = White;
+                if (Theme == 3)
+                {
+                    discontext.color = Black;
+                }
+                else
+                {
+                    discontext.color = White;
+                }
                 discontext.alignment = TextAnchor.MiddleCenter;
                 discontext.resizeTextForBestFit = true;
                 discontext.resizeTextMinSize = 0;
@@ -524,7 +560,14 @@ namespace MenkerMenu.Menu
             title = titleObj.AddComponent<Text>();
             title.font = ResourceLoader.ArialFont;
             title.fontStyle = FontStyle.Bold;
-            title.color = White;
+            if (Theme == 3)
+            {
+                title.color = Black;
+            }
+            else
+            {
+                title.color = White;
+            }
             title.fontSize = 7;
             title.alignment = TextAnchor.MiddleCenter;
             title.resizeTextForBestFit = true;
@@ -575,7 +618,14 @@ namespace MenkerMenu.Menu
             title.text = button.buttonText;
             title.font = ResourceLoader.ArialFont;
             title.fontStyle = FontStyle.Normal;
-            title.color = White;
+            if (Theme == 3)
+            {
+                title.color = Black;
+            }
+            else
+            {
+                title.color = White;
+            }
             RectTransform titleTransform = title.GetComponent<RectTransform>();
             titleTransform.localPosition = new Vector3(.064f, 0, .126f - offset / 2.6f);
             titleTransform.rotation = Quaternion.Euler(new Vector3(180f, 90f, 90f));
@@ -621,7 +671,14 @@ namespace MenkerMenu.Menu
                 titleObj.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
                 Text title = titleObj.AddComponent<Text>();
                 title.font = ResourceLoader.ArialFont;
-                title.color = White;
+                if (Theme == 3)
+                {
+                    title.color = Black;
+                }
+                else
+                {
+                    title.color = White;
+                }
                 title.fontSize = 3;
                 title.fontStyle = FontStyle.Normal;
                 title.alignment = TextAnchor.MiddleCenter;
@@ -654,7 +711,14 @@ namespace MenkerMenu.Menu
                 titleObj.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
                 Text title = titleObj.AddComponent<Text>();
                 title.font = ResourceLoader.ArialFont;
-                title.color = White;
+                if (Theme == 3)
+                {
+                    title.color = Black;
+                }
+                else
+                {
+                    title.color = White;
+                }
                 title.fontSize = 3;
                 title.fontStyle = FontStyle.Normal;
                 title.alignment = TextAnchor.MiddleCenter;
@@ -692,7 +756,14 @@ namespace MenkerMenu.Menu
                 title.font = ResourceLoader.ArialFont;
                 title.fontStyle = FontStyle.Normal;
                 title.text = "Return";
-                title.color = White;
+                if (Theme == 3)
+                {
+                    title.color = Black;
+                }
+                else
+                {
+                    title.color = White;
+                }
                 title.fontSize = 3;
                 title.alignment = TextAnchor.MiddleCenter;
                 title.resizeTextForBestFit = true;
@@ -725,7 +796,14 @@ namespace MenkerMenu.Menu
                 title.font = ResourceLoader.ArialFont;
                 title.fontStyle = FontStyle.Normal;
                 title.text = "Return";
-                title.color = White;
+                if (Theme == 3)
+                {
+                    title.color = Black;
+                }
+                else
+                {
+                    title.color = White;
+                }
                 title.fontSize = 3;
                 title.alignment = TextAnchor.MiddleCenter;
                 title.resizeTextForBestFit = true;
@@ -768,10 +846,18 @@ namespace MenkerMenu.Menu
                 }
             }
         }
-
+        public static bool bark = false;
         private static void PositionMenuForHand()
         {
-            if (rightHandedMenu)
+            if (bark)
+            {
+                menuObj.transform.position = GorillaTagger.Instance.headCollider.transform.position + GorillaTagger.Instance.headCollider.transform.forward * 0.5f + GorillaTagger.Instance.headCollider.transform.up * -0.1f;
+                menuObj.transform.LookAt(GorillaTagger.Instance.headCollider.transform);
+                Vector3 rotModify = menuObj.transform.rotation.eulerAngles;
+                rotModify += new Vector3(-90f, 0f, -90f);
+                menuObj.transform.rotation = Quaternion.Euler(rotModify);
+            }
+            else if (rightHandedMenu)
             {
                 menuObj.transform.position = playerInstance.rightControllerTransform.position;
                 Vector3 rotation = playerInstance.rightControllerTransform.rotation.eulerAngles;

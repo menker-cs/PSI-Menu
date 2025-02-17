@@ -137,6 +137,10 @@ namespace MenkerMenu.Mods.Categories
         {
             UnityEngine.Application.OpenURL("https://discord.gg/WFJ9nJQxnr");
         }
+        public static void Link(string url)
+        {
+            UnityEngine.Application.OpenURL(url);
+        }
 
         public static int espColor = 1;
         public static int espSetting;

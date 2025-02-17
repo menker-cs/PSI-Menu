@@ -75,7 +75,6 @@ namespace MenkerMenu.Mods
 
             #region Settings
             new Button("Disable All Mods", Category.Settings, false, false, ()=>DisableAllMods()),
-            new Button("Switch Hands", Category.Settings, true, false, ()=>SwitchHands(true), ()=>SwitchHands(false)),
             new Button("Disconnect Button", Category.Settings, true, true, ()=>ToggleDisconnectButton(true), ()=>ToggleDisconnectButton(false)),
             new Button("Toggle Notifications", Category.Settings, true, true, ()=>ToggleNotifications(true), ()=>ToggleNotifications(false)),
             new Button("Clear Notifications", Category.Settings, false, false, ()=>ClearNotifications()),
@@ -83,6 +82,8 @@ namespace MenkerMenu.Mods
             new Button("Change Speed Boost", Category.Settings, false, false, ()=>SpeedSpeed()),
             new Button("Change ESP Color", Category.Settings, false, false, ()=>ESPChange()),
             new Button("Change Layout", Category.Settings, false, false, ()=> ChangeMenuLayout()),
+            new Button("Switch Hands", Category.Settings, true, false, ()=>SwitchHands(true), ()=>SwitchHands(false)),
+            new Button("Bark Position", Category.Settings, true, false, ()=>Bark(true), ()=>Bark(false)),
             new Button("Change Theme", Category.Settings, false, false, ()=> ChangeTheme()),
             new Button("Change Button Sound", Category.Settings, false, false, ()=> ChangeSound()),
             new Button("Refresh Menu", Category.Settings, false, false, ()=> RefreshMenu()),
@@ -228,7 +229,7 @@ namespace MenkerMenu.Mods
             new Button("Menu Credits", Category.Creds, false, false, ()=>ChangePage(Category.MenuCreds)),
                 new Button("Menu Credits:", Category.MenuCreds, false, false, ()=>Placeholder()),
                 new Button("Menker", Category.MenuCreds, false, false, ()=>Placeholder()),
-                new Button("Cosmic Crystak", Category.MenuCreds, false, false, ()=>Placeholder()),
+                new Button("Flying Under The Radar", Category.MenuCreds, false, false, ()=>Placeholder()),
                 new Button("Nova", Category.MenuCreds, false, false, ()=>Placeholder()),
                 new Button("NxO Template", Category.MenuCreds, false, false, ()=>Placeholder()),
             new Button("Mod Credits", Category.Creds, false, false, ()=>ChangePage(Category.ModCreds)),
