@@ -2,6 +2,7 @@
 using static MenkerMenu.Mods.Categories.Safety;
 using Photon.Pun;
 using System;
+using static MenkerMenu.Utilities.GunTemplate;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -84,7 +85,7 @@ namespace MenkerMenu.Mods.Categories
         }
         public static void GrabAll()
         {
-            if (ControllerInputPoller.instance.rightControllerIndexFloat > 0.1f || Mouse.current.rightButton.isPressed)
+            if (ControllerInputPoller.instance.rightGrab || Mouse.current.rightButton.isPressed)
             {
                 if (Time.time > bounce)
                 {
@@ -100,6 +101,25 @@ namespace MenkerMenu.Mods.Categories
                     }
                 }
             }
+        }
+        public static void GunAll()
+        {
+            GunTemplate.StartBothGuns(() =>
+            {
+                if (Time.time > bounce)
+                {
+                    bounce2 += Time.deltaTime;
+                    bounce = Time.time + 0.1f;
+                    GorillaGuardianManager guardianmanager = GameObject.Find("GT Systems/GameModeSystem/Gorilla Guardian Manager").GetComponent<GorillaGuardianManager>();
+                    if (guardianmanager.IsPlayerGuardian(NetworkSystem.Instance.LocalPlayer))
+                    {
+                        foreach (VRRig l in GorillaParent.instance.vrrigs)
+                        {
+                            RigManager.GetNetworkViewFromVRRig(l).SendRPC("GrabbedByPlayer", RigManager.GetNetPlayerFromVRRig(LockedPlayer), new object[] { true, false, false });
+                        }
+                    }
+                }
+            }, true);
         }
         public static void UnGudian()
         {

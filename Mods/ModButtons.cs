@@ -217,6 +217,7 @@ namespace MenkerMenu.Mods
             new Button("Always Guradian", Category.Guardian, true, false, ()=> AlwaysGuardian()),
             new Button("Void All [T]", Category.Guardian, true, false, ()=> VoidAll()),
             new Button("Grab All", Category.Guardian, true, false, ()=> GrabAll()),
+            new Button("Grab Gun", Category.Guardian, true, false, ()=> GunAll()),
             new Button("Un Guardian All [M]", Category.Guardian, true, false, ()=> UnGudian()),
             #endregion
 

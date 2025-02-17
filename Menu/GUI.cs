@@ -70,8 +70,8 @@ namespace MenkerMenu.Menu
                 fontStyle = FontStyle.Bold,
                 normal = { textColor = Color.white }
             };
-
-            GUI.Label(new Rect(10, 10, 300, 50), $"<color=#FF0000>P</color><color=#FF7F00>S</color><color=#FFFF00>I </color><color=#00FF00>O</color><color=#0000FF>N </color><color=#4B0082>T</color><color=#8B00FF>O</color><color=#FF0000>P</color> {menuVersion}", titleStyle);
+            fps = (Time.deltaTime > 0) ? Mathf.RoundToInt(1.0f / Time.deltaTime) : 0;
+            GUI.Label(new Rect(10, 10, 300, 50), $"<color=#FF0000>P</color><color=#FF7F00>S</color><color=#FFFF00>I </color><color=#00FF00>O</color><color=#0000FF>N </color><color=#4B0082>T</color><color=#8B00FF>O</color><color=#FF0000>P</color> V{menuVersion} [{fps}]", titleStyle);
 
             if (showGUI)
             {
@@ -113,7 +113,7 @@ namespace MenkerMenu.Menu
             fps = (Time.deltaTime > 0) ? Mathf.RoundToInt(1.0f / Time.deltaTime) : 0;
 
             GUILayout.BeginHorizontal();
-            GUILayout.Label($"<color=#FF0000>P</color><color=#FF7F00>S</color><color=#FFFF00>I </color><color=#00FF00>O</color><color=#0000FF>N </color><color=#4B0082>T</color><color=#8B00FF>O</color><color=#FF0000>P</color> {menuVersion} [{fps}]", guiTitleStyle);
+            GUILayout.Label($"<color=#FF0000>P</color><color=#FF7F00>S</color><color=#FFFF00>I </color><color=#00FF00>O</color><color=#0000FF>N </color><color=#4B0082>T</color><color=#8B00FF>O</color><color=#FF0000>P</color> V{menuVersion} [{fps}]", guiTitleStyle);
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
 

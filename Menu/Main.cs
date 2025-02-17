@@ -380,8 +380,20 @@ namespace MenkerMenu.Menu
             Destroy(menuObj.GetComponent<BoxCollider>());
             Destroy(menuObj.GetComponent<Renderer>());
             menuObj.name = "menu";
-
             menuObj.transform.localScale = new Vector3(0.1f, 0.3f, 0.3825f);
+
+            GameObject trailObject = new GameObject("PlayerTrail");
+            trailObject.transform.position = menuObj.transform.position;
+            trailObject.transform.SetParent(menuObj.transform);
+            TrailRenderer trailRenderer = trailObject.AddComponent<TrailRenderer>();
+            trailRenderer.material = new Material(Shader.Find("Unlit/Color"));
+            trailRenderer.material.color = MenuColorT;
+            trailRenderer.time = 0.5f;
+            trailRenderer.startWidth = 0.025f;
+            trailRenderer.endWidth = 0f;
+            trailRenderer.startColor = MenuColor;
+            trailRenderer.endColor = MenuColor;
+            trailRenderer.autodestruct = true;
         }
 
         public static Color32 color = new Color32(65, 105, 225, 50);
@@ -402,6 +414,7 @@ namespace MenkerMenu.Menu
         }
         public static int Theme = 1;
         public static Color MenuColor = SkyBlue;
+        public static Color MenuColorT = SkyBlue;
         public static Color ButtonColorOff = RoyalBlue;
         public static Color ButtonColorOn = DodgerBlue;
         public static Color DisconnecyColor = Crimson;
@@ -411,31 +424,34 @@ namespace MenkerMenu.Menu
         public static void ChangeTheme()
         {
             Theme++;
-            if (Theme > 5)
+            if (Theme > 6)
             {
                 Theme = 1;
+                MenuColorT = SkyBlueTransparent;
                 MenuColor = SkyBlue;
                 ButtonColorOff = RoyalBlue;
                 ButtonColorOn = DodgerBlue;
                 DisconnecyColor = Crimson;
                 outColor = DarkDodgerBlue;
                 disOut = WineRed;
-                NotificationLib.SendNotification("<color=white>[</color><color=blue>Theme</color><color=white>] Blue</color>");
+                NotificationLib.SendNotification("<color=white>[</color><color=blue>Theme</color><color=white>] Blue/Default</color>");
                 RefreshMenu();
             }
             if (Theme == 1)
             {
+                MenuColorT = SkyBlueTransparent;
                 MenuColor = SkyBlue;
                 ButtonColorOff = RoyalBlue;
                 ButtonColorOn = DodgerBlue;
                 outColor = DarkDodgerBlue;
                 DisconnecyColor = Crimson;
                 disOut = WineRed;
-                NotificationLib.SendNotification("<color=white>[</color><color=blue>Theme</color><color=white>] Blue</color>");
+                NotificationLib.SendNotification("<color=white>[</color><color=blue>Theme</color><color=white>] Blue/Default</color>");
                 RefreshMenu();
             }
             if (Theme == 2)
             {
+                MenuColorT = FireBrickTransparent;
                 MenuColor = FireBrick;
                 ButtonColorOff = WineRed;
                 ButtonColorOn = IndianRed;
@@ -447,17 +463,31 @@ namespace MenkerMenu.Menu
             }
             if (Theme == 3)
             {
-                MenuColor = Lavender;
+                MenuColorT = new Color32(171, 129, 182, 80);
+                MenuColor = new Color32(171, 129, 182, 255);
                 ButtonColorOff = Plum;
                 ButtonColorOn = MediumOrchid;
-                outColor = SlateBlue;
-                DisconnecyColor = Plum;
-                disOut = SlateBlue;
+                outColor = DarkSlateBlue;
+                DisconnecyColor = ButtonColorOff;
+                disOut = outColor;
                 NotificationLib.SendNotification("<color=white>[</color><color=blue>Theme</color><color=white>] Lavendar</color>");
                 RefreshMenu();
             }
             if (Theme == 4)
             {
+                MenuColorT = MediumAquamarineTransparent;
+                MenuColor = MediumAquamarine;
+                ButtonColorOff = MediumSeaGreen;
+                ButtonColorOn = SeaGreen;
+                DisconnecyColor = ButtonColorOff;
+                outColor = Lime;
+                disOut = outColor;
+                NotificationLib.SendNotification("<color=white>[</color><color=blue>Theme</color><color=white>] OG</color>");
+                RefreshMenu();
+            }
+            if (Theme == 5)
+            {
+                MenuColorT = RoyalBlueTransparent;
                 MenuColor = RoyalBlue;
                 ButtonColorOff = Color.black;
                 ButtonColorOn = Crimson;
@@ -467,8 +497,9 @@ namespace MenkerMenu.Menu
                 NotificationLib.SendNotification("<color=white>[</color><color=blue>Theme</color><color=white>] OG</color>");
                 RefreshMenu();
             }
-            if (Theme == 5)
+            if (Theme == 6)
             {
+                MenuColorT = BlackTransparent;
                 MenuColor = Black;
                 ButtonColorOff = DarkerGrey;
                 ButtonColorOn = WineRed;
@@ -586,7 +617,7 @@ namespace MenkerMenu.Menu
                 lastFPSTime = Time.time;
             }
 
-            title.text = $"Psi Menu\nFPS: {fps} | Version: 1.0";
+            title.text = $"Psi Menu\nFPS: {fps} | Version: {menuVersion}";
         }
 
         public static void AddModButtons(float offset, ButtonHandler.Button button)

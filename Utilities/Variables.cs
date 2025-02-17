@@ -49,7 +49,7 @@ namespace MenkerMenu.Utilities
         public static bool menuOpen = false;
         public static bool InMenuCondition;
         public static float lastFPSTime = 0f;
-        public static int fps;
+        public static int fps = (Time.deltaTime > 0) ? Mathf.RoundToInt(1.0f / Time.deltaTime) : 0;
         public static bool InPcCondition;
 
         // --- Player and Movement Variables ---
