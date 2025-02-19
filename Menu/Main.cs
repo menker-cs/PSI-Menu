@@ -12,7 +12,7 @@ using static MenkerMenu.Mods.Categories.Room;
 using BepInEx;
 using UnityEngine.InputSystem;
 using HarmonyLib;
-using static MenkerMenu.Initialization.PluginInfo;//
+using static MenkerMenu.Initialization.PluginInfo;
 using MenkerMenu.Utilities;
 using System.IO;
 //using g3;
@@ -28,6 +28,7 @@ using GorillaExtensions;
 using TMPro;
 using System.Reflection;
 using MenkerMenu.Menu;
+using static GorillaTelemetry;
 
 namespace MenkerMenu.Menu
 {
@@ -61,7 +62,7 @@ namespace MenkerMenu.Menu
                 GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/CodeOfConduct").GetComponent<TextMeshPro>().text = "WHAT DO THESE SYMBOLS MEAN?";
                 TextMeshPro textMeshPro2 = GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/COC Text").GetComponent<TextMeshPro>();
                 textMeshPro2.text = "\n[D?] = MIGHT BE DETECTED \n[D] - DETECTED\n[U] - USE\n[P] - PRIMARY\n[S] - SECONDARY\n[G] - GRIP\n[T] - TRIGGER\n[W?] - MAYBE WORKING\n[B] - BUGGY\n\nIF A MOD HAS NO SYMBOL, IT WORKS WITHOUT HAVING TO PRESS ANYTHING AND IS COMPLETELY SAFE TO USE";
-                textMeshPro2.alignment = TextAlignmentOptions.Top; // Center the text horizontally and vertically
+                textMeshPro2.alignment = TextAlignmentOptions.Top;
                 GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/GameModes Title Text").GetComponent<TextMeshPro>().text = "Psi Menu";
             }
             catch
@@ -119,13 +120,27 @@ namespace MenkerMenu.Menu
             }
 
             #region Layout Manager
-            if (Laytou > 2)
+            if (Laytou > 3)
             {
                 Laytou = 1;
                 RefreshMenu();
             }
+
+            if (Laytou == 3 && PCMenuOpen)
+            {
+                if ((ControllerInputPoller.instance.leftControllerIndexFloat > 0.5f || UnityInput.Current.GetKeyDown(KeyCode.LeftArrow)) && menuObj != null && Time.time - j >= k)
+                {
+                    NavigatePage(true);
+                }
+                if ((ControllerInputPoller.instance.rightControllerIndexFloat > 0.5f || UnityInput.Current.GetKeyDown(KeyCode.RightArrow)) && menuObj != null && Time.time - j >= k)
+                {
+                    NavigatePage(false);
+                }
+            }
             #endregion
         }
+        public static float j = 0f;
+        public static float k = 0.2f;
         public static void OutlineObj(GameObject obj, Color clr)
         {
             GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -136,112 +151,11 @@ namespace MenkerMenu.Menu
             gameObject.transform.localPosition = obj.transform.localPosition;
             gameObject.transform.localScale = obj.transform.localScale + new Vector3(-0.025f, 0.0125f, 0.01f);
             gameObject.GetComponent<Renderer>().material.color = clr;
-            //gameObject.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
-        }
-        public static void RoundObj(GameObject obj)
-        {
-            float Bevel = 0.02f;
-
-            Renderer ToRoundRenderer = obj.GetComponent<Renderer>();
-            GameObject BaseA = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            BaseA.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
-            UnityEngine.Object.Destroy(BaseA.GetComponent<Collider>());
-
-            BaseA.transform.parent = obj.transform;
-            BaseA.transform.rotation = Quaternion.identity;
-            BaseA.transform.localPosition = obj.transform.localPosition;
-            BaseA.transform.localScale = obj.transform.localScale + new Vector3(0f, Bevel * -2.55f, 0f);
-
-            GameObject BaseB = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            BaseB.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
-            UnityEngine.Object.Destroy(BaseB.GetComponent<Collider>());
-
-            BaseB.transform.parent = obj.transform;
-            BaseB.transform.rotation = Quaternion.identity;
-            BaseB.transform.localPosition = obj.transform.localPosition;
-            BaseB.transform.localScale = obj.transform.localScale + new Vector3(0f, 0f, -Bevel * 2f);
-
-            GameObject RoundCornerA = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            RoundCornerA.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
-            UnityEngine.Object.Destroy(RoundCornerA.GetComponent<Collider>());
-
-            RoundCornerA.transform.parent = obj.transform;
-            RoundCornerA.transform.rotation = Quaternion.identity * Quaternion.Euler(0f, 0f, 90f);
-
-            RoundCornerA.transform.localPosition = obj.transform.localPosition + new Vector3(0f, (obj.transform.localScale.y / 2f) - (Bevel * 1.275f), (obj.transform.localScale.z / 2f) - Bevel);
-            RoundCornerA.transform.localScale = new Vector3(Bevel * 2.55f, obj.transform.localScale.x / 2f, Bevel * 2f);
-
-            GameObject RoundCornerB = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            RoundCornerB.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
-            UnityEngine.Object.Destroy(RoundCornerB.GetComponent<Collider>());
-
-            RoundCornerB.transform.parent = obj.transform;
-            RoundCornerB.transform.rotation = Quaternion.identity * Quaternion.Euler(0f, 0f, 90f);
-
-            RoundCornerB.transform.localPosition = obj.transform.localPosition + new Vector3(0f, -(obj.transform.localScale.y / 2f) + (Bevel * 1.275f), (obj.transform.localScale.z / 2f) - Bevel);
-            RoundCornerB.transform.localScale = new Vector3(Bevel * 2.55f, obj.transform.localScale.x / 2f, Bevel * 2f);
-
-            GameObject RoundCornerC = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            RoundCornerC.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
-            UnityEngine.Object.Destroy(RoundCornerC.GetComponent<Collider>());
-
-            RoundCornerC.transform.parent = obj.transform;
-            RoundCornerC.transform.rotation = Quaternion.identity * Quaternion.Euler(0f, 0f, 90f);
-
-            RoundCornerC.transform.localPosition = obj.transform.localPosition + new Vector3(0f, (obj.transform.localScale.y / 2f) - (Bevel * 1.275f), -(obj.transform.localScale.z / 2f) + Bevel);
-            RoundCornerC.transform.localScale = new Vector3(Bevel * 2.55f, obj.transform.localScale.x / 2f, Bevel * 2f);
-
-            GameObject RoundCornerD = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            RoundCornerD.GetComponent<Renderer>().enabled = ToRoundRenderer.enabled;
-            UnityEngine.Object.Destroy(RoundCornerD.GetComponent<Collider>());
-
-            RoundCornerD.transform.parent = obj.transform;
-            RoundCornerD.transform.rotation = Quaternion.identity * Quaternion.Euler(0f, 0f, 90f);
-
-            RoundCornerD.transform.localPosition = obj.transform.localPosition + new Vector3(0f, -(obj.transform.localScale.y / 2f) + (Bevel * 1.275f), -(obj.transform.localScale.z / 2f) + Bevel);
-            RoundCornerD.transform.localScale = new Vector3(Bevel * 2.55f, obj.transform.localScale.x / 2f, Bevel * 2f);
-
-            GameObject[] ToChange = new GameObject[]
-            {
-                BaseA,
-                BaseB,
-                RoundCornerA,
-                RoundCornerB,
-                RoundCornerC,
-                RoundCornerD
-            };
-
-            foreach (GameObject Changed in ToChange)
-            {
-                ClampColor TargetChanger = Changed.AddComponent<ClampColor>();
-                TargetChanger.targetRenderer = ToRoundRenderer;
-
-                TargetChanger.Start();
-            }
-
-            ToRoundRenderer.enabled = false;
-        }
-
-        public class ClampColor : MonoBehaviour
-        {
-            public void Start()
-            {
-                gameObjectRenderer = GetComponent<Renderer>();
-                Update();
-            }
-
-            public void Update()
-            {
-                gameObjectRenderer.material.color = targetRenderer.material.color;
-            }
-
-            public Renderer gameObjectRenderer;
-            public Renderer targetRenderer;
         }
         public void Awake()
         {
             ExitGames.Client.Photon.Hashtable table = Photon.Pun.PhotonNetwork.LocalPlayer.CustomProperties;
-            table.Add("Psi Menu", true);
+            table.Add("Psi On Top", true);
             Photon.Pun.PhotonNetwork.LocalPlayer.SetCustomProperties(table);
 
             ResourceLoader.LoadResources();
@@ -251,7 +165,6 @@ namespace MenkerMenu.Menu
             thirdPersonCamera = GameObject.Find("Player Objects/Third Person Camera/Shoulder Camera");
             cm = GameObject.Find("Player Objects/Third Person Camera/Shoulder Camera/CM vcam1");
         }
-
         public static void HandleMenuInteraction()
         {
             try
@@ -307,7 +220,7 @@ namespace MenkerMenu.Menu
                     cm?.SetActive(true);
                 }
 
-                openMenu = rightHandedMenu ? ControllerInputPoller.instance.rightControllerSecondaryButton : ControllerInputPoller.instance.leftControllerSecondaryButton;
+                openMenu = rightHandedMenu ? ControllerInputPoller.instance.rightGrab : ControllerInputPoller.instance.leftControllerSecondaryButton;
 
                 if (openMenu && !InPcCondition)
                 {
@@ -371,7 +284,6 @@ namespace MenkerMenu.Menu
                 AddModButtons(i * 0.09f, PageToDraw[i]);
             }
         }
-
         private static void CreateMenuObject()
         {
             // Menu Object
@@ -393,9 +305,7 @@ namespace MenkerMenu.Menu
             trailRenderer.endWidth = 0f;
             trailRenderer.startColor = MenuColor;
             trailRenderer.endColor = MenuColor;
-            trailRenderer.autodestruct = true;
         }
-
         public static Color32 color = new Color32(65, 105, 225, 50);
         private static void CreateBackground()
         {
@@ -414,13 +324,13 @@ namespace MenkerMenu.Menu
         }
         public static int Theme = 1;
         public static Color MenuColor = SkyBlue;
-        public static Color MenuColorT = SkyBlue;
+        public static Color MenuColorT = SkyBlueTransparent;
         public static Color ButtonColorOff = RoyalBlue;
         public static Color ButtonColorOn = DodgerBlue;
         public static Color DisconnecyColor = Crimson;
         public static Color outColor = DarkDodgerBlue;
         public static Color disOut = WineRed;
-
+        public static Color GUIColor;
         public static void ChangeTheme()
         {
             Theme++;
@@ -571,7 +481,6 @@ namespace MenkerMenu.Menu
                 rectt.rotation = Quaternion.Euler(new Vector3(180f, 90f, 90f));
             }
         }
-
         private static void CreateMenuCanvasAndTitle()
         {
             // Menu Canvas
@@ -619,7 +528,6 @@ namespace MenkerMenu.Menu
 
             title.text = $"Psi Menu\nFPS: {fps} | Version: {menuVersion}";
         }
-
         public static void AddModButtons(float offset, ButtonHandler.Button button)
         {
             // Mod Buttons
@@ -634,7 +542,6 @@ namespace MenkerMenu.Menu
             {
                 btnCollider.isTrigger = true;
             }
-
             ModButton.transform.SetParent(menuObj.transform, false);
             ModButton.transform.rotation = Quaternion.identity;
             ModButton.transform.localScale = new Vector3(0.09f, 0.9f, 0.08f);
@@ -688,7 +595,7 @@ namespace MenkerMenu.Menu
                 // Page Buttons
                 PageButtons = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 Destroy(PageButtons.GetComponent<Rigidbody>());
-                PageButtons.GetComponent<BoxCollider>().isTrigger = true;
+                PageButtons.GetComponent<BoxCollider>().isTrigger = true;;
                 PageButtons.transform.parent = menuObj.transform;
                 PageButtons.transform.rotation = Quaternion.identity;
                 PageButtons.transform.localScale = new Vector3(0.09f, 0.25f, 0.079f);
@@ -762,6 +669,10 @@ namespace MenkerMenu.Menu
                 titleTransform.rotation = Quaternion.Euler(new Vector3(180f, 90f, 90f));
                 titleTransform.position = new Vector3(0.064f, button.Contains("<") ? 0.1955f : -0.1955f, 0f);
             }
+            if (Laytou == 3)
+            {
+                Destroy(PageButtons);
+            }
         }
         public static void AddReturnButton()
         {
@@ -805,7 +716,7 @@ namespace MenkerMenu.Menu
                 titleTransform.localPosition = new Vector3(.064f, 0f, -0.165f);
                 titleTransform.rotation = Quaternion.Euler(new Vector3(180f, 90f, 90f));
             }
-            if (Laytou == 2)
+            else
             {
                 // Return Button
                 GameObject BackToStartButton = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -846,7 +757,6 @@ namespace MenkerMenu.Menu
                 titleTransform.rotation = Quaternion.Euler(new Vector3(180f, 90f, 90f));
             }
         }
-
         public static void AddButtonClicker(Transform parentTransform)
         {
             // Button Clicker
@@ -901,7 +811,6 @@ namespace MenkerMenu.Menu
                 menuObj.transform.rotation = playerInstance.leftControllerTransform.rotation;
             }
         }
-
         private static void PositionMenuForKeyboard()
         {
             if (thirdPersonCamera != null)
@@ -922,7 +831,6 @@ namespace MenkerMenu.Menu
                 menuObj.transform.Rotate(Vector3.right, -90.0f);
             }
         }
-
         public static void AddRigidbodyToMenu()
         {
             if (currentMenuRigidbody == null && menuObj != null)

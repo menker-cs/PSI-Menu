@@ -59,6 +59,7 @@ namespace MenkerMenu.Mods
         public static Button[] buttons =
         {
 #region Starting Page
+            new Button("Disable All Mods", Category.Home, false, false, ()=>DisableAllMods()),
             new Button("Settings", Category.Home, false, false, ()=>ChangePage(Category.Settings)),
             new Button("Room", Category.Home, false, false, ()=>ChangePage(Category.Room)),
             new Button("Safety", Category.Home, false, false, ()=>ChangePage(Category.Safety)),
@@ -74,7 +75,8 @@ namespace MenkerMenu.Mods
             #endregion
 
             #region Settings
-            new Button("Disable All Mods", Category.Settings, false, false, ()=>DisableAllMods()),
+           // new Button("Save Preferences", Category.Settings, false, false, ()=>Save()),
+           // new Button("Load Preferences", Category.Settings, false, false, ()=>Load()),
             new Button("Disconnect Button", Category.Settings, true, true, ()=>ToggleDisconnectButton(true), ()=>ToggleDisconnectButton(false)),
             new Button("Toggle Notifications", Category.Settings, true, true, ()=>ToggleNotifications(true), ()=>ToggleNotifications(false)),
             new Button("Clear Notifications", Category.Settings, false, false, ()=>ClearNotifications()),
@@ -135,6 +137,7 @@ namespace MenkerMenu.Mods
             new Button("High Gravity", Category.Move, true, false, ()=>HighGravity()),
             new Button("Reverse Gravity", Category.Move, true, false, ()=>ReverseGravity(), ()=>GravityFixRig()),
             new Button("TP Gun", Category.Move, true, false, ()=>TPGun()),
+            new Button("Airstrike Gun", Category.Move, true, false, ()=>AirStrike()),
             new Button("TP To Player Gun", Category.Move, true, false, ()=>TPPlayerGun()),
             new Button("Hover Gun", Category.Move, true, false, ()=>HoverGun()),
             new Button("Check Point [RG, RT, A]", Category.Move, true, false, ()=>Checkpoint()),
@@ -218,7 +221,7 @@ namespace MenkerMenu.Mods
             new Button("Void All [T]", Category.Guardian, true, false, ()=> VoidAll()),
             new Button("Grab All", Category.Guardian, true, false, ()=> GrabAll()),
             new Button("Grab Gun", Category.Guardian, true, false, ()=> GunAll()),
-            new Button("Un Guardian All [M]", Category.Guardian, true, false, ()=> UnGudian()),
+            new Button("Un Guardian All [M]", Category.Guardian, true, false, ()=> UnGudian(), null, true),
             #endregion
 
             #region OP

@@ -78,6 +78,5 @@ namespace MenkerMenu.Mods.Categories
         {
             BetterDayNightManager.instance.SetTimeOfDay(4);
         }
-
     }
 }

@@ -39,7 +39,7 @@ namespace MenkerMenu.Menu
             }
         }
 
-        private static void NavigatePage(bool forward)
+        public static void NavigatePage(bool forward)
         {
             int totalPages = GetTotalPages(currentPage);
             int lastPage = totalPages - 1;

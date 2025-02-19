@@ -9,11 +9,14 @@ using static MenkerMenu.Initialization.PluginInfo;
 using static MenkerMenu.Utilities.Variables;
 using MenkerMenu.Menu;
 using UnityEngine;
+using static MenkerMenu.Menu.ButtonHandler;
+using static MenkerMenu.Menu.Main;
+using static MenkerMenu.Utilities.ColorLib;
 using MenkerMenu.Mods;
 
 namespace MenkerMenu.Menu
 {
-    [BepInPlugin("Psi.GUI", "GayrillaTag", "1.0")]
+    [BepInPlugin("Psi.GUI", "GayrillaTag", "2.0")]
     public class UI : BaseUnityPlugin
     {
         private Rect windowRect = new Rect(10, 10, 700, 500);
@@ -21,7 +24,7 @@ namespace MenkerMenu.Menu
         private Vector2 scrollPosition = Vector2.zero;
         private int selectedTab = 0;
         //private string roomCode = "";
-        private Color theme = new Color32(0, 0, 0, 255);
+        private Color theme;
         private bool wasdthing = false;
         public static Vector2 scrollpos1 = Vector2.zero;
         public static Vector2 scrollpos2 = Vector2.zero;
@@ -44,13 +47,10 @@ namespace MenkerMenu.Menu
         }
         void Start()
         {
-            //regular buttons
-            buttonTexture = CreateTexture(new Color32(25, 25, 25, 255));
-            buttonTextureActive = CreateTexture(new Color32(65, 65, 65, 255));
-
-            //tab buttons
-            tabTexture = CreateTexture(new Color32(50, 50, 50, 255));
-            tabTextureActive = CreateTexture(new Color32(255, 0, 255, 255));
+            buttonTexture = CreateTexture(outColor);
+            buttonTextureActive = CreateTexture(ButtonColorOn);
+            tabTexture = CreateTexture(outColor);
+            tabTextureActive = CreateTexture(ButtonColorOn);
         }
 
         void Update()
@@ -60,6 +60,29 @@ namespace MenkerMenu.Menu
                 //showGUI = !showGUI;
                 lastButtonPressTime = Time.time;
             }
+            theme = MenuColor;
+            if (Main.Theme == 6)
+            {
+                buttonTexture = CreateTexture(DarkerGrey);
+                buttonTextureActive = CreateTexture(ButtonColorOn);
+            }
+            else if (Theme == 5)
+            {
+                buttonTexture = CreateTexture(DarkerGrey);
+                buttonTextureActive = CreateTexture(WineRed);
+            }
+            else if (Theme == 2)
+            {
+                buttonTexture = CreateTexture(ButtonColorOff);
+                buttonTextureActive = CreateTexture(ButtonColorOn);
+            }
+            else
+            {
+                buttonTexture = CreateTexture(outColor);
+                buttonTextureActive = CreateTexture(ButtonColorOn);
+            }
+            tabTexture = buttonTexture;
+            tabTextureActive = buttonTextureActive;
         }
 
         void OnGUI()
@@ -68,10 +91,10 @@ namespace MenkerMenu.Menu
             {
                 fontSize = 24,
                 fontStyle = FontStyle.Bold,
-                normal = { textColor = Color.white }
+                normal = { textColor = MenuColor }
             };
             fps = (Time.deltaTime > 0) ? Mathf.RoundToInt(1.0f / Time.deltaTime) : 0;
-            GUI.Label(new Rect(10, 10, 300, 50), $"<color=#FF0000>P</color><color=#FF7F00>S</color><color=#FFFF00>I </color><color=#00FF00>O</color><color=#0000FF>N </color><color=#4B0082>T</color><color=#8B00FF>O</color><color=#FF0000>P</color> V{menuVersion} [{fps}]", titleStyle);
+            GUI.Label(new Rect(10, 10, 300, 50), $"PSI ON TOP V{menuVersion} [{fps}]", titleStyle);
 
             if (showGUI)
             {
@@ -108,12 +131,12 @@ namespace MenkerMenu.Menu
             {
                 fontSize = 20,
                 fontStyle = FontStyle.Bold,
-                normal = { textColor = Color.white }
+                normal = { textColor = MenuColor }
             };
             fps = (Time.deltaTime > 0) ? Mathf.RoundToInt(1.0f / Time.deltaTime) : 0;
 
             GUILayout.BeginHorizontal();
-            GUILayout.Label($"<color=#FF0000>P</color><color=#FF7F00>S</color><color=#FFFF00>I </color><color=#00FF00>O</color><color=#0000FF>N </color><color=#4B0082>T</color><color=#8B00FF>O</color><color=#FF0000>P</color> V{menuVersion} [{fps}]", guiTitleStyle);
+            GUILayout.Label($"PSI ON TOP V{menuVersion} [{fps}]", guiTitleStyle);
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
 
@@ -339,8 +362,6 @@ namespace MenkerMenu.Menu
 
             foreach (ButtonHandler.Button info in ModButtons.buttons)
             {
-                // foreach (ButtonHandler.Button info in btninfo)
-                //  {
                 if (string.IsNullOrEmpty(searchQuery) || info.buttonText.ToLower().Contains(searchQuery.ToLower()))
                 {
                     GUILayout.BeginHorizontal();

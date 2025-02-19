@@ -120,10 +120,9 @@ namespace MenkerMenu.Mods.Categories
             {
                 if (!RPA)
                 {
-                    Color clr = MenuColor;
                     RP = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     RP.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
-                    RP.GetComponent<Renderer>().material.color = clr;
+                    RP.GetComponent<Renderer>().material.color = MenuColorT;
                     OutlineObj(RP,outColor);
                     RP.transform.rotation = GorillaLocomotion.Player.Instance.rightControllerTransform.rotation;
                     RP.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
@@ -143,7 +142,7 @@ namespace MenkerMenu.Mods.Categories
                 {
                     LP = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     LP.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
-                    LP.GetComponent<Renderer>().material.color = MenuColor;
+                    LP.GetComponent<Renderer>().material.color = MenuColorT;
                     OutlineObj(LP, outColor);
                     LP.transform.rotation = GorillaLocomotion.Player.Instance.leftControllerTransform.rotation;
                     LP.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
@@ -165,14 +164,14 @@ namespace MenkerMenu.Mods.Categories
                 {
                     RP1 = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     RP1.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
-                    RP1.GetComponent<Renderer>().material.color = MenuColor;
+                    RP1.GetComponent<Renderer>().material.color = MenuColorT;
                     RP1.transform.rotation = GorillaLocomotion.Player.Instance.rightControllerTransform.rotation;
                     RP1.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
                     RP1.transform.position = GorillaTagger.Instance.rightHandTransform.position - Vector3.up * 0.045f;
 
                     RP2 = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     RP2.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
-                    RP2.GetComponent<Renderer>().material.color = MenuColor;
+                    RP2.GetComponent<Renderer>().material.color = MenuColorT;
                     RP2.transform.rotation = GorillaLocomotion.Player.Instance.rightControllerTransform.rotation;
                     RP2.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
                     RP2.transform.position = GorillaTagger.Instance.rightHandTransform.position + Vector3.up * 0.045f;
@@ -194,14 +193,14 @@ namespace MenkerMenu.Mods.Categories
                 {
                     LP1 = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     LP1.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
-                    LP1.GetComponent<Renderer>().material.color = new Color32(0, 8, 252, 80);
+                    LP1.GetComponent<Renderer>().material.color = MenuColorT;
                     LP1.transform.rotation = GorillaLocomotion.Player.Instance.leftControllerTransform.rotation;
                     LP1.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
                     LP1.transform.position = GorillaTagger.Instance.leftHandTransform.position - Vector3.up * 0.045f;
 
                     LP2 = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     LP2.GetComponent<Renderer>().material.shader = Shader.Find("UI/Default");
-                    LP2.GetComponent<Renderer>().material.color = new Color32(0, 8, 252, 80);
+                    LP2.GetComponent<Renderer>().material.color = MenuColorT;
                     LP2.transform.rotation = GorillaLocomotion.Player.Instance.leftControllerTransform.rotation;
                     LP2.transform.localScale = new Vector3(0.01f, 0.3f, 0.4f);
                     LP2.transform.position = GorillaTagger.Instance.leftHandTransform.position + Vector3.up * 0.045f;
@@ -248,6 +247,14 @@ namespace MenkerMenu.Mods.Categories
             {
                 GorillaLocomotion.Player.Instance.transform.position = GunTemplate.spherepointer.transform.position;
                 GorillaTagger.Instance.transform.position = GunTemplate.spherepointer.transform.position;
+            }, false);
+        }
+        public static void AirStrike()
+        {
+            GunTemplate.StartBothGuns(() =>
+            {
+                GorillaLocomotion.Player.Instance.transform.position = GunTemplate.spherepointer.transform.position + new Vector3(0f, 20f, 0f);
+                GorillaTagger.Instance.transform.position = GunTemplate.spherepointer.transform.position + new Vector3(0f, 20f, 0f);
             }, false);
         }
         public static void NoTagFreeze()
