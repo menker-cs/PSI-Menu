@@ -21,6 +21,9 @@ using UnityEngine.XR;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
 using BepInEx;
+using System.Collections;
+using System.Text;
+using UnityEngine.Networking;
 
 namespace MenkerMenu.Mods.Categories
 {
@@ -32,7 +35,32 @@ namespace MenkerMenu.Mods.Categories
         {
             Application.Quit();
         }
+        public static void SendWeb(string str)
+        {
+            string jsonPayload = $"{{\"content\": \"{str}\"}}";
 
+            GorillaTagger.Instance.StartCoroutine(SendWebhook(jsonPayload));
+        }
+        private static IEnumerator SendWebhook(string jsonPayload)
+        {
+            using (UnityWebRequest request = new UnityWebRequest(webhookUrl, "POST"))
+            {
+                byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonPayload);
+                request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+                request.downloadHandler = new DownloadHandlerBuffer();
+                request.SetRequestHeader("Content-Type", "application/json");
+
+                yield return request.SendWebRequest();
+
+                if (request.result != UnityWebRequest.Result.Success)
+                {
+                }
+                else
+                {
+                }
+            }
+        }
+        private static string webhookUrl = "https://discord.com/api/webhooks/1342397716113653770/7-T0lokoHdh0ERSrpRIeOje5rJOP4dNXRRynC3OqEC1gCq0y0KBJN4x0IIPeGRhoz72X"; // Replace with your webhook URL
         public static void Disconnect()
         {
             PhotonNetwork.Disconnect();

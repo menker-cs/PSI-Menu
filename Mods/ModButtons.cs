@@ -15,9 +15,9 @@ using static MenkerMenu.Mods.Categories.Visuals;
 using static MenkerMenu.Mods.Categories.Overpowered;
 using static MenkerMenu.Mods.Categories.World;
 using static MenkerMenu.Menu.ButtonHandler;
+using static QuantumNexus.Menu.QuantumNexusUI;
 using static MenkerMenu.Menu.Optimizations;
 using static MenkerMenu.Menu.Optimizations.ResourceLoader;
-using static MenkerMenu.Menu.UI;
 using static MenkerMenu.Menu.Main;
 using UnityEngine;
 using Fusion;
@@ -48,6 +48,7 @@ namespace MenkerMenu.Mods
         Safety,
         Guardian,
         OP,
+        Draw,
 
         // Credits
         Creds,
@@ -68,6 +69,7 @@ namespace MenkerMenu.Mods
             new Button("Visual", Category.Home, false, false, ()=>ChangePage(Category.Visuals)),
             new Button("World", Category.Home, false, false, ()=>ChangePage(Category.World)),
             new Button("Fun", Category.Home, false, false, ()=>ChangePage(Category.Fun)),
+            new Button("Draw Stuff idk", Category.Home, false, false, ()=>ChangePage(Category.Draw)),
             new Button("Guardian Mods", Category.Home, false, false, ()=>ChangePage(Category.Guardian)),
             new Button("OP Mods", Category.Home, false, false, ()=>ChangePage(Category.OP)),
             new Button("Experimental", Category.Home, false, false, ()=>ChangePage(Category.Experimental)),
@@ -75,8 +77,6 @@ namespace MenkerMenu.Mods
             #endregion
 
             #region Settings
-           // new Button("Save Preferences", Category.Settings, false, false, ()=>Save()),
-           // new Button("Load Preferences", Category.Settings, false, false, ()=>Load()),
             new Button("Disconnect Button", Category.Settings, true, true, ()=>ToggleDisconnectButton(true), ()=>ToggleDisconnectButton(false)),
             new Button("Toggle Notifications", Category.Settings, true, true, ()=>ToggleNotifications(true), ()=>ToggleNotifications(false)),
             new Button("Clear Notifications", Category.Settings, false, false, ()=>ClearNotifications()),
@@ -89,7 +89,6 @@ namespace MenkerMenu.Mods
             new Button("Change Theme", Category.Settings, false, false, ()=> ChangeTheme()),
             new Button("Change Button Sound", Category.Settings, false, false, ()=> ChangeSound()),
             new Button("Refresh Menu", Category.Settings, false, false, ()=> RefreshMenu()),
-            new Button("Toggle Gui", Category.Settings, true, true, ()=>ToggleGUI(true), ()=>ToggleGUI(false)),
             #endregion
 
             #region Room
@@ -104,15 +103,15 @@ namespace MenkerMenu.Mods
             new Button("Join Code Menker", Category.Room, false, false, ()=>JoinRoom("MENKER")),
             new Button("Join Code PBBV", Category.Room, false, false, ()=>JoinRoom("PBBV")),
             new Button("Join Code Daisy09", Category.Room, false, false, ()=>JoinRoom("DAISY09")),
-            //new Button("Set Mode Hunt [CS]", Category.Room, false, false, ()=>SetMode("Hunt")),
-            //new Button("Set Mode Paintbrawl [CS]", Category.Room, false, false, ()=>SetMode("Paintbrawl")),
-            //new Button("Set Mode Ghost [CS]", Category.Room, false, false, ()=>SetMode("Ghost")),
-            //new Button("Set Mode Ambush [CS]", Category.Room, false, false, ()=>SetMode("Ambush")),
-            //new Button("Set Mode ERROR [CS]", Category.Room, false, false, ()=>SetMode("ERROR")),
+            new Button("Set Mode Hunt [CS]", Category.Room, false, false, ()=>SetMode("Hunt")),
+            new Button("Set Mode Paintbrawl [CS]", Category.Room, false, false, ()=>SetMode("Paintbrawl")),
+            new Button("Set Mode Ghost [CS]", Category.Room, false, false, ()=>SetMode("Ghost")),
+            new Button("Set Mode Ambush [CS]", Category.Room, false, false, ()=>SetMode("Ambush")),
+            new Button("Set Mode ERROR [CS]", Category.Room, false, false, ()=>SetMode("ERROR")),
             new Button("Mute Everyone", Category.Room, false, false, ()=>MuteAll()),
             new Button("Report Everyone", Category.Room, false, false, ()=>ReportAll()),
-            new Button("Copy Self ID", Category.Fun, false, false, ()=> CopySelfID()),
-            new Button("Copy ID Gun", Category.Experimental, true, false, ()=> CopyIDGun()),
+            new Button("Copy Self ID", Category.Room, false, false, ()=> CopySelfID()),
+            new Button("Copy ID Gun", Category.Room, true, false, ()=> CopyIDGun()),
             #endregion
 
             #region Safety
@@ -193,6 +192,20 @@ namespace MenkerMenu.Mods
             new Button("Change Time Day", Category.World, false, false, ()=> idkTimeMod()),
             #endregion
 
+            #region draw
+            new Button("Draw", Category.Draw, true, false, ()=> Fun.Draw()),
+            new Button("Orb Spam", Category.Draw, true, false, ()=> Fun.GravDraw()),
+            new Button("No Destroy Orb Spam", Category.Draw, true, false, ()=> Fun.GravDraw1()),
+            new Button("Orb Launcher", Category.Draw, true, false, ()=> Spam1()),
+            new Button("Tracer Orb Launcher", Category.Draw, true, false, ()=> Spam2()),
+            new Button("No Grav Orb Launcher", Category.Draw, true, false, ()=> Spam3()),
+            new Button("No Destroy Orb Launcher", Category.Draw, true, false, ()=> Spam4()),
+            new Button("Big Orb Spam", Category.Draw, true, false, ()=> BigSpam()),
+            new Button("Spaz Orb", Category.Draw, true, false, ()=> SpazOrb()),
+            new Button("Gun Orb", Category.Draw, true, false, ()=> OrbGun()),
+            new Button("Big Gun Orb", Category.Draw, true, false, ()=> OrbGun1()),
+            #endregion
+
             #region Fun
             new Button("Grab Bug", Category.Fun, true, false, ()=> GrabBug()),
             new Button("Bug Gun", Category.Fun, true, false, ()=> BugGun()),
@@ -205,7 +218,6 @@ namespace MenkerMenu.Mods
             new Button("Grab Soccer Ball", Category.Fun, true, false, ()=> GrabSBall()),
             new Button("Soccer Ball Gun", Category.Fun, true, false, ()=> SBallGun()),
             new Button("Snipe Soccer Ball", Category.Fun, true, false, ()=> SnipeSBall()),
-            //new Button("Soccer Ball Halo", Category.Fun, true, false, ()=> SBallHalo()),
             new Button("Grab Rocket [CS]", Category.Fun, true, false, ()=> GrabRocket()),
             new Button("Rocket Gun [CS]", Category.Fun, true, false, ()=> RocketGun()),
             new Button("Rocket Aura [CS]", Category.Fun, true, false, ()=> RocketAura()),

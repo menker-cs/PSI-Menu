@@ -75,10 +75,10 @@ namespace MenkerMenu.Mods.Categories
                         r = Time.time + 0.2f;
                         for (int i = 0; i < 20; i++)
                         {
-                            FriendshipGroupDetection.Instance.photonView.RPC("RequestPartyGameMode", RigManager.NetPlayerToPlayer(RigManager.GetPlayerFromVRRig(GunTemplate.LockedPlayer)), new object[1]);
-                            FriendshipGroupDetection.Instance.photonView.RPC("NotifyPartyGameModeChanged", RigManager.NetPlayerToPlayer(RigManager.GetPlayerFromVRRig(GunTemplate.LockedPlayer)), new object[1]);
-                            FriendshipGroupDetection.Instance.photonView.RPC("VerifyPartyMember", RigManager.NetPlayerToPlayer(RigManager.GetPlayerFromVRRig(GunTemplate.LockedPlayer)), new object[1]);
-                            FriendshipGroupDetection.Instance.photonView.RPC("PartyMemberIsAboutToGroupJoin", RigManager.NetPlayerToPlayer(RigManager.GetPlayerFromVRRig(GunTemplate.LockedPlayer)), new object[1]);
+                            FriendshipGroupDetection.Instance.photonView.RPC("RequestPartyGameMode", RigManager.GetPlayerFromVRRig(GunTemplate.LockedPlayer), new object[1]);
+                            FriendshipGroupDetection.Instance.photonView.RPC("NotifyPartyGameModeChanged", RigManager.GetPlayerFromVRRig(GunTemplate.LockedPlayer), new object[1]);
+                            FriendshipGroupDetection.Instance.photonView.RPC("VerifyPartyMember", RigManager.GetPlayerFromVRRig(GunTemplate.LockedPlayer), new object[1]);
+                            FriendshipGroupDetection.Instance.photonView.RPC("PartyMemberIsAboutToGroupJoin", RigManager.GetPlayerFromVRRig(GunTemplate.LockedPlayer), new object[1]);
                             Safety.FlushRPCs(0.4f);
                         }
                     }

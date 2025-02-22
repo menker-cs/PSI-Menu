@@ -12,7 +12,7 @@ namespace MenkerMenu.Menu
     {
         public static class ButtonPool
         {
-            private static List<GameObject> buttonPool = new List<GameObject>();
+            public static List<GameObject> buttonPool = new List<GameObject>();
             private static int currentIndex = 0;
 
             public static GameObject GetButton()

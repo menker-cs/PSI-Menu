@@ -1,4 +1,4 @@
-﻿using System.Buffers.Text;
+﻿/*using System.Buffers.Text;
 using System.Collections.Generic;
 using BepInEx;
 using GorillaNetworking;
@@ -20,7 +20,7 @@ namespace MenkerMenu.Menu
     public class UI : BaseUnityPlugin
     {
         private Rect windowRect = new Rect(10, 10, 700, 500);
-        static bool showGUI = true;
+        static bool showGUI = false;
         private Vector2 scrollPosition = Vector2.zero;
         private int selectedTab = 0;
         //private string roomCode = "";
@@ -422,4 +422,4 @@ namespace MenkerMenu.Menu
             return texture;
         }
     }
-}
+}*/

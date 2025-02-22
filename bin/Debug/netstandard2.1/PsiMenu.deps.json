@@ -10,7 +10,6 @@
       "PsiMenu/1.0.0": {
         "dependencies": {
           "0Harmony": "2.9.0.0",
-          "AA.Mothership": "0.0.0.0",
           "Assembly-CSharp": "0.0.0.0",
           "BepInEx": "5.4.23.2",
           "Cinemachine": "0.0.0.0",
@@ -156,14 +155,6 @@
           "0Harmony.dll": {
             "assemblyVersion": "2.9.0.0",
             "fileVersion": "2.9.0.0"
-          }
-        }
-      },
-      "AA.Mothership/0.0.0.0": {
-        "runtime": {
-          "AA.Mothership.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
           }
         }
       },
@@ -1367,6 +1358,14 @@
           }
         }
       },
+      "AA.Mothership/0.0.0.0": {
+        "runtime": {
+          "AA.Mothership.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
       "Backtrace.Unity/0.0.0.0": {
         "runtime": {
           "Backtrace.Unity.dll": {
@@ -1536,11 +1535,6 @@
       "sha512": ""
     },
     "0Harmony/2.9.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "AA.Mothership/0.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
@@ -2291,6 +2285,11 @@
       "sha512": ""
     },
     "GT_CustomMapSupportRuntime/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AA.Mothership/0.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

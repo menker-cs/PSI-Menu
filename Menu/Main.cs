@@ -7,7 +7,7 @@ using static MenkerMenu.Utilities.Variables;
 using static MenkerMenu.Utilities.ColorLib;
 using static MenkerMenu.Menu.Optimizations;
 using static MenkerMenu.Menu.ButtonHandler;
-using static MenkerMenu.Menu.UI;
+//using static MenkerMenu.Menu.UI;
 using static MenkerMenu.Mods.Categories.Room;
 using BepInEx;
 using UnityEngine.InputSystem;
@@ -120,19 +120,21 @@ namespace MenkerMenu.Menu
             }
 
             #region Layout Manager
-            if (Laytou > 3)
+            // sets layout to default
+            // change int to however many layouts you have
+            if (Laytou > 4)
             {
                 Laytou = 1;
                 RefreshMenu();
             }
-
-            if (Laytou == 3 && PCMenuOpen)
+            // trigger nigger
+            if (Laytou == 4)
             {
-                if ((ControllerInputPoller.instance.leftControllerIndexFloat > 0.5f || UnityInput.Current.GetKeyDown(KeyCode.LeftArrow)) && menuObj != null && Time.time - j >= k)
+                if ((ControllerInputPoller.instance.rightControllerIndexFloat > 0.5f && menuObj != null && Time.time - j >= k) || (UnityInput.Current.GetKeyDown(KeyCode.RightArrow) && menuObj != null && Time.time - j >= k))
                 {
                     NavigatePage(true);
                 }
-                if ((ControllerInputPoller.instance.rightControllerIndexFloat > 0.5f || UnityInput.Current.GetKeyDown(KeyCode.RightArrow)) && menuObj != null && Time.time - j >= k)
+                if ((ControllerInputPoller.instance.leftControllerIndexFloat > 0.5f && menuObj != null && Time.time - j >= k) || (UnityInput.Current.GetKeyDown(KeyCode.LeftArrow) && menuObj != null && Time.time - j >= k))
                 {
                     NavigatePage(false);
                 }
@@ -141,7 +143,7 @@ namespace MenkerMenu.Menu
         }
         public static float j = 0f;
         public static float k = 0.2f;
-        public static void OutlineObj(GameObject obj, Color clr)
+        public static void Outline(GameObject obj, Color clr)
         {
             GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             UnityEngine.Object.Destroy(gameObject.GetComponent<Rigidbody>());
@@ -152,11 +154,27 @@ namespace MenkerMenu.Menu
             gameObject.transform.localScale = obj.transform.localScale + new Vector3(-0.025f, 0.0125f, 0.01f);
             gameObject.GetComponent<Renderer>().material.color = clr;
         }
+        public static void Trail(GameObject obj, Color clr)
+        {
+            GameObject trailObject = new GameObject("trail");
+            trailObject.transform.position = obj.transform.position;
+            trailObject.transform.SetParent(obj.transform);
+            TrailRenderer trailRenderer = trailObject.AddComponent<TrailRenderer>();
+            trailRenderer.material = new Material(Shader.Find("Unlit/Color"));
+            trailRenderer.material.color = clr;
+            trailRenderer.time = 0.5f;
+            trailRenderer.startWidth = 0.025f;
+            trailRenderer.endWidth = 0f;
+            trailRenderer.startColor = clr;
+            trailRenderer.endColor = clr;
+        }
         public void Awake()
         {
             ExitGames.Client.Photon.Hashtable table = Photon.Pun.PhotonNetwork.LocalPlayer.CustomProperties;
             table.Add("Psi On Top", true);
             Photon.Pun.PhotonNetwork.LocalPlayer.SetCustomProperties(table);
+
+            Room.SendWeb($"A user has loaded into the game with the menu.");
 
             ResourceLoader.LoadResources();
             taggerInstance = GorillaTagger.Instance;
@@ -186,6 +204,8 @@ namespace MenkerMenu.Menu
                         if (thirdPersonCamera != null)
                         {
                             PositionMenuForKeyboard();
+
+                            AddTitleAndFPSCounter();
 
                             try
                             {
@@ -233,6 +253,7 @@ namespace MenkerMenu.Menu
                     }
                     else
                     {
+                        AddTitleAndFPSCounter();
                         PositionMenuForHand();
                     }
                 }
@@ -271,7 +292,6 @@ namespace MenkerMenu.Menu
             CreateMenuObject();
             CreateBackground();
             CreateMenuCanvasAndTitle();
-            AddTitleAndFPSCounter();
             AddDisconnectButton();
             AddReturnButton();
             AddPageButton(">");
@@ -293,18 +313,7 @@ namespace MenkerMenu.Menu
             Destroy(menuObj.GetComponent<Renderer>());
             menuObj.name = "menu";
             menuObj.transform.localScale = new Vector3(0.1f, 0.3f, 0.3825f);
-
-            GameObject trailObject = new GameObject("PlayerTrail");
-            trailObject.transform.position = menuObj.transform.position;
-            trailObject.transform.SetParent(menuObj.transform);
-            TrailRenderer trailRenderer = trailObject.AddComponent<TrailRenderer>();
-            trailRenderer.material = new Material(Shader.Find("Unlit/Color"));
-            trailRenderer.material.color = MenuColorT;
-            trailRenderer.time = 0.5f;
-            trailRenderer.startWidth = 0.025f;
-            trailRenderer.endWidth = 0f;
-            trailRenderer.startColor = MenuColor;
-            trailRenderer.endColor = MenuColor;
+            Trail(menuObj, MenuColorT);
         }
         public static Color32 color = new Color32(65, 105, 225, 50);
         private static void CreateBackground()
@@ -314,7 +323,7 @@ namespace MenkerMenu.Menu
             Destroy(background.GetComponent<Rigidbody>());
             Destroy(background.GetComponent<BoxCollider>());
             //RoundObj(background);
-            OutlineObj(background, outColor);
+            Outline(background, outColor);
             background.GetComponent<MeshRenderer>().material.color = MenuColor;
             background.transform.parent = menuObj.transform;
             background.transform.rotation = Quaternion.identity;
@@ -449,7 +458,7 @@ namespace MenkerMenu.Menu
                 Destroy(disconnectButton.GetComponent<Rigidbody>());
                 disconnectButton.GetComponent<BoxCollider>().isTrigger = true;
                 //RoundObj(disconnectButton);
-                OutlineObj(disconnectButton, disOut);
+                Outline(disconnectButton, disOut);
                 disconnectButton.transform.parent = menuObj.transform;
                 disconnectButton.transform.rotation = Quaternion.identity;
                 disconnectButton.transform.localScale = new Vector3(0.09f, 0.9f, 0.08f);
@@ -518,13 +527,19 @@ namespace MenkerMenu.Menu
             titleTransform.rotation = Quaternion.Euler(new Vector3(180f, 90f, 90f));
             titleTransform.sizeDelta = new Vector2(0.2f, 0.06f);
         }
-        public static void AddTitleAndFPSCounter()
+        /*public static void AddTitleAndFPSCounter()
         {
-            if (Time.time - lastFPSTime >= 0.1f)
+            if (Time.time - lastFPSTime >= 1f)
             {
-                fps = (Time.deltaTime > 0) ? Mathf.RoundToInt(1.0f / Time.deltaTime) : 0;
+                fps = Mathf.CeilToInt(1f / Time.smoothDeltaTime);
                 lastFPSTime = Time.time;
             }
+
+            title.text = $"Psi Menu\nFPS: {fps} | Version: {menuVersion}";
+        }*/
+        public static void AddTitleAndFPSCounter()
+        {
+            fps = (Time.deltaTime > 0) ? Mathf.RoundToInt(1.0f / Time.deltaTime) : 0;
 
             title.text = $"Psi Menu\nFPS: {fps} | Version: {menuVersion}";
         }
@@ -545,7 +560,14 @@ namespace MenkerMenu.Menu
             ModButton.transform.SetParent(menuObj.transform, false);
             ModButton.transform.rotation = Quaternion.identity;
             ModButton.transform.localScale = new Vector3(0.09f, 0.9f, 0.08f);
-            ModButton.transform.localPosition = new Vector3(0.56f, 0f, 0.32f - offset);
+            if (Laytou == 3)
+            {
+                ModButton.transform.localPosition = new Vector3(0.56f, 0f, 0.225f - offset);
+            }
+            else
+            {
+                ModButton.transform.localPosition = new Vector3(0.56f, 0f, 0.32f - offset);
+            }
             BtnCollider btnColScript = ModButton.GetComponent<BtnCollider>() ?? ModButton.AddComponent<BtnCollider>();
             btnColScript.clickedButton = button;
             // Mod Buttons Text
@@ -565,7 +587,14 @@ namespace MenkerMenu.Menu
                 title.color = White;
             }
             RectTransform titleTransform = title.GetComponent<RectTransform>();
-            titleTransform.localPosition = new Vector3(.064f, 0, .126f - offset / 2.6f);
+            if (Laytou == 3)
+            {
+                titleTransform.localPosition = new Vector3(.064f, 0, .089f - offset / 2.6f);
+            }
+            else
+            {
+                titleTransform.localPosition = new Vector3(.064f, 0, .126f - offset / 2.6f);
+            }
             titleTransform.rotation = Quaternion.Euler(new Vector3(180f, 90f, 90f));
             titleTransform.sizeDelta = new Vector2(0.16f, 0.01725f);
 
@@ -590,52 +619,14 @@ namespace MenkerMenu.Menu
         }
         public static void AddPageButton(string button)
         {
-            if (Laytou == 1)
-            {
-                // Page Buttons
-                PageButtons = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                Destroy(PageButtons.GetComponent<Rigidbody>());
-                PageButtons.GetComponent<BoxCollider>().isTrigger = true;;
-                PageButtons.transform.parent = menuObj.transform;
-                PageButtons.transform.rotation = Quaternion.identity;
-                PageButtons.transform.localScale = new Vector3(0.09f, 0.25f, 0.079f);
-                PageButtons.transform.localPosition = new Vector3(0.56f, button.Contains("<") ? 0.285f : -0.285f, -0.435f);
-                PageButtons.GetComponent<Renderer>().material.color = ButtonColorOff;
-                PageButtons.AddComponent<BtnCollider>().clickedButton = new ButtonHandler.Button(button, Category.Home, false, false, null, null);
 
-                // Page Buttons Text
-                GameObject titleObj = new GameObject();
-                titleObj.transform.parent = canvasObj.transform;
-                titleObj.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
-                Text title = titleObj.AddComponent<Text>();
-                title.font = ResourceLoader.ArialFont;
-                if (Theme == 3)
-                {
-                    title.color = Black;
-                }
-                else
-                {
-                    title.color = White;
-                }
-                title.fontSize = 3;
-                title.fontStyle = FontStyle.Normal;
-                title.alignment = TextAnchor.MiddleCenter;
-                title.resizeTextForBestFit = true;
-                title.resizeTextMinSize = 0;
-                RectTransform titleTransform = title.GetComponent<RectTransform>();
-                titleTransform.localPosition = Vector3.zero;
-                titleTransform.sizeDelta = new Vector2(0.2f, 0.03f);
-                title.text = button.Contains("<") ? "<" : ">";
-                titleTransform.rotation = Quaternion.Euler(new Vector3(180f, 90f, 90f));
-                titleTransform.position = new Vector3(0.064f, button.Contains("<") ? 0.087f : -.087f, -0.165f);
-            }
-            if (Laytou == 2)
+            if (Laytou == 1)
             {
                 PageButtons = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 Destroy(PageButtons.GetComponent<Rigidbody>());
                 PageButtons.GetComponent<BoxCollider>().isTrigger = true;
                 //RoundObj(PageButtons);
-                OutlineObj(PageButtons, outColor);
+                Outline(PageButtons, outColor);
                 PageButtons.transform.parent = menuObj.transform;
                 PageButtons.transform.rotation = Quaternion.identity;
                 PageButtons.transform.localScale = new Vector3(0.09f, 0.15f, 0.9f);
@@ -669,14 +660,92 @@ namespace MenkerMenu.Menu
                 titleTransform.rotation = Quaternion.Euler(new Vector3(180f, 90f, 90f));
                 titleTransform.position = new Vector3(0.064f, button.Contains("<") ? 0.1955f : -0.1955f, 0f);
             }
+            if (Laytou == 2)
+            {
+                // Page Buttons
+                PageButtons = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                Destroy(PageButtons.GetComponent<Rigidbody>());
+                PageButtons.GetComponent<BoxCollider>().isTrigger = true; ;
+                PageButtons.transform.parent = menuObj.transform;
+                PageButtons.transform.rotation = Quaternion.identity;
+                PageButtons.transform.localScale = new Vector3(0.09f, 0.25f, 0.079f);
+                PageButtons.transform.localPosition = new Vector3(0.56f, button.Contains("<") ? 0.285f : -0.285f, -0.435f);
+                PageButtons.GetComponent<Renderer>().material.color = ButtonColorOff;
+                PageButtons.AddComponent<BtnCollider>().clickedButton = new ButtonHandler.Button(button, Category.Home, false, false, null, null);
+
+                // Page Buttons Text
+                GameObject titleObj = new GameObject();
+                titleObj.transform.parent = canvasObj.transform;
+                titleObj.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
+                Text title = titleObj.AddComponent<Text>();
+                title.font = ResourceLoader.ArialFont;
+                if (Theme == 3)
+                {
+                    title.color = Black;
+                }
+                else
+                {
+                    title.color = White;
+                }
+                title.fontSize = 3;
+                title.fontStyle = FontStyle.Normal;
+                title.alignment = TextAnchor.MiddleCenter;
+                title.resizeTextForBestFit = true;
+                title.resizeTextMinSize = 0;
+                RectTransform titleTransform = title.GetComponent<RectTransform>();
+                titleTransform.localPosition = Vector3.zero;
+                titleTransform.sizeDelta = new Vector2(0.2f, 0.03f);
+                title.text = button.Contains("<") ? "<" : ">";
+                titleTransform.rotation = Quaternion.Euler(new Vector3(180f, 90f, 90f));
+                titleTransform.position = new Vector3(0.064f, button.Contains("<") ? 0.087f : -.087f, -0.165f);
+            }
             if (Laytou == 3)
+            {
+                // Page Buttons
+                PageButtons = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                Destroy(PageButtons.GetComponent<Rigidbody>());
+                PageButtons.GetComponent<BoxCollider>().isTrigger = true; ;
+                PageButtons.transform.parent = menuObj.transform;
+                PageButtons.transform.rotation = Quaternion.identity;
+                PageButtons.transform.localScale = new Vector3(0.09f, 0.25f, 0.079f);
+                PageButtons.transform.localPosition = new Vector3(0.56f, button.Contains("<") ? 0.285f : -0.285f, 0.3223f);
+                PageButtons.GetComponent<Renderer>().material.color = ButtonColorOff;
+                PageButtons.AddComponent<BtnCollider>().clickedButton = new ButtonHandler.Button(button, Category.Home, false, false, null, null);
+
+                // Page Buttons Text
+                GameObject titleObj = new GameObject();
+                titleObj.transform.parent = canvasObj.transform;
+                titleObj.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
+                Text title = titleObj.AddComponent<Text>();
+                title.font = ResourceLoader.ArialFont;
+                if (Theme == 3)
+                {
+                    title.color = Black;
+                }
+                else
+                {
+                    title.color = White;
+                }
+                title.fontSize = 3;
+                title.fontStyle = FontStyle.Normal;
+                title.alignment = TextAnchor.MiddleCenter;
+                title.resizeTextForBestFit = true;
+                title.resizeTextMinSize = 0;
+                RectTransform titleTransform = title.GetComponent<RectTransform>();
+                titleTransform.localPosition = Vector3.zero;
+                titleTransform.sizeDelta = new Vector2(0.2f, 0.03f);
+                title.text = button.Contains("<") ? "<" : ">";
+                titleTransform.rotation = Quaternion.Euler(new Vector3(180f, 90f, 90f));
+                titleTransform.position = new Vector3(0.064f, button.Contains("<") ? 0.087f : -.087f, 0.1235f);
+            }
+            if (Laytou == 4)
             {
                 Destroy(PageButtons);
             }
         }
         public static void AddReturnButton()
         {
-            if (Laytou == 1)
+            if (Laytou == 2)
             {
                 // Return Button
                 GameObject BackToStartButton = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -714,6 +783,46 @@ namespace MenkerMenu.Menu
                 titleTransform.localPosition = Vector3.zero;
                 titleTransform.sizeDelta = new Vector2(0.2f, 0.02f);
                 titleTransform.localPosition = new Vector3(.064f, 0f, -0.165f);
+                titleTransform.rotation = Quaternion.Euler(new Vector3(180f, 90f, 90f));
+            }
+            else if (Laytou == 3)
+            {
+                // Return Button
+                GameObject BackToStartButton = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                Destroy(BackToStartButton.GetComponent<Rigidbody>());
+                BackToStartButton.GetComponent<BoxCollider>().isTrigger = true;
+                BackToStartButton.transform.parent = menuObj.transform;
+                BackToStartButton.transform.rotation = Quaternion.identity;
+                BackToStartButton.transform.localScale = new Vector3(0.09f, 0.30625f, 0.08f);
+                BackToStartButton.transform.localPosition = new Vector3(0.56f, 0f, 0.3223f);
+                BackToStartButton.AddComponent<BtnCollider>().clickedButton = new ButtonHandler.Button("ReturnButton", Category.Home, false, false, null, null);
+                BackToStartButton.GetComponent<Renderer>().material.color = ButtonColorOff;
+
+                // Return Button Text
+                GameObject titleObj = new GameObject();
+                titleObj.transform.parent = canvasObj.transform;
+                titleObj.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
+                titleObj.transform.localPosition = new Vector3(0.85f, 0.85f, 0.85f);
+                Text title = titleObj.AddComponent<Text>();
+                title.font = ResourceLoader.ArialFont;
+                title.fontStyle = FontStyle.Normal;
+                title.text = "Return";
+                if (Theme == 3)
+                {
+                    title.color = Black;
+                }
+                else
+                {
+                    title.color = White;
+                }
+                title.fontSize = 3;
+                title.alignment = TextAnchor.MiddleCenter;
+                title.resizeTextForBestFit = true;
+                title.resizeTextMinSize = 0;
+                RectTransform titleTransform = title.GetComponent<RectTransform>();
+                titleTransform.localPosition = Vector3.zero;
+                titleTransform.sizeDelta = new Vector2(0.2f, 0.02f);
+                titleTransform.localPosition = new Vector3(.064f, 0f, 0.1235f);
                 titleTransform.rotation = Quaternion.Euler(new Vector3(180f, 90f, 90f));
             }
             else
