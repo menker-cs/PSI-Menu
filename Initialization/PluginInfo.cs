@@ -4,6 +4,6 @@
     {
         public const string menuGUID = "com.psi.psimenu.org";
         public const string menuName = "Psi Menu";
-        public const string menuVersion = "2.0";
+        public const string menuVersion = "3.0";
     }
 }

@@ -17,6 +17,7 @@ using GorillaNetworking;
 using static MenkerMenu.Utilities.HandOrbs;
 using Photon.Pun;
 using Oculus.Interaction.PoseDetection;
+using Fusion;
 
 namespace MenkerMenu.Mods.Categories
 {
@@ -495,7 +496,8 @@ namespace MenkerMenu.Mods.Categories
                 body.drag = 0f;
                 body.useGravity = true;
                 body.collisionDetectionMode = CollisionDetectionMode.Continuous;
-                body.velocity = Playerr.Random(0.5f) * 25f;
+                body.rotation = new Quaternion(UnityEngine.Random.Range(-360, 360), UnityEngine.Random.Range(-360, 360), UnityEngine.Random.Range(-360, 360), UnityEngine.Random.Range(-360, 360));
+                body.velocity = new Vector3(UnityEngine.Random.Range(-3, 3), UnityEngine.Random.Range(-3, 3), UnityEngine.Random.Range(-3, 3)) * 25f;
 
                 GameObject.Destroy(orb, 5f);
             }
@@ -512,11 +514,85 @@ namespace MenkerMenu.Mods.Categories
                 body.drag = 0f;
                 body.useGravity = true;
                 body.collisionDetectionMode = CollisionDetectionMode.Continuous;
-                body.velocity = Playerr.Random(0.5f) * 25f;
+                body.rotation = new Quaternion(UnityEngine.Random.Range(-360, 360), UnityEngine.Random.Range(-360, 360), UnityEngine.Random.Range(-360, 360), UnityEngine.Random.Range(-360, 360));
+                body.velocity = new Vector3(UnityEngine.Random.Range(-3, 3), UnityEngine.Random.Range(-3, 3), UnityEngine.Random.Range(-3, 3)) * 25f;
 
+                GameObject.Destroy(orb, 5f);
+
+                
+            }
+        }
+        public static void OrbRain()
+        {
+            if (pollerInstance.rightGrab)
+            {
+                GameObject orb = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                orb.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                orb.transform.position = GorillaLocomotion.Player.Instance.rightControllerTransform.position + new Vector3(UnityEngine.Random.Range(-20, 20), 10, UnityEngine.Random.Range(-20, 20));
+                orb.GetComponent<Renderer>().material.color = MenuColorT;
+                GameObject.Find("Environment Objects/LocalObjects_Prefab/Forest/Terrain/pitgeo/pit ground").layer = orb.layer;
+                Rigidbody body = orb.AddComponent<Rigidbody>();
+                body.mass = 0.5f;
+                body.drag = 0f;
+                body.useGravity = true;
+                body.collisionDetectionMode = CollisionDetectionMode.Continuous;
+                body.velocity = body.velocity;
+                GameObject.Destroy(orb, 5f);
+            }
+            if (pollerInstance.leftGrab)
+            {
+                GameObject orb = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                orb.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                orb.transform.position = GorillaLocomotion.Player.Instance.leftControllerTransform.position + new Vector3(UnityEngine.Random.Range(-20, 20), 10, UnityEngine.Random.Range(-20, 20));
+                orb.GetComponent<Renderer>().material.color = MenuColorT;
+                GameObject.Find("Environment Objects/LocalObjects_Prefab/Forest/Terrain/pitgeo/pit ground").layer = orb.layer;
+
+                Rigidbody body = orb.AddComponent<Rigidbody>();
+                body.mass = 0.5f;
+                body.drag = 0f;
+                body.useGravity = true;
+                body.collisionDetectionMode = CollisionDetectionMode.Continuous;
+                body.velocity = body.velocity;
                 GameObject.Destroy(orb, 5f);
             }
         }
+        public static void OrbRain1()
+        {
+            if (pollerInstance.rightGrab)
+            {
+                GameObject orb = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                orb.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+                orb.transform.position = GorillaLocomotion.Player.Instance.rightControllerTransform.position + new Vector3(UnityEngine.Random.Range(-20, 20), 10, UnityEngine.Random.Range(-20, 20));
+                orb.GetComponent<Renderer>().material.color = MenuColorT;
+                GameObject.Find("Environment Objects/LocalObjects_Prefab/Forest/Terrain/pitgeo/pit ground").layer = orb.layer;
+                Rigidbody body = orb.AddComponent<Rigidbody>();
+                body.mass = 0.5f;
+                body.drag = 0f;
+                body.useGravity = true;
+                body.collisionDetectionMode = CollisionDetectionMode.Continuous;
+                body.velocity = body.velocity;
+                Trail1(orb, MenuColorT);
+                GameObject.Destroy(orb, 5f);
+            }
+            if (pollerInstance.leftGrab)
+            {
+                GameObject orb = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                orb.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+                orb.transform.position = GorillaLocomotion.Player.Instance.leftControllerTransform.position + new Vector3(UnityEngine.Random.Range(-20, 20), 10, UnityEngine.Random.Range(-20, 20));
+                orb.GetComponent<Renderer>().material.color = MenuColorT;
+                GameObject.Find("Environment Objects/LocalObjects_Prefab/Forest/Terrain/pitgeo/pit ground").layer = orb.layer;
+
+                Rigidbody body = orb.AddComponent<Rigidbody>();
+                body.mass = 0.5f;
+                body.drag = 0f;
+                body.useGravity = true;
+                body.collisionDetectionMode = CollisionDetectionMode.Continuous;
+                body.velocity = body.velocity;
+                Trail1(orb, MenuColorT);
+                GameObject.Destroy(orb, 5f);
+            }
+        }
+
         static GameObject draw;
         #endregion
     }

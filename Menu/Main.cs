@@ -38,11 +38,24 @@ namespace MenkerMenu.Menu
         [HarmonyPrefix]
         public static void Prefix()
         {
+            Material colorMaterial = new Material(Shader.Find("GUI/Text Shader"))
+            {
+                color = Color.Lerp(ColorLib.SkyBlue, new Color32(8, 90, 177, byte.MaxValue), Mathf.PingPong(Time.time, 1.5f))
+            };
+            colorMaterial.SetFloat("_Mode", 2f);
+
             try
             {
-                GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/motd (1)")
-                    .GetComponent<TextMeshPro>().text = $"<color=#a0a1f3>PSI MENU | V{menuVersion}\n--------------------------------------------</color>";
+                Material mat;
+                mat = new Material(Shader.Find("GorillaTag/UberShader"));
+                mat.color = colorMaterial.color;
+                GameObject WallMonitor = GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/TreeRoomBoundaryStones/BoundaryStoneSet_Forest/wallmonitorforestbg");
+                WallMonitor.GetComponent<Renderer>().material = mat;
+
+                GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/motd (1)").GetComponent<TextMeshPro>().text = $"PSI MENU | V{menuVersion}\n--------------------------------------------";
+                GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/motd (1)").GetComponent<TextMeshPro>().color = colorMaterial.color;
                 TextMeshPro textMeshPro = GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/motdtext").GetComponent<TextMeshPro>();
+                textMeshPro.GetComponent<TextMeshPro>().color = colorMaterial.color;
                 if (PhotonNetwork.InRoom)
                 {
                     string roomName = PhotonNetwork.CurrentRoom.Name.ToUpper();
@@ -51,19 +64,25 @@ namespace MenkerMenu.Menu
                     string ping = PhotonNetwork.GetPing().ToString().ToUpper();
                     string isMaster = PhotonNetwork.IsMasterClient ? "YES" : "NO";
                     string masterClient = PhotonNetwork.MasterClient.NickName.ToUpper();
-                    textMeshPro.text = $"<color=#00ff00>\nIN ROOM: {roomName}</color>\n<color=#a0a1f3>PLAYERS: {playerCount}/{maxPlayers}\n" +
-                           $"PING: {ping}ms\nAM I MASTER CLIENT?: {isMaster}\nMASTER CLIENT: {masterClient}\nMADE BY: COSMICCRYSTAL</color>";
+                    textMeshPro.text = $"<color=#00ff00>\nIN ROOM: {roomName}</color>\nPLAYERS: {playerCount}/{maxPlayers}\n" +
+                           $"PING: {ping}ms\nAM I MASTER CLIENT?: {isMaster}\nMASTER CLIENT: {masterClient}\nMADE BY: COSMICCRYSTAL";
+                    textMeshPro.GetComponent<TextMeshPro>().color = colorMaterial.color;
                 }
                 else
                 {
-                    textMeshPro.text = "<color=#ff0000>\nNOT CONNECTED TO A ROOM</color>\n<color=#a0a1f3>MADE BY: COSMICCRYSTAL</color>";
+                    textMeshPro.text = "<color=#ff0000>\nNOT CONNECTED TO A ROOM</color>\nMADE BY: COSMICCRYSTAL";
+                    textMeshPro.GetComponent<TextMeshPro>().color = colorMaterial.color;
                 }
                 textMeshPro.alignment = TextAlignmentOptions.Top;
                 GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/CodeOfConduct").GetComponent<TextMeshPro>().text = "WHAT DO THESE SYMBOLS MEAN?";
+                GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/CodeOfConduct").GetComponent<TextMeshPro>().color = colorMaterial.color;
                 TextMeshPro textMeshPro2 = GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/COC Text").GetComponent<TextMeshPro>();
                 textMeshPro2.text = "\n[D?] = MIGHT BE DETECTED \n[D] - DETECTED\n[U] - USE\n[P] - PRIMARY\n[S] - SECONDARY\n[G] - GRIP\n[T] - TRIGGER\n[W?] - MAYBE WORKING\n[B] - BUGGY\n\nIF A MOD HAS NO SYMBOL, IT WORKS WITHOUT HAVING TO PRESS ANYTHING AND IS COMPLETELY SAFE TO USE";
                 textMeshPro2.alignment = TextAlignmentOptions.Top;
+                textMeshPro2.GetComponent<TextMeshPro>().color = colorMaterial.color;
+
                 GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/GameModes Title Text").GetComponent<TextMeshPro>().text = "Psi Menu";
+                GameObject.Find("Environment Objects/LocalObjects_Prefab/TreeRoom/GameModes Title Text").GetComponent<TextMeshPro>().color= colorMaterial.color;
             }
             catch
             {
@@ -168,6 +187,20 @@ namespace MenkerMenu.Menu
             trailRenderer.startColor = clr;
             trailRenderer.endColor = clr;
         }
+        public static void Trail1(GameObject obj, Color clr)
+        {
+            GameObject trailObject = new GameObject("trail");
+            trailObject.transform.position = obj.transform.position;
+            trailObject.transform.SetParent(obj.transform);
+            TrailRenderer trailRenderer = trailObject.AddComponent<TrailRenderer>();
+            trailRenderer.material = new Material(Shader.Find("Unlit/Color"));
+            trailRenderer.material.color = clr;
+            trailRenderer.time = 0.3f;
+            trailRenderer.startWidth = 0.025f;
+            trailRenderer.endWidth = 0f;
+            trailRenderer.startColor = clr;
+            trailRenderer.endColor = clr;
+        }
         public void Awake()
         {
             ExitGames.Client.Photon.Hashtable table = Photon.Pun.PhotonNetwork.LocalPlayer.CustomProperties;
@@ -254,6 +287,7 @@ namespace MenkerMenu.Menu
                     else
                     {
                         AddTitleAndFPSCounter();
+                        Trail(menuObj, MenuColorT);
                         PositionMenuForHand();
                     }
                 }
@@ -313,7 +347,6 @@ namespace MenkerMenu.Menu
             Destroy(menuObj.GetComponent<Renderer>());
             menuObj.name = "menu";
             menuObj.transform.localScale = new Vector3(0.1f, 0.3f, 0.3825f);
-            Trail(menuObj, MenuColorT);
         }
         public static Color32 color = new Color32(65, 105, 225, 50);
         private static void CreateBackground()
@@ -429,24 +462,43 @@ namespace MenkerMenu.Menu
                 RefreshMenu();
             }
         }
-        public static int ActuallSound = 67;
+        public static int ActuallSound = 66;
         public static int LOJUHFDG = 1;
         public static void ChangeSound()
         {
             LOJUHFDG++;
-            if (LOJUHFDG > 2)
+            if (LOJUHFDG > 7)
             {
                 LOJUHFDG = 1;
-                ActuallSound = 67;
+                ActuallSound = 66;
             }
-
             if (LOJUHFDG == 1)
             {
-                ActuallSound = 67;
+                ActuallSound = 66;
             }
             if (LOJUHFDG == 2)
             {
                 ActuallSound = 84;
+            }
+            if (LOJUHFDG == 3)
+            {
+                ActuallSound = 8;
+            }
+            if (LOJUHFDG == 4)
+            {
+                ActuallSound = 203;
+            }
+            if (LOJUHFDG == 5)
+            {
+                ActuallSound = 50;
+            }
+            if (LOJUHFDG == 6)
+            {
+                ActuallSound = 67;
+            }
+            if (LOJUHFDG == 7)
+            {
+                ActuallSound = 114;
             }
         }
         public static void AddDisconnectButton()

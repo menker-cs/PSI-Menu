@@ -89,5 +89,13 @@ namespace MenkerMenu.Mods.Categories
 
         }
         static float r = 1f;
+        public static void EnableBoard()
+        {
+            GameObject.Find("Player Objects/Local VRRig/Local Gorilla Player/RigAnchor/rig/body/HoverboardVisual").SetActive(true);
+        }
+        public static void HideBoard()
+        {
+            GameObject.Find("Player Objects/Local VRRig/Local Gorilla Player/RigAnchor/rig/body/HoverboardVisual").SetActive(false);
+        }
     }
 }

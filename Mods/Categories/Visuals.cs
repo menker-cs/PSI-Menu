@@ -14,6 +14,7 @@ using UnityEngine.InputSystem.Controls;
 using System.Drawing;
 using System.Xml.Linq;
 using MenkerMenu.Utilities;
+using Cinemachine;
 
 
 namespace MenkerMenu.Mods.Categories
@@ -917,6 +918,17 @@ namespace MenkerMenu.Mods.Categories
                     GameObject.Destroy(trailObject, trailRenderer.time + 0.5f);
                 }
             }
+        }//
+        public static void followPlayer()
+        {
+            GunTemplate.StartBothGuns(()=>
+            {
+                GameObject.Find("Player Objects/Third Person Camera/Shoulder Camera/CM vcam1").GetComponent<CinemachineVirtualCamera>().Follow.transform.position = GunTemplate.LockedPlayer.transform.position;
+                GameObject.Find("Player Objects/Third Person Camera/Shoulder Camera/CM vcam1").GetComponent<CinemachineVirtualCamera>().Follow.transform.LookAt(GunTemplate.LockedPlayer.transform);
+                GameObject.Find("Player Objects/Third Person Camera/Shoulder Camera/CM vcam1").GetComponent<CinemachineVirtualCamera>().Follow.transform.rotation = GunTemplate.LockedPlayer.transform.rotation;
+            },true);
+            GameObject.Find("Player Objects/Third Person Camera/Shoulder Camera/CM vcam1").GetComponent<CinemachineVirtualCamera>().Follow.transform.localPosition = new Vector3(0f, 0f, 0f);
+            GameObject.Find("Player Objects/Third Person Camera/Shoulder Camera/CM vcam1").GetComponent<CinemachineVirtualCamera>().Follow.transform.localRotation = new Quaternion(0f, 0f, 0f, 1f);
         }
 
         public static GameObject name;

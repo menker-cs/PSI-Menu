@@ -7,6 +7,7 @@ using static MenkerMenu.Utilities.Variables;
 using static MenkerMenu.Menu.Optimizations;
 using HarmonyLib;
 using Photon.Pun;
+using PsiTemp.Menu;
 
 namespace MenkerMenu.Utilities
 {
@@ -137,6 +138,7 @@ namespace MenkerMenu.Utilities
 
         public static void SendNotification(string content)
         {
+            PSIUI.SendNotification(content);
             if (!toggleNotifications) return;
             if (!IsEnabled || string.IsNullOrEmpty(content) || Instance.notificationText == null || content == PreviousNotification)
             {

@@ -106,6 +106,7 @@ namespace MenkerMenu.Utilities
         public static Color32 Grey = new Color32(128, 128, 128, 255);
         public static Color32 LightGrey = new Color32(192, 192, 192, 255);
         public static Color32 DarkGrey = new Color32(80, 80, 80, 255);
+        public static Color32 back = new Color32(18, 18, 18, 255);
         public static Color32 DarkerGrey = new Color32(40, 40, 40, 255);
         #endregion
 

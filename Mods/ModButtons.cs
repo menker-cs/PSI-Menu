@@ -15,7 +15,7 @@ using static MenkerMenu.Mods.Categories.Visuals;
 using static MenkerMenu.Mods.Categories.Overpowered;
 using static MenkerMenu.Mods.Categories.World;
 using static MenkerMenu.Menu.ButtonHandler;
-using static QuantumNexus.Menu.QuantumNexusUI;
+using static PsiTemp.Menu.PSIUI;
 using static MenkerMenu.Menu.Optimizations;
 using static MenkerMenu.Menu.Optimizations.ResourceLoader;
 using static MenkerMenu.Menu.Main;
@@ -178,6 +178,7 @@ namespace MenkerMenu.Mods
             new Button("Distance ESP", Category.Visuals, true, false, ()=>DistanceESP()),
             new Button("Nametags", Category.Visuals, true, false, ()=>Nametags()),
             new Button("Snake ESP", Category.Visuals, true, false, ()=>SnakeESP()),
+            new Button("Spectate Gun", Category.Visuals, true, false, ()=>followPlayer()),
             new Button("Ball Halo Orbit", Category.Visuals, true, false, ()=>BallHaloOrbit()),
             new Button("Visualize Anti Report", Category.Visuals, false, false, ()=>VisReport()),
             new Button("FPS Boost", Category.Visuals, true, false, ()=>FPSboost(), ()=> fixFPS()),
@@ -204,6 +205,8 @@ namespace MenkerMenu.Mods
             new Button("Spaz Orb", Category.Draw, true, false, ()=> SpazOrb()),
             new Button("Gun Orb", Category.Draw, true, false, ()=> OrbGun()),
             new Button("Big Gun Orb", Category.Draw, true, false, ()=> OrbGun1()),
+            new Button("Orb Rain", Category.Draw, true, false, ()=> OrbRain()),
+            new Button("Orb Rain V2", Category.Draw, true, false, ()=> OrbRain1()),
             #endregion
 
             #region Fun
@@ -234,11 +237,13 @@ namespace MenkerMenu.Mods
             new Button("Grab All", Category.Guardian, true, false, ()=> GrabAll()),
             new Button("Grab Gun", Category.Guardian, true, false, ()=> GunAll()),
             new Button("Un Guardian All [M]", Category.Guardian, true, false, ()=> UnGudian(), null, true),
+            new Button("Guardian Self [M]", Category.Guardian, true, false, ()=> Gudian(), null, true),
             #endregion
 
             #region OP
             new Button("Lag All [UND]", Category.OP, true, false, ()=>LagAll()),
             new Button("Lag Gun [UND]", Category.OP, true, false, ()=>LagGun()),
+            new Button("Enable Hoverboard [SS]", Category.OP, true, false, ()=>EnableBoard(), ()=>HideBoard()),
             #endregion 
 
             #region Credits
@@ -247,6 +252,7 @@ namespace MenkerMenu.Mods
                 new Button("Menker", Category.MenuCreds, false, false, ()=>Placeholder()),
                 new Button("Flying Under The Radar", Category.MenuCreds, false, false, ()=>Placeholder()),
                 new Button("Nova", Category.MenuCreds, false, false, ()=>Placeholder()),
+                //new Button("F3", Category.MenuCreds, false, false, ()=>Placeholder()),
                 new Button("NxO Template", Category.MenuCreds, false, false, ()=>Placeholder()),
             new Button("Mod Credits", Category.Creds, false, false, ()=>ChangePage(Category.ModCreds)),
                 new Button("Diddy Master", Category.ModCreds, false, false, ()=>Placeholder()),

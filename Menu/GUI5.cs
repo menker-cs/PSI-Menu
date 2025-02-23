@@ -1,43 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using BepInEx;
 using UnityEngine;
 using UnityEngine.XR;
 using MenkerMenu.Utilities;
+using MenkerMenu.Mods;
+using System.Linq;
 using MenkerMenu.Menu;
 using MenkerMenu.Mods;
-using MenkerMenu;
-using MenkerMenu.Menu;
-using MenkerMenu.Mods.Categories;
 using MenkerMenu.Utilities;
-using MenkerMenu.Initialization;
+using UnityEngine.PlayerLoop;
+using Oculus.Platform;
+using UnityEngine.Playables;
 
-namespace QuantumNexus.Menu
+namespace PsiTemp.Menu
 {
-    [BepInPlugin("org.Psi.ui.com", "GayrillaTag", "1.0.1")]
-    public class QuantumNexusUI : BaseUnityPlugin
+    [BepInPlugin("org.psi.ui.com", "GayrillaTag", "1.3.0")]
+    public class PSIUI : BaseUnityPlugin
     {
-        private string UIName = "Psi Menu";
         private static bool isUIShown = true;
         public static Texture2D ButtonTexture = new Texture2D(2, 2);
         public static Texture2D ButtonHoverTexture = new Texture2D(2, 2);
         public static Texture2D ButtonClickTexture = new Texture2D(2, 2);
         public static Texture2D Background = new Texture2D(2, 2);
+        public static Texture2D scrollTex = new Texture2D(2, 2);
         public static Vector2 Scroller = Vector2.zero;
-        public Rect GUIRect = new Rect(10f, 10f, 500f, 400f);
         public static GUITab CurrentTab = GUITab.Home;
         public static float deltaTime;
-        public static int Theme = 0;
         private string searchString = "Search For Modules Here";
-        public Vector2[] scroll = new Vector2[30];
         public enum GUITab
         {
-            Home, Modules, Search, Settings
-        }
-        public static void Category(int i)
-        {
-            Variables.currentCategoryPage = i;
+            Home, Modules, Search
         }
         public static Texture2D ApplyTexture(Color color)
         {
@@ -51,61 +44,99 @@ namespace QuantumNexus.Menu
             texture2D.Apply();
             return texture2D;
         }
-
+        public static void SendNotification(string text)
+        {
+            notifications.Add(new Notification { Text = text, Timer = 4.5f, Rect = new Rect(-400, Screen.height - 60 - (notifications.Count * 53.5f), 255, 50), State = NotificationState.In });
+            for (int i = 0; i < notifications.Count; i++)
+                notifications[i].Rect.y = Screen.height - 60 - (i * 53.5f);
+        }
+        private enum NotificationState { In, Visible, Out }
+        private static List<Notification> notifications = new List<Notification>();
+        private Texture2D NotificationTexture, OutlineTexture;
+        private class Notification
+        {
+            public string Text;
+            public float Timer;
+            public Rect Rect;
+            public NotificationState State;
+        }
+        private void Start() => ChangeUITheme(NotificationColor, OutlineColor);
+        public Color NotificationColor = ColorLib.back, OutlineColor = ColorLib.DarkDodgerBlue;
+        public void ChangeUITheme(Color Notification, Color Outline)
+        {
+            NotificationTexture = new Texture2D(1, 1);
+            NotificationTexture.SetPixel(0, 0, Notification);
+            OutlineTexture = new Texture2D(1, 1);
+            OutlineTexture.SetPixel(0, 0, Outline);
+            foreach (Texture2D texture in new Texture2D[] { NotificationTexture, OutlineTexture })
+                texture.Apply();
+        }
         public void Update()
         {
+            for (int i = 0; i < notifications.Count; i++)
+            {
+                Notification notification = notifications[i];
+                switch (notification.State)
+                {
+                    case NotificationState.In:
+                        notification.Rect.x = Mathf.Min(notification.Rect.x + 800 * Time.deltaTime, 10);
+                        if (notification.Rect.x >= 10)
+                        {
+                            notification.State = NotificationState.Visible;
+                            notification.Timer = 4.5f;
+                        }
+                        break;
+                    case NotificationState.Visible:
+                        notification.Timer -= Time.deltaTime;
+                        if (notification.Timer <= 0)
+                            notification.State = NotificationState.Out;
+                        break;
+                    case NotificationState.Out:
+                        notification.Rect.x = Mathf.Max(notification.Rect.x - 800 * Time.deltaTime, -400);
+                        if (notification.Rect.x <= -400)
+                            notifications.RemoveAt(i--);
+                        break;
+                }
+            }
+
             if (UnityInput.Current.GetKeyDown(KeyCode.RightShift))
             {
                 isUIShown = !isUIShown;
             }
 
-            switch (Theme)
-            {
-                case 0:
-                    Material buttonMaterial = new Material(Shader.Find("GUI/Text Shader"))
-                    {
-                        color = Color.Lerp(ColorLib.SkyBlue, new Color32(8, 90, 177, byte.MaxValue), Mathf.PingPong(Time.time, 1.5f))
-                    };
-                    buttonMaterial.SetFloat("_Mode", 2f);
-
-                    ButtonTexture = ApplyTexture(new Color32(28, 28, 28, byte.MaxValue));
-                    ButtonHoverTexture = ApplyTexture(buttonMaterial.color);
-                    ButtonClickTexture = ApplyTexture(buttonMaterial.color);
-                    Background = ApplyTexture(new Color32(18, 18, 18, byte.MaxValue));
-                    break;
-
-                case 1:
-                    ButtonTexture = ApplyTexture(ColorLib.Purple);
-                    ButtonHoverTexture = ApplyTexture(ColorLib.Magenta);
-                    ButtonClickTexture = ApplyTexture(ColorLib.Magenta);
-                    Background = ApplyTexture(ColorLib.Purple);
-                    break;
-
-                case 2:
-                    ButtonTexture = ApplyTexture(ColorLib.DarkBlue);
-                    ButtonHoverTexture = ApplyTexture(ColorLib.Navy);
-                    ButtonClickTexture = ApplyTexture(ColorLib.Navy);
-                    Background = ApplyTexture(ColorLib.Blue);
-                    break;
-
-                case 3:
-                    ButtonTexture = ApplyTexture(ColorLib.DarkOrange);
-                    ButtonHoverTexture = ApplyTexture(ColorLib.Red);
-                    ButtonClickTexture = ApplyTexture(ColorLib.Red);
-                    Background = ApplyTexture(ColorLib.Orange);
-                    break;
-            }
+            ButtonTexture = ApplyTexture(new Color32(28, 28, 28, byte.MaxValue));
+            ButtonHoverTexture = ApplyTexture(new Color32(38, 38, 38, byte.MaxValue));
+            ButtonClickTexture = ApplyTexture(new Color32(48, 48, 48, byte.MaxValue));
+            Background = ApplyTexture(new Color32(18, 18, 18, byte.MaxValue));
+            scrollTex = ApplyTexture(Color.clear);
         }
-        int fps;
         public void OnGUI()
         {
-            fps = (Time.deltaTime > 0) ? Mathf.RoundToInt(1.0f / Time.deltaTime) : 0;
+            Material colorMaterial = new Material(Shader.Find("GUI/Text Shader"))
+            {
+                color = Color.Lerp(ColorLib.SkyBlue, new Color32(8, 90, 177, byte.MaxValue), Mathf.PingPong(Time.time, 1.5f))
+            };
+            colorMaterial.SetFloat("_Mode", 2f);
+
+            float ols = 1.17f;
+            foreach (Notification notification in notifications)
+            {
+                GUI.DrawTexture(notification.Rect, NotificationTexture);
+                GUI.DrawTexture(new Rect(notification.Rect.x, notification.Rect.y, ols, notification.Rect.height), OutlineTexture);
+                GUI.DrawTexture(new Rect(notification.Rect.x + notification.Rect.width - ols, notification.Rect.y, ols, notification.Rect.height), OutlineTexture);
+                GUI.DrawTexture(new Rect(notification.Rect.x, notification.Rect.y, notification.Rect.width, ols), OutlineTexture);
+                GUI.DrawTexture(new Rect(notification.Rect.x, notification.Rect.y + 10, notification.Rect.width, ols), OutlineTexture);
+                GUI.Label(new Rect(notification.Rect.x + .75f, notification.Rect.y - 19.9f, notification.Rect.width, notification.Rect.height), "Psi Menu Notification", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, fontSize = 9, fontStyle = FontStyle.Bold, normal = { textColor = colorMaterial.color } });
+                GUI.Label(new Rect(notification.Rect.x - .75f, notification.Rect.y - 19.9f, notification.Rect.width, notification.Rect.height), $"{DateTime.Now.ToShortTimeString()}", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight, fontSize = 9, fontStyle = FontStyle.Bold, normal = { textColor = colorMaterial.color } });
+                GUI.DrawTexture(new Rect(notification.Rect.x, notification.Rect.y + notification.Rect.height - ols, notification.Rect.width, ols), OutlineTexture);
+                GUI.Label(new Rect(notification.Rect.x, notification.Rect.y + 4.5f, notification.Rect.width, notification.Rect.height), notification.Text, new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontSize = 12, fontStyle = FontStyle.Normal, normal = { textColor = colorMaterial.color } });
+            }
 
             if (!XRSettings.isDeviceActive)
             {
                 if (isUIShown)
                 {
-                    GUIRect = GUI.Window(2838, GUIRect, new GUI.WindowFunction(MainGUI), UIName);
+                    GUIRect = GUI.Window(1, GUIRect, new GUI.WindowFunction(MainGUI), "Psi Menu");
                 }
                 else { TextThingy(); }
                 Watermark();
@@ -129,13 +160,10 @@ namespace QuantumNexus.Menu
                 GUILayout.BeginHorizontal(Array.Empty<GUILayoutOption>());
                 DrawTab(GUITab.Home);
                 DrawTab(GUITab.Modules);
-                DrawTab(GUITab.Settings);
+                DrawTab(GUITab.Search);
                 GUILayout.EndHorizontal();
                 GUILayout.BeginVertical(Array.Empty<GUILayoutOption>());
-                if (CurrentTab != GUITab.Search)
-                {
-                    GUILayout.Label(EnumUtilExt.GetName<GUITab>(CurrentTab), Array.Empty<GUILayoutOption>());
-                }
+                GUILayout.Label(EnumUtilExt.GetName<GUITab>(CurrentTab), Array.Empty<GUILayoutOption>());
                 GUILayout.Space(5f);
                 switch (CurrentTab)
                 {
@@ -145,8 +173,8 @@ namespace QuantumNexus.Menu
                     case GUITab.Modules:
                         DrawModules();
                         break;
-                    case GUITab.Settings:
-                        DrawSettings();
+                    case GUITab.Search:
+                        DrawSearch();
                         break;
                 }
                 GUILayout.EndVertical();
@@ -158,29 +186,14 @@ namespace QuantumNexus.Menu
                 throw;
             }
         }
+        public Rect GUIRect = new Rect(10f, 10f, 500f, 400f);
         public void DrawTab(GUITab _GUITab)
         {
-            Material buttonMaterial = new Material(Shader.Find("GUI/Text Shader"))
-            {
-                color = Color.Lerp(ColorLib.SkyBlue, new Color32(8, 90, 177, byte.MaxValue), Mathf.PingPong(Time.time, 1.5f))
-            };
-            buttonMaterial.SetFloat("_Mode", 2f);
-
             GUILayoutOption[] gUILayoutOptions = new GUILayoutOption[]
             {
                 GUILayout.Width(GUIRect.width / 3.2f),
                 GUILayout.Height(27f)
             };
-            GUI.contentColor = buttonMaterial.color;
-            if (RoundedTabButton(EnumUtilExt.GetName<GUITab>(_GUITab), gUILayoutOptions))
-            {
-                CurrentTab = _GUITab;
-                GorillaTagger.Instance.offlineVRRig.PlayHandTapLocal(8, false, 0.8f);
-            }
-            GUI.contentColor = buttonMaterial.color;
-        }
-        public void DrawHome()
-        {
             Material buttonMaterial = new Material(Shader.Find("GUI/Text Shader"))
             {
                 color = Color.Lerp(ColorLib.SkyBlue, new Color32(8, 90, 177, byte.MaxValue), Mathf.PingPong(Time.time, 1.5f))
@@ -188,62 +201,59 @@ namespace QuantumNexus.Menu
             buttonMaterial.SetFloat("_Mode", 2f);
 
             GUI.contentColor = buttonMaterial.color;
+            if (RoundedTabButton(EnumUtilExt.GetName<GUITab>(_GUITab), gUILayoutOptions))
+            {
+                CurrentTab = _GUITab;
+                GorillaTagger.Instance.offlineVRRig.PlayHandTapLocal(8, false, 0.4f);
+            }
+            GUI.contentColor = buttonMaterial.color;
+        }
+        public void DrawHome()
+        {
+            GUI.DrawTexture(new Rect(8f, 80f, 482f, 310f), ButtonTexture, ScaleMode.StretchToFill, false, 0f, GUI.color, Vector4.zero, new Vector4(2.8f, 2.8f, 2.8f, 2.8f));
 
             string welcomeMessage =
-                "Right Shift To Hide UI\n\n" +
-                "Welcome To " + UIName + "\n\n" +
-                "Miscellaneous\n" +
-                " - Developers\n" +
-                "     - Menker | Owner\n" +
-                "     - Nova | Mod Developer\n" +
-                "     - Revenant | UI Developer\n" +
-                " - Updates\n" +
-                "     - New GUI\n" +
-                "     - Draw/Orb Mods [CS]";
+            "Right Shift To Hide UI\n" +
+            "╔════════════════════════════════╗\n" +
+            "                      Welcome To Psi Menu\n" +
+            "╚════════════════════════════════╝\n" +
+            "Miscellaneous\n" +
+            " - Credits\n" +
+            "     - Menker | Owner\n" +
+            "     - Nova | Mod Developer\n" +
+            "     - Revenant/f3 | GUI Developer\n" +
+            " - Updates\n" +
+            "     - Enable Hoverboard [SS]\n" +
+            "     - UI Redesign";
 
-            GUILayout.Label(welcomeMessage, Array.Empty<GUILayoutOption>());
-            GUI.contentColor = buttonMaterial.color;
+            GUILayout.Label(welcomeMessage);
         }
         public void DrawModules()
         {
             GUILayout.EndVertical();
 
-            int num;
-            foreach (ButtonHandler.Button btn in ModButtons.buttons)
-            {
-                num = btn.Enabled ? 1 : 0;
-            }
-
             Scroller = GUILayout.BeginScrollView(Scroller, GUILayout.Width(GUIRect.width - 34f), GUILayout.Height(GUIRect.height - 134f));
-            GUILayout.Label($"Enabled Modules: ");
             GUILayout.BeginVertical();
-            if (Variables.currentCategoryPage != 0)
-            {
-                if (RoundedButton("Return", GUILayout.Width(GUIRect.width - 58f), GUILayout.Height(22f)))
-                {
-                    Category(0);
 
-                }
-            }
+            List<ButtonHandler.Button> list = new List<ButtonHandler.Button>();
 
-            GUILayout.Space(4.7f);
-            List<ButtonHandler.Button> list = ButtonHandler.GetButtonInfoByPage(MenkerMenu.Mods.Category.Room);
-            list.AddRange(ButtonHandler.GetButtonInfoByPage(MenkerMenu.Mods.Category.Safety));
-            list.AddRange(ButtonHandler.GetButtonInfoByPage(MenkerMenu.Mods.Category.Move));
-            list.AddRange(ButtonHandler.GetButtonInfoByPage(MenkerMenu.Mods.Category.Player));
-            list.AddRange(ButtonHandler.GetButtonInfoByPage(MenkerMenu.Mods.Category.Visuals));
-            list.AddRange(ButtonHandler.GetButtonInfoByPage(MenkerMenu.Mods.Category.World));
-            list.AddRange(ButtonHandler.GetButtonInfoByPage(MenkerMenu.Mods.Category.Fun));
-            list.AddRange(ButtonHandler.GetButtonInfoByPage(MenkerMenu.Mods.Category.Draw));
-            list.AddRange(ButtonHandler.GetButtonInfoByPage(MenkerMenu.Mods.Category.Guardian));
-            list.AddRange(ButtonHandler.GetButtonInfoByPage(MenkerMenu.Mods.Category.OP));
-
+            list.AddRange(ButtonHandler.GetButtonInfoByPage(Category.Room));
+            list.AddRange(ButtonHandler.GetButtonInfoByPage(Category.Safety));
+            list.AddRange(ButtonHandler.GetButtonInfoByPage(Category.Move));
+            list.AddRange(ButtonHandler.GetButtonInfoByPage(Category.Player));
+            list.AddRange(ButtonHandler.GetButtonInfoByPage(Category.Visuals));
+            list.AddRange(ButtonHandler.GetButtonInfoByPage(Category.World));
+            list.AddRange(ButtonHandler.GetButtonInfoByPage(Category.Fun));
+            list.AddRange(ButtonHandler.GetButtonInfoByPage(Category.Draw));
+            list.AddRange(ButtonHandler.GetButtonInfoByPage(Category.Guardian));
+            list.AddRange(ButtonHandler.GetButtonInfoByPage(Category.OP));
             foreach (ButtonHandler.Button buttonInfo in list)
             {
-                string buttonLabel = $"{(buttonInfo.Enabled ? "ENABLED ● " : "Disabled ● ")}{buttonInfo.buttonText}{(buttonInfo.Enabled ? " ●" : " ●")}";
+                string buttonLabel = $"{(buttonInfo.Enabled ? "Enabled ● " : "Disabled ● ")}{buttonInfo.buttonText}{(buttonInfo.Enabled ? " ●" : " ●")}";
                 if (RoundedButton(buttonLabel))
                 {
-                    buttonInfo.Enabled = !buttonInfo.Enabled;
+                    ButtonHandler.ToggleButton(buttonInfo);
+                    GorillaTagger.Instance.offlineVRRig.PlayHandTapLocal(8, false, 0.4f);
                 }
             }
 
@@ -251,46 +261,76 @@ namespace QuantumNexus.Menu
             GUILayout.EndScrollView();
             GUILayout.BeginVertical();
         }
-        public void DrawSettings()
+        public void DrawSearch()
         {
             GUILayout.EndVertical();
-            if (RoundedButton(string.Format("Change Theme: {0}", Theme), Array.Empty<GUILayoutOption>()))
+            GUILayout.BeginHorizontal(Array.Empty<GUILayoutOption>());
+            searchString = GUILayout.TextField(searchString, new GUILayoutOption[]
             {
-                Theme = (Theme + 1) % 4;
-                GorillaTagger.Instance.offlineVRRig.PlayHandTapLocal(8, false, 0.8f);
+                GUILayout.Width(GUIRect.width - 25f)
+            });
+            GUILayout.EndHorizontal();
+            GUIStyle invisibleScrollbar = new GUIStyle(GUI.skin.verticalScrollbar);
+            invisibleScrollbar.normal.background = null;
+            invisibleScrollbar.hover.background = null;
+            invisibleScrollbar.active.background = null;
+            invisibleScrollbar.onNormal.background = null;
+            invisibleScrollbar.onHover.background = null;
+            invisibleScrollbar.onActive.background = null;
+            invisibleScrollbar.fixedWidth = 0f;
+            Scroller = GUILayout.BeginScrollView(Scroller, invisibleScrollbar, GUILayout.Width(GUIRect.width - 34f), GUILayout.Height(GUIRect.height - 134f));
+
+            List<ButtonHandler.Button> list = new List<ButtonHandler.Button>();
+            list.AddRange(ButtonHandler.GetButtonInfoByPage(Category.Room).Where(b => !string.IsNullOrEmpty(b.buttonText) && b.buttonText.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0));
+            list.AddRange(ButtonHandler.GetButtonInfoByPage(Category.Safety).Where(b => !string.IsNullOrEmpty(b.buttonText) && b.buttonText.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0));
+            list.AddRange(ButtonHandler.GetButtonInfoByPage(Category.Move).Where(b => !string.IsNullOrEmpty(b.buttonText) && b.buttonText.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0));
+            list.AddRange(ButtonHandler.GetButtonInfoByPage(Category.Player).Where(b => !string.IsNullOrEmpty(b.buttonText) && b.buttonText.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0));
+            list.AddRange(ButtonHandler.GetButtonInfoByPage(Category.Visuals).Where(b => !string.IsNullOrEmpty(b.buttonText) && b.buttonText.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0));
+            list.AddRange(ButtonHandler.GetButtonInfoByPage(Category.World).Where(b => !string.IsNullOrEmpty(b.buttonText) && b.buttonText.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0));
+            list.AddRange(ButtonHandler.GetButtonInfoByPage(Category.Fun).Where(b => !string.IsNullOrEmpty(b.buttonText) && b.buttonText.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0));
+            list.AddRange(ButtonHandler.GetButtonInfoByPage(Category.Draw).Where(b => !string.IsNullOrEmpty(b.buttonText) && b.buttonText.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0));
+            list.AddRange(ButtonHandler.GetButtonInfoByPage(Category.Guardian).Where(b => !string.IsNullOrEmpty(b.buttonText) && b.buttonText.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0));
+            list.AddRange(ButtonHandler.GetButtonInfoByPage(Category.OP).Where(b => !string.IsNullOrEmpty(b.buttonText) && b.buttonText.IndexOf(searchString, StringComparison.OrdinalIgnoreCase) >= 0));
+
+            foreach (ButtonHandler.Button buttonInfo in list)
+            {
+                string buttonLabel = $"{(buttonInfo.Enabled ? "Enabled ● " : "Disabled ● ")}{buttonInfo.buttonText}{(buttonInfo.Enabled ? " ●" : " ●")}";
+                if (RoundedButton(buttonLabel))
+                {
+                    ButtonHandler.ToggleButton(buttonInfo);
+                    GorillaTagger.Instance.offlineVRRig.PlayHandTapLocal(8, false, 0.4f);
+                }
             }
-            GUILayout.Label("More Themes + Settings Soon!!!!", Array.Empty<GUILayoutOption>());
+            GUILayout.EndScrollView();
             GUILayout.BeginVertical(Array.Empty<GUILayoutOption>());
         }
-        
         public void DrawArrayLists()
         {
-            Material buttonMaterial = new Material(Shader.Find("GUI/Text Shader"))
+            Material colorMaterial = new Material(Shader.Find("GUI/Text Shader"))
             {
                 color = Color.Lerp(ColorLib.SkyBlue, new Color32(8, 90, 177, byte.MaxValue), Mathf.PingPong(Time.time, 1.5f))
             };
-            buttonMaterial.SetFloat("_Mode", 2f);
+            colorMaterial.SetFloat("_Mode", 2f);
 
             GUIStyle titleStyle = new GUIStyle(GUI.skin.box)
             {
-                fontSize = 20,
+                fontSize = 18,
                 fontStyle = FontStyle.Bold,
                 alignment = TextAnchor.MiddleCenter,
                 richText = true,
                 wordWrap = false,
-                normal = { textColor =  buttonMaterial.color }
+                normal = { textColor = colorMaterial.color }
             };
 
             GUILayout.Space(3);
 
-            string titleText = UIName + $" V{MenkerMenu.Initialization.PluginInfo.menuVersion}";
+            string titleText = MenkerMenu.Initialization.PluginInfo.menuName + " " + MenkerMenu.Initialization.PluginInfo.menuVersion;
             GUILayout.BeginHorizontal();
             GUILayout.Space(10);
             GUILayout.Label(titleText, titleStyle, GUILayout.Width(titleStyle.CalcSize(new GUIContent(titleText)).x + 10f), GUILayout.Height(30f));
             GUILayout.EndHorizontal();
 
             GUILayout.Space(5);
-
 
             GUIStyle buttonStyle = new GUIStyle(GUI.skin.box)
             {
@@ -299,21 +339,21 @@ namespace QuantumNexus.Menu
                 alignment = TextAnchor.MiddleCenter,
                 richText = true,
                 wordWrap = false,
-                normal = { textColor = buttonMaterial.color }
+                normal = { textColor = colorMaterial.color }
             };
 
-                foreach (ButtonHandler.Button button in ModButtons.buttons)
+            foreach (ButtonHandler.Button button in ModButtons.buttons)
+            {
+                if (button.Enabled)
                 {
-                    if (button.Enabled)
-                    {
-                        float buttonWidth = buttonStyle.CalcSize(new GUIContent(button.buttonText)).x + 10f;
-                        GUILayout.BeginHorizontal();
-                        GUILayout.Space(10);
-                        GUILayout.Label(button.buttonText, buttonStyle, GUILayout.Width(buttonWidth), GUILayout.Height(30f));
-                        GUILayout.EndHorizontal();
-                        GUILayout.Space(1);
-                    }
+                    float buttonWidth = buttonStyle.CalcSize(new GUIContent(button.buttonText)).x + 10f;
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Space(10);
+                    GUILayout.Label(button.buttonText, buttonStyle, GUILayout.Width(buttonWidth), GUILayout.Height(30f));
+                    GUILayout.EndHorizontal();
+                    GUILayout.Space(1);
                 }
+            }
         }
         public static bool RoundedButton(Rect rect, string content, params GUILayoutOption[] options)
         {
@@ -402,7 +442,7 @@ namespace QuantumNexus.Menu
             };
             buttonMaterial.SetFloat("_Mode", 2f);
 
-            string labelText = UIName;
+            string labelText = "Psi Menu";
             GUIStyle labelStyle = new GUIStyle(GUI.skin.label);
             labelStyle.fontStyle = FontStyle.Bold;
             labelStyle.fontSize = 55;
@@ -451,20 +491,35 @@ namespace QuantumNexus.Menu
             GUI.skin.window.onActive.background = null;
             GUI.skin.window.onHover.background = null;
             GUI.skin.window.onNormal.background = null;
-            GUI.skin.button.active.background = ButtonClickTexture;
+            GUI.skin.button.active.background = ButtonClickTexture; ;
+            GUI.skin.button.active.textColor = Color.cyan; ;
             GUI.skin.button.normal.background = ButtonHoverTexture;
             GUI.skin.button.hover.background = ButtonTexture;
+            GUI.skin.button.hover.textColor = Color.cyan;
             GUI.skin.button.onActive.background = ButtonClickTexture;
+            GUI.skin.button.onActive.textColor = Color.cyan;
+            GUI.skin.button.onHover.textColor = Color.cyan;
             GUI.skin.button.onHover.background = ButtonHoverTexture;
             GUI.skin.button.onNormal.background = ButtonTexture;
-            GUI.skin.horizontalSlider.active.background = ButtonTexture;
-            GUI.skin.horizontalSlider.normal.background = ButtonTexture;
-            GUI.skin.horizontalSlider.hover.background = ButtonTexture;
-            GUI.skin.horizontalSlider.focused.background = ButtonTexture;
-            GUI.skin.horizontalSlider.onFocused.background = ButtonTexture;
-            GUI.skin.horizontalSlider.onActive.background = ButtonTexture;
-            GUI.skin.horizontalSlider.onHover.background = ButtonTexture;
-            GUI.skin.horizontalSlider.onNormal.background = ButtonTexture;
+
+            GUI.skin.verticalScrollbar.active.background = Background;
+            GUI.skin.verticalScrollbar.normal.background = Background;
+            GUI.skin.verticalScrollbar.hover.background = Background;
+            GUI.skin.verticalScrollbar.focused.background = Background;
+            GUI.skin.verticalScrollbar.onFocused.background = Background;
+            GUI.skin.verticalScrollbar.onActive.background = Background;
+            GUI.skin.verticalScrollbar.onHover.background = Background;
+            GUI.skin.verticalScrollbar.onNormal.background = Background;
+
+            GUI.skin.verticalScrollbarThumb.active.background = Background;
+            GUI.skin.verticalScrollbarThumb.normal.background = Background;
+            GUI.skin.verticalScrollbarThumb.hover.background = Background;
+            GUI.skin.verticalScrollbarThumb.focused.background = Background;
+            GUI.skin.verticalScrollbarThumb.onFocused.background = Background;
+            GUI.skin.verticalScrollbarThumb.onActive.background = Background;
+            GUI.skin.verticalScrollbarThumb.onHover.background = Background;
+            GUI.skin.verticalScrollbarThumb.onNormal.background = Background;
+
             GUI.skin.verticalScrollbar.border = new RectOffset(0, 0, 0, 0);
             GUI.skin.verticalScrollbar.fixedWidth = 0f;
             GUI.skin.verticalScrollbar.fixedHeight = 0f;

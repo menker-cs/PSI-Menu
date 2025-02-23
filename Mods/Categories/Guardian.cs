@@ -141,5 +141,22 @@ namespace MenkerMenu.Mods.Categories
                 }
             }
         }
+        public static void Gudian()
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                foreach (GorillaGuardianZoneManager gorillaGuardianZoneManager in GorillaGuardianZoneManager.zoneManagers)
+                {
+                    GorillaGuardianManager guardianManager = GorillaGameManager.instance.gameObject.GetComponent<GorillaGuardianManager>();
+                    {
+                        bool enabled = guardianManager.enabled;
+                        if (enabled)
+                        {
+                            gorillaGuardianZoneManager.SetGuardian(RigManager.GetNetPlayerFromVRRig(RigManager.GetOwnVRRig()));
+                        }
+                    }
+                }
+            }
+        }
     }
 }

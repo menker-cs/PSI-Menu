@@ -9,8 +9,15 @@ namespace MenkerMenu.Utilities
     internal class HandOrbs
     {
         #region handorbs
+
         public static void HandOrbs1()
         {
+            Material colorMaterial = new Material(Shader.Find("GUI/Text Shader"))
+            {
+                color = Color.Lerp(ColorLib.SkyBlue, new Color32(8, 90, 177, byte.MaxValue), Mathf.PingPong(Time.time, 1.5f))
+            };
+            colorMaterial.SetFloat("_Mode", 2f);
+
             LOrb = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             UnityEngine.Object.Destroy(LOrb.GetComponent<Rigidbody>());
             UnityEngine.Object.Destroy(LOrb.GetComponent<SphereCollider>());
@@ -23,8 +30,8 @@ namespace MenkerMenu.Utilities
             ROrb.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             ROrb.transform.position = GorillaTagger.Instance.rightHandTransform.position;
 
-            LOrb.GetComponent<Renderer>().material.color = RoyalBlueTransparent;
-            ROrb.GetComponent<Renderer>().material.color = RoyalBlueTransparent;
+            LOrb.GetComponent<Renderer>().material.color = colorMaterial.color;
+            ROrb.GetComponent<Renderer>().material.color = colorMaterial.color;
 
             UnityEngine.Object.Destroy(LOrb, Time.deltaTime);
             UnityEngine.Object.Destroy(ROrb, Time.deltaTime);
