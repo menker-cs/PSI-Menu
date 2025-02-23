@@ -12,6 +12,7 @@ using MenkerMenu.Utilities;
 using UnityEngine.PlayerLoop;
 using Oculus.Platform;
 using UnityEngine.Playables;
+using UnityEngine.UIElements;
 
 namespace PsiTemp.Menu
 {
@@ -434,6 +435,7 @@ namespace PsiTemp.Menu
             float y = centerY ? (rect.y + rect.height / 2f - guistyle.CalcSize(new GUIContent(text)).y / 2f) : rect.y;
             GUI.Label(new Rect(x, y, rect.width, rect.height), new GUIContent(text), guistyle);
         }
+        private Rect topBar;
         public void Watermark()
         {
             Material buttonMaterial = new Material(Shader.Find("GUI/Text Shader"))
@@ -441,7 +443,7 @@ namespace PsiTemp.Menu
                 color = Color.Lerp(ColorLib.SkyBlue, new Color32(8, 90, 177, byte.MaxValue), Mathf.PingPong(Time.time, 1.5f))
             };
             buttonMaterial.SetFloat("_Mode", 2f);
-
+            
             string labelText = "Psi Menu";
             GUIStyle labelStyle = new GUIStyle(GUI.skin.label);
             labelStyle.fontStyle = FontStyle.Bold;

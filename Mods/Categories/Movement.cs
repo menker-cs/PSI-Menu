@@ -247,6 +247,7 @@ namespace MenkerMenu.Mods.Categories
             {
                 GorillaLocomotion.Player.Instance.transform.position = GunTemplate.spherepointer.transform.position;
                 GorillaTagger.Instance.transform.position = GunTemplate.spherepointer.transform.position;
+                GameObject.Destroy(spherepointer, Time.deltaTime);
             }, false);
         }
         public static void AirStrike()
@@ -255,6 +256,7 @@ namespace MenkerMenu.Mods.Categories
             {
                 GorillaLocomotion.Player.Instance.transform.position = GunTemplate.spherepointer.transform.position + new Vector3(0f, 20f, 0f);
                 GorillaTagger.Instance.transform.position = GunTemplate.spherepointer.transform.position + new Vector3(0f, 20f, 0f);
+                GameObject.Destroy(spherepointer, Time.deltaTime);
             }, false);
         }
         public static void NoTagFreeze()

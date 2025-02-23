@@ -97,5 +97,13 @@ namespace MenkerMenu.Mods.Categories
         {
             GameObject.Find("Player Objects/Local VRRig/Local Gorilla Player/RigAnchor/rig/body/HoverboardVisual").SetActive(false);
         }
+        public static void BGun()
+        {
+            GunTemplate.StartBothGuns(() =>
+            {
+                GameObject.Find("Player Objects/Local VRRig/Local Gorilla Player/RigAnchor/rig/body/HoverboardVisual").GetComponent<HoverboardVisual>().SetActive(true);
+                GameObject.Find("Player Objects/Local VRRig/Local Gorilla Player/RigAnchor/rig/body/HoverboardVisual").GetComponent<HoverboardVisual>().SetIsHeld(false, spherepointer.transform.position, Quaternion.identity);
+            },false);
+        }
     }
 }

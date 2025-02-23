@@ -244,6 +244,7 @@ namespace MenkerMenu.Mods
             new Button("Lag All [UND]", Category.OP, true, false, ()=>LagAll()),
             new Button("Lag Gun [UND]", Category.OP, true, false, ()=>LagGun()),
             new Button("Enable Hoverboard [SS]", Category.OP, true, false, ()=>EnableBoard(), ()=>HideBoard()),
+            new Button("Hoverboard Gun [SS]", Category.OP, true, false, ()=>BGun()),
             #endregion 
 
             #region Credits
